@@ -1,0 +1,721 @@
+\documentclass[10pt,english,a4paper]{article}
+\usepackage[T1]{url}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx, varioref, babel, fancyvrb, listings, amsmath,amsthm, amssymb, enumerate}
+\usepackage{listings}
+\usepackage{mathtools}
+\usepackage{csquotes}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{xcolor}
+\input{.config/default}
+
+%\declaretheorem[style = remark, sibling = lemma, qed = $\maltese$, name = "]{thm}
+
+\makeatletter
+\def\moverlay{\mathpalette\mov@rlay}
+\def\mov@rlay#1#2{\leavevmode\vtop{%
+   \baselineskip\z@skip \lineskiplimit-\maxdimen
+   \ialign{\hfil$\m@th#1##$\hfil\cr#2\crcr}}}
+\newcommand{\charfusion}[3][\mathord]{
+    #1{\ifx#1\mathop\vphantom{#2}\fi
+        \mathpalette\mov@rlay{#2\cr#3}
+      }
+    \ifx#1\mathop\expandafter\displaylimits\fi}
+\makeatother
+
+\newcommand{\cupdot}{\charfusion[\mathbin]{\cup}{\cdot}}
+\newcommand{\bigcupdot}{\charfusion[\mathop]{\bigcup}{\cdot}}
+
+
+
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{corollary}{Corollary}
+\newtheorem*{proposition}{Proposition}
+\newtheorem*{observation}{Observasjon}
+\newtheorem*{example}{Example}
+\newtheorem*{note}{Note}
+\newtheorem*{remark}{Remark}
+
+\let\emph\relax % there's no \RedeclareTextFontCommand
+\DeclareTextFontCommand{\emph}{\bfseries}
+%\begin{figure}
+%    \centering
+%    \includegraphics[width=0.8\linewidth]{nameOfFile}
+%    \caption{}
+%\end{figure}
+
+\def\Psfin{\mathcal{P}_{\textnormal{fin}}}
+\def\Fbb{\mathbb{F}}
+\def\Tbb{\mathbb{T}}
+\def\Ff{\mathfrak{F}}
+\def\Kf{\mathfrak{K}}
+\def\smin{\setminus}
+\def\ex{\textnormal{ex}\,}
+\def\co{\textnormal{co}\,}
+\def\whAs{\widehat{\As}}
+\def\tAs{\widetilde{\As}}
+\def\Assa{\As_{\text{sa}}}
+\DeclareMathOperator{\Id}{Id}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Sp}{sp}
+\def\vphi{\varphi}
+\newcommand{\wt}[1]{\widetilde{ #1 }}
+%%% Colours %%%
+\newcommand*{\BLUE}[1]{{\color{blue}#1}}
+\newcommand*{\RED}[1]{{\color{red}#1}}
+\newcommand*{\GREEN}[1]{{\color{green}#1}}
+
+
+\title{Exercises MAT4360}
+%\author{Vegard Antun \\MAT 4450 }
+
+\begin{document}
+\maketitle
+
+\subsection*{Ex 1}
+\begin{enumerate}[a)]
+    \item 
+Assume $T \colon H \to H$ is a linear operator which is weak-weak continuous. Then
+$T \in \Bs(H)$.
+\begin{proof}
+    Assume $x_n \to x$ in norm in $H$ and $Tx_n \to y$  in $H$. Then 
+    $x_n \to x$ weakly and $Tx_n \to y$ weakly. From the assumption we also get that 
+    $Tx_n \to Tx$ weakly. Since ($H_1$, weak top.) is Hausdorff we get that 
+    $Tx = y$. Hence the graph of $T$ is closed, so $T \in \Bs(H)$ by the closed 
+    graph theorem.
+\end{proof}
+
+\item Then $T \in \Bs(H)$ if and only if $T$ is norm-weak continuous.
+\begin{proof}
+    $\implies$ Follows immediately from the fact that norm-convergence is stronger than weak convergence.
+
+    $\impliedby$ Follows from the closed graph theorem along similar lines as those above. 
+\end{proof}
+
+\end{enumerate}
+
+\subsection*{Ex 2}
+$\Ks(H)$ is unital if and only if $H$ is finite dimensional. 
+
+\begin{proof}
+    If $H$ is finite dimensional, then $\Ks(H)=\Bs(H)$ and $I_{H} \in \Bs(H)$.
+
+    Conversely assume $\Ks(H)$ is unital, with unit $E$. Let $\xi \in H_1$. Let 
+    $P_{\xi}$ be the orthogonal projection from $H$ onto $\C \cdot \xi$. Then
+    $P_{\xi} \in \Ks(H)$. Moreover $EP_{\xi} = P_{\xi}$, hence $(\ub{EP_{\xi}}_{E(\xi)})(\xi) = \ub{P_{\xi}\xi}_{\xi}$.
+    It follows that $E = I_{H}$, so $I_H \in \Ks(H)$, which implies that $H$ is finite
+    dimensional (otherwise, we can pick an orthonormal sequence $\{\xi_n\}$ in $H$),
+    but $I_H(\xi_n) = \xi_n$ has a non-convergent subsequence, since 
+    $||\xi_n - \xi_m||^2 = 2$ for all $n \neq m$.
+\end{proof}
+
+
+\section*{Ex 4}
+$H$ is Hilbert space. $T\colon H \to H$ linear operator. Show that 
+$T \in \Fs(H)$ if and only if $T$ is weak-norm continuous. 
+
+\begin{proof}
+    $\implies$ Recall that we can write any $T \in \Fs(H)$ as a finite sum of 
+    operators of the form 
+    \[ x \overset{T_{\eta,\xi}}{\to} \ind{x,\eta}\xi, \quad \text{where }\eta,\xi \in H\]
+   It is obvious that all these rank one operators is weak-norm continuous.
+    (Assume $x_i \to x$ weakly in $H$. Then 
+    \[||T_{\eta,\xi}(x_i) - T_{\eta,\xi}(x)|| = ||\ind{x_i-x,\eta}\xi|| 
+    = |\ind{x_i-x,\eta}|||\xi|| \to 0\]
+which converges weakly by def.)  So $T$ is also weak-norm continuous.
+
+
+$\impliedby$ Assume $T$ is weak-norm continuous. Hence $T \in \Bs(H)$. Set 
+$U = \{ x \in H : ||x|| < 1 \}$. Then $T^{-1}(U)$ is weakly open in $H$
+and contains $0$. This means that we can find $\eta_1,\ldots, \eta_n \in H$ 
+and $\eps > 0$ such that 
+\[ V \coloneqq \{ x \in H : \ind{x,\eta_i} < \eps, i =1, \ldots, n \}  \subseteq T^{-1}(U)\]
+i.e. we have $||Tx|| < 1$ whenever $x \in V$. Let now $P$ denote the orthogonal 
+projection onto the span of $H$ onto $M = \Span{\eta_1, \ldots,\eta_n}$. 
+Note that $y \in M^{\perp} \implies \ind{y,\eta_i} = 0$, $i=1,\ldots, n$,
+which implies that $y \in V$. $(I-P)x \in V$ for all $x \in H$. So we get that
+$||T(I-P)x|| < 1$ for all $x \in H$. It follows that 
+$||T(I-P)\xi|| = \tfrac{1}{m}||T(I-P)m\xi||< \tfrac{1}{m}$ for all $\xi \in H$,
+$m \in \N$. This implies that 
+\begin{align*}
+    T(I-P)\xi &= 0&&\forall \xi \in H \\  
+    T(I-P) &= 0 \\
+    T-TP &= 0
+\end{align*}
+Hence $T = TP$ which has finite range, since the range of $P$ is finite dim. i.e.
+$T \in \Fs(H)$.
+
+
+\end{proof}
+
+
+
+\section*{Ex 5}
+Let $H$ be an infinite dimensional Hilbert space. Then $\Ks(H) + \C I_{H}$ is a 
+$C^*$-subalgebra of $\Bs(H)$ which is isometricly $*$-isomorphic to
+$\widetilde{\Ks(H)}$. 
+
+Indeed, define $\phi\colon \widetilde{K(H)} \to \Ks(H) + \C I_{H} \subseteq \Bs(H)$,
+by $\phi((K,\la)) = K + \la I_{H}$ for $K  \in \Ks(H)$ and $\la \in \C$.
+It is easy to see that $\phi$ is a $*$-homomorphism as a map from 
+$\wt{\Ks(H)}$ into $\Bs(H)$, so its range $\Ks(H) + \C I_{H}$ is a $*$-subalgebra
+of $\Bs(H)$, which is norm closed, since $K(H)$ is norm closed and $\C I_{H}$
+is a finite dimensional subspace. Hence $\Ks(H) + \C I_H$ is a $C^*$-subalgebra
+of $\Bs(H)$.
+
+Note that $\phi\colon \tilde{K(H)} \to \Ks(H) + \C  I_H$ is a $*$-isomorphism. 
+surjectivity is automatic. We only have to check that it is injective. 
+Assume $\phi((K,\la)) \to 0$ i.e. $K + \la I_{H} = 0$, so $K = -\la I_H$.
+If $\la \neq 0$ we have that $I_H = -\tfrac{1}{\la}K  \in \Ks(H)$ which is impossible,
+since $H$ is infinite dimensional. So we must have $\la = 0$, but then $K=0$. 
+
+
+\section*{Ex 6}
+$\Om$ locally compact Hausdorff space. 
+\begin{align*}
+    C_{0}(\Om) = \{ f \in C_b(\Om) :\forall \eps >0, \exists K \subseteq \Om, K \text{ compact, }\text{s.t. }|f(\om)| < \eps \forall \om \in \Om \setminus K   \}
+\end{align*}
+is a commutative $C^*$-algebra. 
+
+\begin{enumerate}[(a)]
+    \item $C_0(\Om)$ is unital if and only if $\Om$ is compact
+
+    \begin{proof}
+        If $\Om$ is compact, then $C_0 (\Om) = C(\Om)$ and $1_{\Om} \in C_0(\Om)$.
+
+        On the other hand, assume $C_0(\Om)$ has a unit, say $e$. For each $\om \in \Om$,
+        pick $f_{\om} \in C_0 (\Om)$ such that $f_{\om}(\om) = 1$.
+   
+        Idea: $\tilde{\Om} = \Om \cup \{\infty\}$ is a $1$-point compacification. We can identify
+        $C_0(\Om)$ with $\{ g \in C(\tilde{\Om}) : g(\infty) =0 \}$ by $f \in C_{0}(\Om)$
+        and the map $f \mapsto \tilde{f}$ by 
+    \[\tilde{f} (x) \begin{cases} f(x) & x \in \Om \\ 0 & x =\infty \end{cases} \]
+    So given $\om \in \Om$ we can find $g_{\om} \in C(\tilde{\Om})$ such that 
+    $g_{\om}(\om)= 1$ and $g_{\om}(\infty) = 0$, using Urysohn's lemma.
+    
+    Then we have $e(\om) = (ef_{\om})(\om) = f_{\om}(\om)= 1$, so $e(\om)=1$ 
+    for all $\om \in \Om$. Hence $e = 1_{\Om}$ so $1_{\Om} \in C_0(\Om)$
+    which is possible only if $\Om$ is compact. 
+\end{proof}
+
+
+\item 
+    Assume now that $\Om$ is not compact. Set $\tilde{\Om} = \Om\cup\{\infty\}$.
+    We want to show that $\wt{C_0(\Om)}$ is isometrically $*$-isometric to
+    $C_0(\tilde{\Om})$. 
+
+
+
+\begin{proof}
+    Define $\phi\colon \tilde{C_0(\Om)} \to C(\tilde{\Om})$ by 
+    $\phi((f,\la)) = \tilde{f} + \la 1_{\tilde{\Om}}$ where 
+    $\tilde{f}$ is defined as above. It is elementary to check that 
+    $\phi$ is a $*$-homomorphism.\ul{$\phi$ is injective:}
+    If $\phi(f-\la) = 0$ then $\tilde{f} = -\la 1_{\tilde{\Om}}$. If 
+    $\la \neq 0$ we have $1_{\tilde{\Om}} = -\frac{1}{\la} \tilde{f}$, so 
+    $1_{\Om} = \frac{1}{\la}f$
+    which implies that $\Om$ is compact, which is impossible. If $\la =0$, 
+    we have $\tilde{f} =0$, so $f = 0$, so we get inactivity.
+
+    \ul{$\phi$ is surjective:} Let $g \in C(\tilde{\Om})$. Set $\la = g(\infty)$ 
+     and define $f \in C_0(\Om)$ by $f(\om) = g(\om)-\la$ for $\om \in \Om$.
+    Then we get that $\phi(f,\la) = g$. 
+
+    This means that $\phi$ is a $*$-isomorphism as desired. 
+
+
+\end{proof}
+
+
+\end{enumerate}
+
+\section*{Ex 7}
+$\As$ unital $C^*$-algebra. $A \in \Assa$. $f,g \in C(\Sp(A))$ real valued functions,
+so $f(A)$, $g(a) \in \Assa$.
+
+\begin{enumerate}[(a)]
+    \item 
+$f(A) \leq f(B)$ if and only if $f \leq g$.
+Indeed, 
+\begin{align*}
+    f(A) \leq g(A) &\iff (g-f)(A)\geq 0 \\
+    &\iff \Sp((g-f)(A)) \subseteq [0,\infty) \\
+    &\iff (g-f)(\Sp(A)) \subseteq [0,\infty) \\
+    &\iff g-f \geq 0 \quad \text{on }\Sp(A) \\
+    &\iff f \leq g
+\end{align*}
+Since $\la \leq ||A||$ for all $\la \in \Sp(A)$ we have $\Id \leq ||A||1$ on $\Sp(A)$,
+so we have 
+$\Id(A) \leq ||A|| 1(A) $ which implies $A \leq ||A|| I$ and similarly for
+$-||A|| I \leq A$.
+
+\item Let $X \in \As$. Then $X^*X \leq I$ if and only of $||X||\leq 1$. Set 
+$A = X^*X \in \As^+ \subseteq \Assa$. Note that 
+$X^*X \leq I ~\iff ~ A \leq I ~ \iff ~ \Id \leq 1$ on $\Sp(A)$.
+\begin{align*}
+    &\iff ||A|| \leq 1 \\
+    &\iff ||X||^2 \leq 1 \\
+    &\iff ||X|| \leq 1
+\end{align*}
+Note: $\Sp(A) \subseteq [0,\infty)$ and $||A|| \in \Sp(A)$, because 
+$||A|| = \sup\{ \la \in \Sp(A) \} \in \ol{\Sp(A)} = \Sp(A)$.
+
+\end{enumerate}
+
+\section*{Ex 8}
+$A,B \in \As^+$. Then $A \leq B \implies ||A||\leq ||B||$.
+\begin{proof}
+    We can assume that $\As$ is unital, so suppose $A \leq B$.
+    From ex 7a we know $B \leq ||B|| I$. Hence $A\leq ||B||I$ so 
+    $\Id \leq ||B|| 1$ on $\Sp(A)$. Since $||A|| \in \Sp(A)$, wet get $||A||
+    \leq ||B||$. 
+\end{proof}
+
+
+
+\section*{Ex 9}
+$\As$ $C^*$-algebra, $A, B \in \As$. Show that $\Sp(AB) \cup \{0\} =
+\Sp(BA)\cup \{0\}$.
+\begin{proof}
+    We may assume that $\As$ is a unital.
+    By symmetry it suffices to show that one of the inclusions holds. 
+    Let $\la \in \C \setminus (\Sp(AB)\cup \{0\})$. 
+    Then $\la I -AB \in GL(\As)$ and $\la \neq 0$, so
+    $I-\ub{\tfrac{1}{\la}A}_{A'}B \in GL(\As)$.  Set $C = (I-A'B)^{-1}$, so
+    \[C(I-A'B) = (I-A'B)C = I\]. Want to find $D \in \As$ such that 
+    \[D(I-BA') = (I-BA')D = I\]
+    Set $D = I+BCA$. Then we get 
+    \begin{align*}
+        D-DBA' &= I-BCA' -BA' -BCA'BA' \\
+        &= I+BCA' - BA' -BCA' +BA' = I
+    \end{align*}
+    Similarly $D-BA'D = I$. This means that $I-BA' \in GL(\As)$, so
+    $\la I - BA = \la(I-BA') \in GL(\As)$, $\la  \neq 0$.
+    Hence $\la \in \Sp(BA)\cap \{0\}$. 
+     
+\end{proof}
+
+\section*{Ex 10}
+$A \in \As^+$. Show $AB \in \As^+ \iff AB \iff BA$. If $AB \in \As^+$, 
+then $AB = (AB)^* = BA$, since $A,B$ are self adjoint. 
+
+Conversely, assume that $AB = BA$. Then $(AB)^* = B^*A^* = BA =AB$,
+without loss of generality, we may assume that $\As$ is unital. 
+Let $\Bs$ be the $C^*$-subalgebra of $\As$ generated by $A,B$ and $I$.
+Note that 
+\[
+\Bs = \ol{\{ P(A,B) : P \text{ is a complle polynomial in two commuting variabels}\}}^{||\cdot||}
+\]
+so $\Bs$ is commutative and unital, since $A$ and $B$ commute.
+We get that 
+$\Sp_{\As}(AB) = \Sp_{\Bs}(AB) = \{\varphi{AB} : \varphi \in \widehat{\Bs}\}
+= \{ \varphi(A)\varphi(B) : \varphi \in \widehat{\Bs} \}$. 
+But $\varphi(A) = \varphi(C^*C) = |\varphi(C)|^2 \geq 0$, where $A = C^*C$, 
+and similarly $\varphi(B) \geq 0$ for all $\varphi \in \widehat{\Bs}$.
+So we get t 
+\[ \Sp_{\As}(AB) \subseteq [0,\infty) \]
+as desired. 
+Could also use 
+\begin{align*}
+   \{ \varphi(A)\varphi(B) :\varphi \in \widehat{\Bs} \} 
+    &\subseteq \ub{\{ \varphi(A) :\varphi \in \widehat{\Bs} \}}_{\Sp_{\Bs}(A)} \cdot
+    \ub{\{ \varphi(B) :\varphi \in \widehat{\Bs} \}}_{\Sp_{\Bs}(B)}  \\
+\end{align*}
+where $\Sp_{\Bs}(A) = \Sp_{\As}(A) \subset [0,\infty)$ and similarly for $B$.
+Let $A,B \in \Assa$, $C \in \As$. Then $A \leq B~\implies ~ C^*AC \leq C^*BC$. 
+Indeed, assume $B-A \geq 0$, so $B-A = D^*D$ for some $D \in \As$. 
+Then $C^*BC - C^*AC = C^*(B-A)C = C^*D^*DC = (DC)^*DC \geq 0$.
+
+
+\section*{Exercise 12}
+\subsection*{a)}
+Let $e_n \in C_0(\R)$ be 1 for $|x| \leq n$ and 0 on $|x|> n+1$
+Show that $\{e_n\}$ is an approximate unit to $C_0(\R)$. Let $f \in C_0(\R)$ and let 
+$\eps > 0$. Pick a compact $K \subseteq \R$ such that 
+$|f(x)| < \eps$ for all $x \in \R\setminus K$.
+Note that 
+\[ (f - e_n) = \begin{cases} 0 & |x| < n\\
+f(x)(1-e_n(x)) & n < |x|\leq n+1 \\
+f(x) & |x|> n+1    
+\ \end{cases}\]
+Choose $N$ such that $K \subseteq [-N,N]$ for any $n \geq N$ we have 
+$K \subseteq [-n,n]\subseteq \R\setminus K$,
+so we get 
+\begin{align*}
+    ||f-fe_n||_{\infty} \leq \sup\{ |f(x)|: |x|> n \} \leq \eps.
+\end{align*}
+Hence $||f-fe_n||_{\infty}\to 0$.
+
+\subsection*{b)}
+$H$ is a Hilbert space. $\{e_j\}_{j \in J}$ orthonormal basis for $H$. 
+$\Vs = \{ F \subseteq J: F \text{ nonempty and finite} \} $ ordered by inclusion. 
+For $F \in \Vs$, 
+\[P_F = \text{orthonormal projection from $H$ onto $\Span{e_j:j\in F}$}\]
+\ul{$\{P_F\}$ is an approximative unit for $\Ks(H)$}: 
+Choose $K \in \Ks(H)$, and $\eps> 0$. Choose 
+$K_0 \in \Fs(H)$ such that $||K - K_0|| < \frac{\eps}{3}$. We have seen 
+that we may write $K_0$ in the form 
+$K_0(x) = \sum_{i=1}^{n} \ind{x,\eta_i}\xi_i$ for some $\xi_1,\ldots, \xi_n\in H$
+and $\eta_1, \ldots, \eta_n \in H \setminus \{0\}$ for all $x \in H$.
+So 
+\begin{align*}
+||(K_0 -P_F K_0)(x)|| &= ||\sum_{k=1}^{n}\ind{x, \eta_k}(\xi_k - P_F\xi_k) || \\
+&\leq \sum_{k=1}^{n} |\ind{x,\eta_k}|\,||\xi_k - P_F \xi_k ||
+&\leq \sum_{k=1}^{n} ||x||\,||\eta_k||\,||\xi_k - P_F \xi_k || \\
+&\leq \( \sum_{k=1}^{n}  ||\eta_k||\,||\xi_k - P_F \xi_k || \)||x||
+\end{align*}
+for all $x\in H$.
+
+Now for $\xi \in H$, we have 
+\[ P_F \xi = \sum_{j \in F} \ind{\xi,e_j}e_j \to \xi \]
+i.e. $||\xi - P_F\xi|| \to 0$, so we see that we can find 
+$F_0 \in \Vs$ such that 
+$||\xi_k - P_F\xi_k|| < \frac{\eps}{3n||\eta_k||}$
+for all $F \in \Vs$, with $F_0 \subseteq F$, $k = 1,\ldots, n$.
+For any $F \in \Vs$, $F_0 \subseteq F$ we get 
+\begin{align*}
+    ||(K_0 - P_{F}K_0)(x)|| \leq \( \sum_{k=1}^{n} ||\eta_k|| \frac{\eps}{2n||\eta_k||} \)||x||
+    = \frac{\eps}{3} ||x||
+\end{align*}
+i.e. $||K_0- P_F K_0|| < \frac{\eps}{3}$. All together, for $F$ as above, we get 
+\begin{align*}
+    ||K-P_FK|| &\leq ||K-K_0|| + ||K_0 - P_FK_0|| + ||P_F K_0 -P_F K|| \\
+    &\leq ||K-K_0|| + ||K_0 - P_FK_0|| +||P_F|| \,||K_0-K|| \\
+    &\leq 2||K_0-K|| + ||K_0 - P_FK_0|| < \eps 
+\end{align*}
+so $||K-P_FK|| \to 0$. Using that $\Ks(H)$ is self-adjoint we also get 
+$||K-KP_F|| \to 0$. 
+\BLUE{(Notice that $P_F$ does only converge in the strong operator topology, not in norms.)? }
+
+\section*{Exercise 13}
+\subsection*{a)}
+$\Cs$ is a $*$-algebra. $\As,\Bs$ are $*$-subalgebras. 
+Assume $\Cs = \As + \Bs$, $\As\cap\Bs = \{0\}$ and $\As\Bs = \{0\}$.
+Then $\As,\Bs$ are two sided ideal in $\Cs$ and $\Cs$ is $*$-isomorphic to $\As \oplus \Bs$.
+\begin{proof}
+Consider $A \in \As$, and $C \in \Cs$. Write $C = A' + B'$, with $A' \in \As$, $B' \in \Bs$.
+Then $CA = (A'+B')A = A'A + BA = A'A$. Here we used the fact that $BA \in \As\Bs = \{0\}$, 
+since $\As\Bs = 0$ implies that $\Bs^*\As^* = \Bs\As= \{0\}$.
+Similarly $AC \in \As$. In the same way $\Bs$ is an ideal in $\Cs$.    
+
+\underline{Moreover $\Cs$ is $*$-isomorphic to $\As \oplus \Bs$:}
+Define $\pi\colon \As\oplus\Bs \to \Cs$ by 
+$\pi((A,B)) = A+ B$. Then 
+$\pi$ is a $*$-isomorphism. Indeed, $\pi$ is obviously surjective and injective 
+because if $\pi((A,B)) = \pi((A',B'))$ then 
+$A+B = A'+B'$, so $A-A' = B'-B$, where $A-A' \in \As$ and $B'-B\in \Bs$, so
+$A=A'$ and $B=B'$, since $\As \cap \Bs = \{0\}$.
+
+$\pi$ preserves product:
+\begin{align*}
+    \pi((A,B)(A',B')) &= AA' + BB' \\
+    \pi((A,B))\pi((A',B')) &= (A+B)(A'+B') = AA' + BA' + AB' + BB' \\
+                           &= AA' + BB'  
+\end{align*}
+similarly one check that $\pi$ is linear and preserves $*$-operation. 
+\end{proof}
+
+\subsection*{b)}
+Assume now $\Cs$ is a $C^*$-algebra and $\As,\Bs$ are $C^*$-subalgebras 
+of $\Cs$, satisfying $\Cs = \As + \Bs$, $\As\Bs = \{0\}$. 
+Note that \ul{we have $\As \cap \Bs =  \{0\}$:}
+Let $x \in \As \cap \Bs$ (where the intersection is a  $C^*$-subalgebra of $\Cs$). 
+Then 
+ \[  x = \ub{\Re x}_{y} + i \ub{\Im x}_{z} \]
+where $y,z \in (\As \cap \Bs)_{\text{sa}}$.
+Then we have $y^2 =\ub{y}_{\in \As} \ub{y}_{\in \Bs} \in \As\Bs = \{0\}$, 
+so $y=0$ and similarly $z = 0$, so $x =0$.
+
+
+This means that $\Cs$ is the internal direct sum of $\As$ and $\Bs$ (as defined in (a)), 
+so (a) gives that $\As$ and $\Bs$ are (closed) ideal of $\Cs$ and $\Cs\simeq \As \oplus \Bs$
+
+\subsection*{c)}
+Let $\As$ be a unital $C^*$-algebra with unit $e$. Let $\tAs$ be a defined as a $*$-algebra
+(as we did when $\As$ is non-unital). Set $\As' = \As\times \{0\}$ and $\Bs = \C(1-e) =
+\{\la (-e, 1): \la \in \C\}$. $\tAs$ is the internal direct sum of $\As'$ and 
+$\Bs$ (as $*$-algebra): 
+
+$\tAs = \As' + \Bs$: Let $(A, \la ) \in \tAs$. Then $(A,\la) = \ub{(A + \la e, 0)}_{\in \As'} 
++ \la \ub{(-e,1)}_{\in \Bs}$.
+
+$\As'\cap \Bs = \{(0,0)\}$: Assume $(A,0) = \la (-e,1)$ for $A \in \As$, 
+$\la \in \C$. Then $\la = 0$, so $A =0$.
+
+$\As'\Bs = \{(0,0)\}$: $(A, 0)(\la(-e,1)) = \la(-Ae+A,0) = \la (0,0)$ for all 
+$A \in \As$, $\la \in \C$.
+Using $(a)$ we get that $\tAs = \As'\oplus \Bs$, but $\As'$ is $*$-isomorphic to 
+$\As$ (via $(A,0)\mapsto A$) and $\Bs$ is $*$-isomorphic
+to $\C$ (via $(\la(1-e) \mapsto \la)$.
+
+It follows that $\tAs \simeq \As \oplus \C$
+(as $*$-algebras). This implies that $\tAs$ can be given a $C^*$-algebra norm, i.e.
+organized as a $C^*$-algebra. 
+
+\section*{Definitions}
+$\As$ is a $C^{*}$-algebra, $\vphi$ is a linear functional on $\As$. We call $\vphi$
+\emph{faithful} if 
+\[ \{A \in \As : \vphi(A^*A) = 0\} = \{0\} \] 
+
+\section*{Ex 14}
+Set $\As = C(\Om)$, where $\Om$ is a compact Hausdorff space. Let $\mu$
+be a finite regular (means positive) Borel measure on $\Om$.
+\[\vphi_{\mu} \colon \As \to \C, \qquad \vphi_{\mu} = \int_{\Om}f\d\mu \]
+Let $S_{\mu} \coloneqq  \supp(\mu) = \{\om\in \Om : \mu(U)>0 \text{ for all open neighborhoods $U$ of $\om$}\}$.
+
+\ul{$S_{\mu}$ is closed in $\Om$:} Assume $\om' \in \Om\setminus S_{\mu}$, 
+then there exits a open neighborhood $V$ of $\om'$ such that $\mu(V)=0$.
+Consider $\sigma \in V$. Then $V$ is an open neighborhood of $\sigma$ such that 
+$\mu(V) = 0$, so $\sigma\not\in S_{\mu}$. Hence $V\subseteq\Om\setminus S_{\mu}$. 
+Thus $\Om\setminus S_{\mu}$ is open. 
+
+\ul{$\vphi_{\mu}$ is faithful if and only if $S_{\mu}= \Om$:}
+Note first that $\mu(\Om\setminus S_{\mu}) = 0$. Indeed, consider $K\subseteq \Om\setminus S_{\mu}$, $K$ compact. By compactness we can find open sets $V_{1},\ldots,V_{n}$ such that 
+$K = V_{1} \cup \cdots \cup V_{n}$ and $\mu(V_{j})= 0$ for $j=1,\ldots, n$.
+Then $\mu(K) \leq \sum_{j=1}^{n}\mu(V_j) = 0$. So $\mu(K) = 0$. Hence 
+\[\mu(\Om\setminus S_{\mu}) 
+= \sup\{\mu(K): K \text{ compact }, K \subseteq \Om \setminus S_{\mu} \} = 0.
+\]
+\ul{Assume $S_{\mu}\neq \Om$:}
+Let $\sigma \in \Om\smin S_{\mu}$. By Uryshons lemma we can pick $f(\sigma)=1$
+and $f=0$  on $S_{\mu}$, so that $f\neq 0$ and 
+\begin{align*}
+    \vphi_{\mu}(f^*f) = \int_{\Om}|f|^2\d \mu = \ub{\int_{\Om\smin S_{\mu}} |f|^2\d\mu}_{\text{$=0$, since } \mu(\Om\smin S_{\mu})=0}
++\ub{\int_{S_{\mu}} |f|^2 \d \mu}_{=0,\text{ since } f=0} = 0  
+\end{align*}
+so $\vphi_{\mu}$ is not faithful. 
+
+Conversely assume $S_{\mu} = \Om$.
+Let $f\neq 0$, $f \in \As$. Then 
+$M = ||f||_{\infty} > 0$. Then $U = |f|^{-1}((M/2,\infty)$ is an open set in $\Om$, which is non-empty, so $\mu(U)> 0$ (since $S_{\mu} = \Om$) 
+and 
+\[ \vphi(f^* f) = \int_{\Om} |f|^2 \d \mu \geq \int_{U} |f|^2 \d \mu \geq \frac{M^2}{2}\mu(U)> 0.\] 
+This shows that 
+$\vphi(f^*f) = 0 \implies f=0$ i.e. $\vphi_{\mu} $ is faithful.  
+
+\section*{Ex 15}
+$H$ Hilbert space. $\As$ is $C^*$-subalgebra of $\Bs(H)$, $\xi \in H$. Then 
+\[ \vphi_{\xi} (A) = \ind{A\xi,\xi}, \quad A \in \As \]
+gives a positive linear functional on $\As$.
+
+\subsection*{a)}
+$\vphi_{\xi}$ is faithful if and only if $\{A \in \As: A\xi=0\}= \{0\}$, i.e. $\xi$
+is separating for $\As$.
+
+Indeed, $\vphi_{\xi}(A^*A)= \ind{A\xi,A\xi} = ||A\xi||^2$ for all $A \in \As$, so
+if $\vphi_{\xi}(A^*A) = 0 \iff A\xi =0$ and the assertion is obvious. 
+
+\subsection*{b)}
+$H = \C^3$, $\As = M_2(\C)\oplus \C = \{[a_{ij}]\in \C^{3\times 3} :
+a_{13}=a_{23} = a_{31} = a_{32} = 0\}$.
+Let $\xi \in \C^3$. \ul{Then $\vphi_{\xi}$ is not faithful:}
+Note that $\{A \in \As : A\xi =0\} = \ker T_{\xi}$ where $T_{\xi}\colon\As\to\C^3$
+is given by $T_{\xi}(A)= A\xi$. Since \[\dim \ker T_{\xi} = \ub{\dim \As}_{5}  -
+\ub{\dim \text{Range}T_{\xi}}_{\leq 3} \geq 2.\]
+We then get that 
+$\{A\in \As: A\xi = 0 \}\neq\{0\}$ so $\vphi_{\xi}$ is not faithful. 
+
+\subsection*{c)}
+$\xi = [1,0,1]^T$, $\xi_2 = [0,1,0]^T$. Set $\vphi = \vphi_{\xi_1} + \vphi_{\xi_2}$ 
+which is positive on $\As$. 
+\ul{Then $\vphi$ is faithful:}
+Assume $\vphi(A^*A) = 0$ for $A \in \As$. Then we have 
+\begin{align*}
+   \vphi_{\xi_1}(A^*A) + \vphi_{\xi_2}(A^*A) = 0 \\ 
+   ||A\xi_1||^2 + ||A\xi_2||^2 = 0 \\
+   A\xi_1 = A\xi_2 = 0 
+\end{align*}
+but 
+\begin{align*}
+    A\xi_1 &= 0 &&\implies a_{11} = a_{21} = a_{33} = 0 \\ 
+    A\xi_2 &= 0 &&\implies a_{12} = a_{22} = 0 \\ 
+\end{align*}
+so we get that $A = 0$.
+
+\subsection*{c)}
+Let $t_1, t_2 > 0$. The 
+$\psi = t_1\vphi_{\xi_1} + t_2\vphi_{\xi_2}$ is a positive linear functional on 
+$\As$. We have that 
+\begin{align*}
+||\psi|| &= ||t_1\vphi_{\xi_1}||+||t_2\vphi_{\xi_2}|| \\
+&= t_1\vphi_{\xi_1}(I) + t_2\vphi_{\xi_2}(I) = 2t_1 + t_2
+\end{align*}
+since $||\xi_1||^2 = 2$ and $||\xi_2||^2 = 1$.
+Hence $\psi$ is a state on $\As$ when 
+$2t_1 + t_2 = 1$ e.g. $t_1 = t_2 = 1/3$ or $t_1 = 1/2$, $t_2 = 1/2$, in which case 
+it is faithful (by similar argument as above).
+
+\section*{Ex 16}
+A linear functional $\tau$ is called \emph{tracial} if $\tau(AB)= \tau(BA)$ for
+all $A,B \in \As$. Let
+$\As$ be a \ul{unital} $C^*$-algebra and $\tau$ is a linear functional on $\As$. 
+
+$\tau$ is tracial if and only if $\tau(UAU^*) = \tau(A)$ for all $A \in \As$,
+$U \in \Us(\As)$.
+
+($\implies$) If $\tau$ is tracial, then $\tau(UAU^*) = \tau(AU^*U)= \tau(A)$.
+
+($\impliedby$) Assume RHS holds. To show that the LHS holds it suffices to 
+show that we have $\tau(AU) = \tau(UA)$ for all $A \in \As$ and $U \in \Us(\As)$,
+because any $B\in \As$ is a linear combination of unitaries in $\As$.
+But we have $\tau(UA) = \tau(UAUU^*) = \tau(AU)$ for all $A \in \As$ and $U\in \Us(\As)$,
+where we in the last equality used 
+the RHS. 
+
+\section*{Ex 17}
+Let $\As = M_{n}(\C)$ and 
+$\Tr\colon \As\to\C$ where $\Tr$ is defined by 
+$\Tr(A) = \sum_{i=1}^{n} a_{ii}$ for $A = [a_{i,j}]_{i,j=1}^{n}$.
+\subsection*{a)}
+$\Tr$ is a faithful tracial positive linear functional: Linearity is obvious.
+Note that $\Tr(A)=\sum_{j=1}^{n}\ind{Ae_j,e_j}$ where $e_1,\ldots,e_n$ is the 
+standard basis on $C^n$. Hence 
+$\Tr(A^*A) = \sum_{j=1}^{n} ||Ae_j||^2 = \sum_{i,j=1}^{n} |a_{i,j}|^2 \geq 0$
+and $\Tr(A^*A) = 0 \iff a_{ij}=0 \text{ for all } i,j\in\{1,\ldots,n\} \iff A  = 0$.
+So $\Tr(A^*A) = 0$ is positive and faithful. 
+
+Finally, 
+\begin{align*}
+\Tr(AB)&=\sum_{j=1}^{n} (AB)_{jj} = \sum_{j=1}^{n}\sum_{i=1}^{n}a_{ji}b_{ij} \\&=
+\sum_{i=1}^{n}\sum_{j=1}^{n}b_{ij}a_{ji}  = \sum_{i=1}^{n}(BA)_{ii} = \Tr(BA)
+\end{align*}
+for all $A,B \in \As$.
+
+
+\subsection*{b)}
+Let $\{\xi_1,\ldots, \xi_n\}$ be an orthonormal basis for $\C^n$. Let 
+$U = [\xi_1,\ldots, \xi_n] \in \Us(\As)$. Then $Ue_j = \xi_j$ for all 
+$j=1,\ldots,n$. Then we get 
+\begin{align*}
+    \sum_{j=1}^{n} \ind{A\xi_j,\xi_j} = \sum_{j=1}^{n} \ind{AUe_j,Ue_j}
+    =\sum_{j=1}^{n} \ind{U^*AUe_j,e_j} = \Tr(U^*AU) = \Tr(VAV^*) = \Tr(A)
+\end{align*}
+for all $A \in \As$, where $V = U^*$. So $\Tr(A) =\sum_{j=1}^{n} \ind{A\xi_j,\xi_j}$.
+
+\subsection*{c)}
+$S \in \As$. Define $\vphi_{S}\colon \As \to \C$ by $\vphi_{S}(A) = \Tr(AS)$.
+Then $\vphi_{S}$ is clearly linear, hence $\vphi_{S}$ is bounded since $\As$
+is finite dimensional. Then map $S\mapsto\vphi_S$ from $\As$ into $\As^*$
+is also linear (easy). 
+
+Moreover it is injective:
+Assume $\vphi_S = 0$, so $\Tr(SA) = 0$ for all $A \in \As$. But then 
+$\Tr(S^*S) = \Tr(SS^*) = 0$, but $\Tr$ is faithful, so $S = 0$. 
+
+We know that $\dim \As = \dim \As^*$, so we can conclude that $S \mapsto \vphi_{S}$
+is bijective. Hence this gives a vector space isomorphism between $\As$ and 
+$\As^*$. 
+
+We have $S \geq 0$ in $\As$ if and only if $\vphi_S\geq 0$ in $\As^*$:
+Assume $S\geq 0$. Then 
+\begin{align*}
+\vphi_S (A^*A) &= \Tr(SA^*A) = \Tr(S^{1/2}S^{1/2}A^*A)\\
+&= \Tr(S^{1/2}A^*AS^{1/2})= \Tr((AS^{1/2})^*AS^{1/2})\geq 0.
+\end{align*}
+Conversely, assume $\vphi_s\geq 0$. We first show that $S$ is self-adjoint. We 
+know that $\vphi_S$ is self-adjoint, since $\vphi_S\geq 0$ i.e.
+\[\ol{\Tr(SA)} = \Tr(SA^*) = \Tr(A^*S) \quad\text{for all }A\in \As.\]
+Hence $\Tr((S-S^*)A) = \Tr(SA)- \Tr(S^*A) = \Tr(SA)- \ol{\Tr(A^*S)} =\Tr(SA)- \Tr(SA) = 0$
+for all $A \in \As$. 
+In particular, we set 
+$\Tr((S-S^*)^*(S-S^*)) = \Tr((S-S^*)(S-S^*)^*) =0$, so $S-S^*=0$ since 
+$\Tr$ is faithful. 
+
+Now show that $S\geq 0$. It suffices to show all its eigenvalues are non-negative.
+Pick an orthonormal basis $\{\xi_1,\ldots,\xi_n\}$ of eigenvectors of $S$ i.e.
+$S\xi_j = \la_j\xi_j$, $j=1,\ldots,n$.
+Then we have $S = \sum_{j=1}^{n} \la P_{\xi_j}$ where 
+$P_{\xi_j}=$ orthonormal projection from $C^n$ onto $\Span{\xi_j}$.
+Now each $P_{\xi_j}\geq 0$ for $j=1,\ldots,n$, so 
+$\vphi_{S}(P_{\xi_j})\geq 0$ for $j=1,\ldots,n$.
+We get 
+\begin{align*}
+    \la_j = \la_j \Tr(P_{\xi_j}) =\Tr(\la_j P_{\xi_j})
+    = \Tr(SP_{\xi_j}) = \vphi_S(P_{\xi_j})\geq 0  
+\end{align*}
+for $j=1,\ldots,n$.
+Where we used that 
+\begin{align*}
+    \Tr(P_{\xi_j})= \sum_{i=1}^{n} \ind{P_{\xi_j}\xi_i,\xi_i} = \ind{\xi_j,\xi_j} = 1
+\end{align*}
+Notice also that $SP_{\xi_j} = \(\sum_{j=1}^{n}\la_jP_{\xi_j}\)P_{\xi_i} = \la_i P_{\xi_i}$.
+Hence $S\geq 0$ as desired.
+Finally in this case we get that 
+$||\vphi_S|| = \vphi_s(I) = \Tr(S)$. 
+
+\subsection*{d)}
+$\vphi = t\Tr$ for some $t \geq 0$:
+By $c)$ we can write $\vphi = \vphi_{S}$ for some $S \in \As^+$. Since
+$\vphi$ is tracial, we get 
+\begin{align*}
+\vphi_S(AB) &= \vphi_{S}(BA)\quad\text{ for all }A,B\in \As\text{ which implies}\\ 
+\Tr(SAB) &= \Tr(SBA) \quad\text{ for all }A,B\in \As. 
+\end{align*}
+so $\Tr(B(SA-AS))=0$ for all $A,B\in \As$, so 
+$\Tr((SA-AS)^*(SA-AS)) = 0$ for all $A \in \As$.
+Hence $SA=AS$ for all $A \in \As$.
+
+Let $E_{kl}\in \C^{n\times n}$ be given by 
+\begin{align*}
+    (E_{kl})_{ij} = \begin{cases} 1&\text{if }i=k \text{ and }j=l \\
+    0 &\text{otherwise} \end{cases}
+\end{align*}
+Then 
+\[
+SE_{kl} = \begin{bmatrix} 
+0&\ldots &\overset{l}{s_{k1}} &\ldots &0\\
+0&\ldots &s_{k2} &\ldots &0\\
+\vdots&\ddots &\vdots &\ddots &\vdots\\
+0&\ldots &s_{kn} &\ldots &0\\
+  \end{bmatrix}
+\text{ and }
+E_{kl}S = \begin{bmatrix} 
+0&\ldots,&\ldots & 0\\
+\vdots&\ddots,&\ddots & \vdots\\
+s_{1l} & s_{2l}&\ldots & s_{nl} \\
+\vdots&\ddots,&\ddots & \vdots\\
+0&\ldots,&\ldots & 0\\
+\end{bmatrix}
+\]
+so $SA=AS$ implies that $SE_{kl}=E_{kl}S$ for all $k,l\in \{1,\ldots,n\}$.
+this implies that $S_{kk}= S_{ll}$ and for all $k,l\in \{1,\ldots,n\}$
+and $S_{kl} = 0$ for $k\neq l$. So
+\[S = \begin{bmatrix} 
+t & 0 &\ldots & 0 \\
+0 & t &\ldots & 0 \\
+\vdots & \ddots &\ddots & \vdots \\
+0 & 0 &\ldots & t \\
+ \end{bmatrix} = tI\]
+and $t \geq 0$ since $S \geq 0$, so $\vphi = \vphi_s = t\Tr$.
+Note that $||\vphi|| = t \Tr(I) = t n$, so $\vphi$ is a state when 
+$t=1/n$. Hence the only tracial state on $\As$ is $\tfrac{1}{n}\Tr$ (normalized trace).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+

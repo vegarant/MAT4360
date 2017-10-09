@@ -1,0 +1,1652 @@
+\documentclass[10pt,english,a4paper]{article}
+\usepackage[T1]{url}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx, varioref, babel, fancyvrb, listings, amsmath,amsthm, amssymb, enumerate}
+\usepackage{listings}
+\usepackage{mathtools}
+\usepackage{csquotes}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{xcolor}
+\input{.config/default}
+
+%\declaretheorem[style = remark, sibling = lemma, qed = $\maltese$, name = "]{thm}
+
+\makeatletter
+\def\moverlay{\mathpalette\mov@rlay}
+\def\mov@rlay#1#2{\leavevmode\vtop{%
+   \baselineskip\z@skip \lineskiplimit-\maxdimen
+   \ialign{\hfil$\m@th#1##$\hfil\cr#2\crcr}}}
+\newcommand{\charfusion}[3][\mathord]{
+    #1{\ifx#1\mathop\vphantom{#2}\fi
+        \mathpalette\mov@rlay{#2\cr#3}
+      }
+    \ifx#1\mathop\expandafter\displaylimits\fi}
+\makeatother
+
+\newcommand{\cupdot}{\charfusion[\mathbin]{\cup}{\cdot}}
+\newcommand{\bigcupdot}{\charfusion[\mathop]{\bigcup}{\cdot}}
+
+
+
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{corollary}{Corollary}
+\newtheorem*{proposition}{Proposition}
+\newtheorem*{observation}{Observasjon}
+\newtheorem*{example}{Example}
+\newtheorem*{note}{Note}
+\newtheorem*{remark}{Remark}
+
+\let\emph\relax % there's no \RedeclareTextFontCommand
+\DeclareTextFontCommand{\emph}{\bfseries}
+%\begin{figure}
+%    \centering
+%    \includegraphics[width=0.8\linewidth]{nameOfFile}
+%    \caption{}
+%\end{figure}
+
+\def\Psfin{\mathcal{P}_{\textnormal{fin}}}
+\def\Fbb{\mathbb{F}}
+\def\Tbb{\mathbb{T}}
+\def\Ff{\mathfrak{F}}
+\def\Kf{\mathfrak{K}}
+\def\ex{\textnormal{ex}\,}
+\def\co{\textnormal{co}\,}
+\def\whAs{\widehat{\As}}
+\def\tAs{\widetilde{\As}}
+\def\tBs{\widetilde{\Bs}}
+\def\Assa{\As_{\text{sa}}}
+\def\sa{\text{sa}}
+\def\tvphi{\tilde{\varphi}}
+
+\DeclareMathOperator{\Id}{Id}
+\DeclareMathOperator{\Sp}{sp}
+\def\vphi{\varphi}
+%%% Colours %%%
+\newcommand*{\BLUE}[1]{{\color{blue}#1}}
+\newcommand*{\RED}[1]{{\color{red}#1}}
+\newcommand*{\GREEN}[1]{{\color{green}#1}}
+
+
+\title{Notes MAT4360}
+%\author{Vegard Antun \\MAT 4450 }
+
+\begin{document}
+\maketitle
+
+\section{Compact operators}
+We will always assume that the scalar field is $\C$. By an operator we will always 
+mean a linear operator. $H$ will denote a non-zero Hilbert space and 
+$H_1 \coloneqq \{ \xi \in H : ||\xi||\leq 1 \}$.
+
+Recall that an operator $T \colon H \to H$ is called \emph{compact} whenever 
+$\{T(\xi_n)\}_{n \in \N}$ has a convergent subsequence whenever $\xi_n$ is 
+a bounded sequence in $H$.
+
+This is equivalent to requiring that $T$ maps bounded sets in $H$ into relative
+(closure is compact) compact sets of $H$.
+
+\begin{itemize}
+    \item Every compact operator is bounded. 
+    \item Every bounded finite rank (finite dimensional image) operator is compact.
+    \item $\Ff(H) = \{ T \in \Bs(H): T \text{ has finite rank} \}$. 
+    \item $\Kf(K) = \{T \in \Bs(H) : T \text{ is compact operator}\}$.
+\end{itemize}
+One can show that $\ol{\Ff(H)}^{||\cdot||} = \Kf(H) \subset \Bs(H)$ 
+and $\Kf(H) \neq \Bs(H)$ when $H$ is infinite dimensional (Since $I_{H} \in
+\Kf(H) \iff H$ is finite dimensional). 
+
+\begin{itemize}
+    \item $\Ff(H)$ and $\Ks(H)$ are both ideals in $\Bs(H)$. 
+\end{itemize}
+Note: by ideal in an algebra we will always mean, unless otherwise specified a two sided ideal.
+So 
+\[S \in \Ff(H), T \in \Bs(H)  \implies \begin{cases} ST \in \Ff(H) \\ TS \in \Ff(H) \end{cases}\]
+Moreover they are both \emph{self-adjoint} ideals (A subset $\Js \subset
+\Bs(H)$ is called self-adjoint if $S \in \Js \implies S^* \in \Js$).
+\begin{proposition}
+\leavevmode
+\begin{enumerate}[1)]
+        \item $\Ff(H)$ is the least non-zero ideal of $\Bs(H)$. 
+        \item $\Kf(H)$ is the least non-zero, norm-closed ideal of $\Bs(H)$. 
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    We first observe that any finite rank $S \in \Ff(H)$ is of the form 
+    \[ S(x) = \sum_{i=1}^{n} \ind{x,\eta_j}\xi_j  \quad \text{ for some }\eta_1, 
+    \ldots, \eta_n,\xi_1,\ldots, \xi_n\in H, ~\xi_j \neq 0\]
+    Indeed, let $\{\xi_1, \ldots, \eta_n\}$ be an orthonormal basis for $S(H)$ (image of $S$, for $S\neq 0$). Then $Sx = \sum_{j=1}^{n} \ind{Sx, \xi_j}\xi_j = \sum_{j=1}^{n}\ind{x,S^*\xi_j}\xi_j$ for all $x \in H$
+
+\begin{itemize}
+    \item 
+Let now $\Js \neq \{0\}$ be an self-adjoint ideal of $\Bs(H)$. We have to show that 
+$\Ff(H) \subseteq \Js$. Since $\Js$ is a subspace we see that it is enough to show that 
+$\Js$ contains all operators of the form $x\mapsto \ind{x,\eta}\xi$ where $\xi
+\in H\setminus\{0\}$.
+
+We pick $T \in \Js$, $T \neq 0$. We then have $T\xi_0 = \eta_0$ for some 
+$\xi_0 \in H\setminus\{0\}$, $\eta_0 \in H_1$ (normalize if needed). Let
+$\xi\in H\setminus\{0\}$, $\eta \in H$. Define $A,B,S \in \Bs(H)$ by 
+\[  Ax = \ind{x,\eta_0}\eta, \quad Bx = \ind{x,\xi}\xi_0, \quad \text{for all } x\in H \]
+and $S = ATB$. Then $S \in \Js$ (since $\Js$ is an ideal and $T \in \Js$) and 
+\[Sx = \ind{x,\xi}AT\xi_0 = \ind{x,\xi}A\eta_0 = \ind{x,\xi} \ind{\eta_0,\eta_0}\eta
+= \ind{x,\xi}\eta, \quad \text{for all }x\in H\]
+which shows what we wanted.
+
+\item Assume $\Js$ is a non-zero normed closed ideal in $\Bs(H)$. Then $\Ff(H) \subset \Js$
+by $1)$ so $\Kf(H) =\ol{\Ff(H)}^{||\cdot||}  \subseteq \Js$ since $\Js$ is normed closed
+\end{itemize}
+\end{proof}
+\begin{remark}
+    A $C^*$-algebra $\As$ is called \emph{simple} when $\{0\}$ and $\As$ are
+the only closed ideals of $\As$. From the above proof we see that if $\Js$ is a
+norm-closed ideal of $\Kf(H)$ which is non-zero then we also get
+$\ol{\Ff(H)}^{||\cdot||} = \Kf(H) \subseteq \Js \subseteq \Kf(H)$, so $\Js =
+\Kf(H)$.
+This means that $\Kf(H)$ is simple. In particular $M(n,\C) \simeq \Kf(\C^n) =
+\Bs(C^n)$ is simple.
+\end{remark}
+
+\begin{theorem}
+    The following conditions are equivalent, given $T \in \Bs(H)$.
+    \begin{enumerate}[(1)]
+        \item $T$ is compact.
+        \item $T \lvert_{H_1} \colon (H_1, \text{rel. weak. top}) \to (H, \text{norm-top.})$ is 
+        continuous.
+        \item $T(H_1)$ is norm-compact in $H$. 
+        \item For every net $\{\xi_{\al}\}$ in $H_1$ the net $\{T\xi_{\al}\}$ has 
+              a convergent subnet.
+    \end{enumerate}
+\end{theorem}
+
+Note: $(3) \iff (4)$ by the characterization of compactness with help of nets.
+
+\begin{proof}
+    Note that we need lemma 1-4 below. 
+    $(1)\implies (2)$ Assume $T$ is compact. Let $\{\xi_{\al}\}$ be a net in $H_1$ which 
+    converges weakly to some $\xi\in H_1$. Let $\eps > 0$ and pick 
+    $S \in \Ff(H)$ such that $||S-T|| < \eps/3$. Now we have 
+\[ ||T\xi_{\al} - T\xi || \leq \ub{||T\xi_{\al} - S\xi_{\al}||}_{\leq ||T-S||}
++ ||S\xi_{\al} - S\xi|| + \ub{||S\xi-T\xi||}_{\leq ||T-S||}\]
+since $S$ is weak-weak continuous (cf. lemma 4) we have htat $S\xi_{\al}\to S$ 
+weakly. But the range of $S$ is finite dimensional, so we can use lemma 1 with 
+$X = \text{Range}S$ to deduce that $||S\xi_{\al}-S\xi||\leq \eps/3$ for all 
+$\al \geq \al_0$. Then for $\al \geq \al_0$ we get 
+$||T\xi_{\al} - T\xi|| \leq 2\eps/3 + \eps/3 = \eps$ which shows that 
+$T\xi_{\al} -T\xi$ in norms as desired.
+
+$(2)\implies (3)$ This follows from lemma 2. $(3) \iff (4)$ is ok. 
+
+$(4) \implies (1)$. Assume $(4)$ holds. 
+Let $P_{\la}$ be as in lemma 3. Then $P_{\la}T \in \Ff(H)$ for all $\la$ 
+we want to show that $P_{\la}T \to T$ in operator norm. Assume this is not ture. 
+Then there exits $\eps > 0$ such that we can find for 
+(by eventually going to subnets) some $\xi_{\la} \in H_1$ such that $||(P_{\la}T-T)\xi_{\la}||\geq \eps$.
+
+Using $(4)$ we can now assume that $\{T\xi_{\la}\}$ converges to some $\eta \in H$
+(again by going to subnets if necessary). Then using lemma 3 we get 
+\begin{align*}
+    ||(I-P_{\la})T\xi_{\la}|| &\leq 
+    ||(I-P_{\la})(T\xi_{\la}-\eta)|| + ||(I-P_{\la})\eta|| \\
+    &\leq \ub{||I-P_{\la}||}_{\leq 1} ||T\xi_{\la} -\eta|| +
+    ||\eta-P_{\la}\eta|| \to 0
+\end{align*}
+We have  a contradiction. 
+
+
+ 
+\end{proof}
+
+
+To prove this we will need some lemmas:
+\begin{lemma}[1]
+    Assume $X$ is a finite dimensional vector space. Then there exits only one 
+    topology $\tau$ (up to homeomorphisms) such that $(X,\tau)$ is a locally 
+    convex Hausdorff topologic vector space.
+\end{lemma}
+
+\begin{proof}
+    Let $\Bs = \{x_1,\ldots, x_n\}$ be a basis for $X$. We can then define a 
+norm on $X$ by $||x|| = ||[x]_{\Bs}||$ where $[x]_{\Bs}$ is the coordinate
+representation of $x$ in $\Bs$ and $||\cdot ||$ is the euclidean norm. 
+
+$(X, ||\cdot ||)$ is a locally convex Hausdorff topological vector space with 
+respect to the norm topology, which is homeomorphic to ($\C^n$, euclidean top.). 
+(via the map, $x\mapsto [x]_{\Bs}$). 
+
+Let now $\tau$ be any topology on $X$ such that $(X,\tau)$ is a locally 
+convex Hausdorff topological vector space. We will show that $(X,\tau)$
+is homeomorphic to ($C^n$,  Euclidian top.).
+
+We will first show that there exits $\rho_1,\ldots, \rho_n \in (X,\tau)^{*}$
+(dual space) such that $\rho_j(x_i) = \delta_{ij}$ (Kronecker delta) for all 
+$i,j \in \{1,\ldots, n\}$. Define $S\colon (X,\tau)^* \to C^n$
+by $S(\rho) = [\rho(x_1),\ldots, \rho(x_n)]$. It is clear that $S$ is linear,
+moreover it is surjective:
+
+Assume this is not true. Then $M \coloneqq \text{Range}S$ is a subspace of $\C^n$
+different from $\C^n$, so $M^{\perp}\neq \{0\}$, so we can pick some vector 
+$c \in \C^n \setminus \{0\}$ such that $c\perp M$ i.e. $\rho(x_1)\bar{c}_1 + 
+\ldots + \rho(x_n)\bar{c}_n = 0$ for all $\rho \in (X, \tau)^*$ i.e.
+$\rho(\bar{c}_1x_1 + \ldots + \bar{c}_n x_n) =  0 $ for all $\rho \in (X,\tau)^*$.
+By corollary of Hahn-Banach separation theorems we get that 
+$\bar{c}_1 x_1 + \ldots + \bar{c}_n x_n  = 0$ (since we can separate points).
+But $x_1,\ldots, x_n$ are basis elements (linear independent), so 
+$c_1 = \ldots = c_n = 0$, i.e. $c=0$.
+
+This mean that we can find $\rho_1,\ldots, \rho_n \in (X,\tau)^*$
+such that $S(\rho_j) = e_j $ (standard basis vector in $C^n$).
+That is $\rho_{j}(x_i) =\delta_{ij}$ for all $i,j \in \{1,\ldots,n\}$.
+
+Now we can define $T\colon X \to \C^n$ by $T(x) = (\rho_1 (x),\ldots,
+\rho_n(x))$ is clearly linear and continuous with respect to $\tau$.  For $x =
+\sum_{i=1}^{n}\la_i x_i \in X$ we have $\rho_{j}(x) =\sum_{i}^{n}
+\la_{j}\rho_j(x_i) = \la_j$. Thus $T(x) = (\la_1,\ldots,\la_n) = [x]_{\Bs}$ for
+all $x$, so $T$ is the coordinate map with respect to $\Bs$, which is an
+isomorphism with $T^{-1}(\la_1,\ldots,\la_n) = \la_1x_1 + \ldots, \la_nx_n$. We
+see that $T^{-1}$ is continuous because the vector space operation is
+continuous with respect to $\tau$.
+
+
+
+
+\end{proof}
+
+
+\begin{lemma}[2]
+    $H_1$ is weak-compact. 
+\end{lemma}
+
+\begin{proof}
+    We know the map $\eta  \to \vphi_{\eta}$ from $H $ into $H^*$ is bijective 
+and \emph{isometric}, where $\varphi_{\eta}(\xi) = \ind{\xi,\eta})$ for $\xi \in H$
+(conjugate linear). Moreover we have that if $\{\xi_{\al}\}$ is a net in $H$
+and $\xi \in H$, then $\{\xi_{\al}\}$ converges weakly to $\xi$.
+ \begin{align*}
+     \iff& \varphi_{\eta}(\xi_{\al}) \to \varphi_{\eta}(\xi) ~\forall \eta \in H \\
+     \iff& \ind{\xi_{\al},\eta} \to \ind{\xi,\eta} ~\forall \eta \in H \\
+     \underset{\text{by conjugation}}{\iff}& \ind{\eta, \xi_{\al}} \to \ind{\eta, \xi} ~\forall \eta \in H \\
+\iff&\vphi_{\xi_{\al}}(\eta) \to \varphi_{\xi}(\eta) ~\forall\eta\in H
+ \end{align*}
+$\iff$ $\{\vphi_{\xi_{\al}}\}$ converge to $\vphi_{\xi}$ in the weak$^*$-topology
+of $H^*$.
+
+It follows that $\eta \overset{\varphi}{\to} \varphi_{\eta}$ is an
+homeomorphism of $(H,\text{weak top})$ onto $(H^*, \text{weak}^*\text{ top.})$.
+Now Alaogus theorem gives that $(H^*)_1$ is weak$^*$-compact. 
+Hence we get that $H_1 = \underset{\text{cont.}}{\varphi^{-1}}(\underset{\text{weak}^*\text{ compact}}{(H^*)_1})$.
+\end{proof}
+
+\begin{lemma}[3]
+    There exits a net $\{P_{\la}\}$ of projections with finite rank such that 
+    $\lim_{\la} ||P_{\la} \xi - \xi|| = 0$ i.e. $\lim_{\la} P_{\la} = I_{H}$ 
+    in the strong operator topology. 
+\end{lemma}
+\begin{proof}
+   Let $\{e_j\}_{j\in \N}$ be an orthonormal basis for $H$. We have seen that for $x \in H_1$, 
+we have $x = \sum_{j \in J} \ind{x,e_j}e_j$ means that the net $\{ \sum_{j\in F} \ind{x,e_j}e_j \}_{F\in\Psfin(J)}$ for any $\la \in \Psfin(J)$, we have that the orthognal projection
+$P_{\la}$ from $H$ onto  $\Span{e_j:j\in \la}$ is given by 
+\[ P_{\la}(x) = \sum_{j\in\la} \ind{x,e_j}e_j. \]
+So we see that $P_{\la}(x) \to x$ in norm for all $x \in H$, as we wanted to show.
+\end{proof}
+
+\begin{example}
+    Assume that $T \in \Bs(H)$ is diagonalizable in the sens that there exits 
+an orthonormal basis $\{e_j\}_{j \in J}$ for $H$ and $\{\la_j\}_{j\in J} \in
+\ell^{\infty}(J)$ such that $T(e_j) = \la_je_j$ for all $j\in J$. Hence such that 
+\[ T(x) = \sum_{j \in J} \la_{j}\ind{x, e_j}e_j ~\forall x \in H \]
+Then we have that $T \in \Kf(H)\iff \{\la_j\}_{j\in J} \in C_{0}(J)$ 
+\begin{itemize}
+    \item[*] $\underset{\text{by def.}}{\iff}$ For every $\eps >0$, there exist
+    a finite subset $K_{\eps}$ of $J$ such that $|\la_j|<\eps$ for all $j\in
+    J\setminus K_{\eps}$.
+
+    \item[**] $\underset{\text{easy}}{\iff}$For $\eps >0$, the set $J_{\eps}\coloneqq \{ J \in J : |\la_j| \geq \eps\}$
+    is finite
+\end{itemize}
+\begin{proof}
+   Assume $*$ holds. For every nonempty $F \in \Psfin(J)$, we define $T_F \in \Ff(H)$
+by $T_{F}(x) = \sum_{j \in F}\la_j\ind{x,e_j}e_j$. Then $\{T_F\}$ converge to 
+$T$ in operator-norm that shows that $T$ is compact. Let $\eps>0$. For any $F \in \Psfin(J)$
+such that $K_{\eps} \subset F$ we have 
+\begin{align*}
+||(T-T_F)x||^2 &= ||\sum_{j\in J\setminus F}\la_j\ind{x,e_j}e_j||^2 
+= \sum_{j\in J\setminus F} |\la_j|^2 |\ind{x,e_j}|^2 \\
+&\leq \sum_{j\in J\setminus K_{\eps}} |\la_j|^2 |\ind{x,e_j}|^2 
+< \eps^2 \sum_{j \in J\setminus K_{\eps}}|\ind{x,e_j}|^2 \underset{\text{Bessel}}{\leq}\eps^2 ||x||^2
+\end{align*}
+Se we get that $||T-T_F|| < \eps$, showing that $T_F \to F$ in op. norm. 
+
+Conversly, assume that $(*)$ does not hold i.e. there exits $\eps>0$ such that 
+$J_{\eps}$ is infinite. Then we can pick $\{j_k\}_{k\in \N} \subseteq J_{\eps}$
+with $j_k \neq j_{k'}$ for $k\neq k'$. Since $\sum_{k=1}^{\infty}
+|\ind{x,e_{j_k}}|^2 \leq ||x||^2 <\infty$, we have that $\ind{x,e_{j_k}} \to 0$
+as $k\to \infty$ so $\{e_{j_k}\}_{k\in \N}$ converges to 0 weakly (we can flip the order). 
+Now $||Te_{j_k}|| = ||\la_{j_k}|| \geq \eps$ for all $k \in \N$ ($H_1$ is weak-compact).. Hence $\{Te_{j_k}\}$
+does not converge to $0 = T(0)$, so $T\lvert_{H_1}$ is not weak-norm continuous. 
+Using the previous, this shows that $T$ is not compact. (We will show later that 
+every compact normal operator is diagonalizable).
+\end{proof}
+\end{example}
+
+
+\begin{lemma}[4]
+    Let $T \in \Bs(H)$. Then $T \colon (H_1 ,\text{ weak top.}) \to (H, \text{ weak top.})$
+is continuous. Moreover $T(H_1)$ is normed closed.
+\end{lemma}
+\begin{proof}
+    Assume $\{\xi_{\al}\}$ is a net in $H$ converging weakly to $\xi \in H$.
+    Then
+    \begin{align*}
+        \ind{T(\xi_{\al}),\eta} &= \ind{\xi_{\al}, T^*\eta} \to
+        \ind{\xi,T^*\eta}= \ind{T\xi,\eta} ~~\text{ all } \eta\in H 
+    \end{align*}
+    Thus $T\xi_{\al} \to T\xi$ weakly, which shows the first assertion.
+
+    Using lemma 2 we can then get that $H_1$ is compact in the weak topology. 
+    In fact $T(H_1)$ is weakly closed. Hence $T(H_1)$ is normed closed.  
+\end{proof}
+
+
+\section{About non-unital $C^*$-algebras}
+Let $\As$ be a Banach $*$-algebra. If $\As$ is non-unital, as in before, we can 
+\textquote{adjoin a unit to $\As$} by setting $\tilde{A} = \As\times\C$ equipped 
+with the operations 
+\begin{align*}
+    (A,\la) + (B,\mu) &= (A+B, \la+\mu) \\
+    c(A,\la) &= (cA,c\la), ~~c \in \C \\
+    (A,\la)(B,\mu) &= (AB + \mu A + \la B, \la\mu) \\
+    (A,\la)^* &= (A^*, \bar{\la})
+\end{align*}
+and the norm $||(A,\la)|| = ||A|| + |\la|$.
+Then $\tilde{A}$ is a unital $*$-algebra with $I = (0,1)$ and 
+$A\mapsto (A,0)$ is a \ul{isometric} $*$-homomorphism form $\As$ into $\tilde{\As}$ 
+and write $\tilde{A} = (A + \la I, A \in \As, \la \in \C)$.
+
+Assume now that $\As$ is a non-unital $C^*$-algebra. Then we may form $\tilde{\As}$
+as above, but the problem is that the above norm does not satisfy the $C^*$-equality
+in general. Consider e.g. $\As = C_{0}(\R) = \{f \colon \R \to \C : f \text{
+cont. } \lim_{t\to\pm\infty}f(t) =0\}$ as a $C^*$-subalgebra of $C_b(\R)$ with
+$||\cdot||_{\infty}$.
+Then one can find $f \in \As$ such that $||(f,1)^*(f,1)|| \neq ||(f,1)||^2$ (Exercise!)
+Argue also that $\As$ in non-unital.
+
+\subsection{Adjoining a unit}
+
+
+To adjoin a unit to a non-unital $C^*$-algebra, we will first introduce the multiplier 
+algebra. Let $\As$ be a non-zero $C^*$-algebra. We can form the Banach algebra 
+$\Bs(\As)$ of bounded operators on $\As$ with the operator norm. However, in 
+general this norm does not satisfy the $C^*$-equality. We don't even have a 
+$*$-operation! 
+
+\begin{definition}
+    
+Let us write $\ind{A,B} = A^*B$ for $A,B \in \As$. Then let us
+say that an operator 
+$ T \colon \As \to \As$ is \emph{adjointable}
+if there exist an operator $S\colon \As \to \As$ such that $\ind{A,T(B)}= \ind{S(A), B}$
+for all $A,B \in \As$. That is $A^*T(B) = S(A)^*B$.
+\end{definition}
+
+
+\begin{note}
+    $S$ is then necessarily unique and $T$ is bounded.
+\end{note}
+\begin{proof}
+    Assume that $S'$ has the same property as $S$. Then $A^* T(B) = S'(A)^*B = S(A)^*B$
+for all $A,B \in \As$. That is $(S(A)-S'(A))^*= 0$ for all $A,B \in \As$. In particular 
+$(S(A) -S'(A))^*(S(A)-S'(A)) =0$ which implies that $||S(A)-S'(A)||^2 = 0$ i.e.
+$S(A)=S'(A)$ for all $A \in \As$, so $S = S'$.
+
+Moreover $T$ is bounded. 
+Assume that $B_n \to B$, $T(B_n) \to C$ in $\As$. Then 
+\begin{align*}
+A^*(T(B)-C) &=
+A^* (T(B)-T(B_n)) + A^*(T(B_n)-C) \\
+&= A^*(T(B-B_n)) + A^*(T(B_n)-C) \\ &= S(A)^*(B-B_n) + A^*(T(B_n)-C) \to 0
+\end{align*}
+Hence $A^*T(B) = A^*C $ for all $A \in \As$. Thus $T(B) = C$ (same trick as above).
+\end{proof}
+
+We call $S$ the adjoint of $T$ and denote it by $T^*$. We say that 
+\[M(\As) = \{\text{all adjointable operators on }\As\} \subseteq \Bs(\As)\].
+
+\begin{example}
+    Let $A \in \As$. Define the operator $L_A \colon \As\to\As$ by $L_A(B) = AB$
+for all $B \in \As$. Then $L_A$ is adjointable with $(L_{A})^* = L_{A^*}$. 
+Indeed, 
+\[L_{A^*}(B)^*C  = (A^*B)^*C = B^*AC = B^*L_{A}(C)\quad \text{for all } B, C \in \As.\]
+So we get a map $L\colon \As \to M(\As)$ sending $A \mapsto L_{A}$. 
+\end{example}
+
+\begin{proposition}
+    The map $A \overset{L}{\to} L_A$ is an isometric $*$-homomorphism from 
+$\As$ into $M(\As)$. Moreover $L(\As)$ is a closed ideal in $M(\As)$.
+\end{proposition}
+
+\begin{proof}
+    
+Have seen that $(L_A)^* = L_{A^*}$ so $L$ is $*$-preserving. It is easy to 
+check that $L$ is an homomorphism. \ul{$L$ is isometric}: Let $A \in \As$.
+We have $||L_A|| = \sup \{ ||AB|| : B \in \As_1  \} \leq ||A||||B|| \leq ||A||$.
+If $A \neq 0$, set $B = \tfrac{1}{||A||}A^* \in \As_1$. Then 
+\[
+||L_A(B)|| = ||\tfrac{1}{||A||}AA^*|| = \frac{1}{||A||} ||(A^*)^*A^*|| = \frac{1}{||A||}
+||A^*||^2 = ||A||
+\]
+which implies that $||L_A|| \geq ||A||$.
+
+To show that $L(\As)$ is an ideal in $M(\As)$: Let $T \in M(\As)$, $A \in \As$.
+\[ 
+(L_{A^*}T)(B) = A^*T(B) = T^*(A)^*B = L_{T^*(A)^*} (B) \quad \text{ for all }B \in \As
+\]
+\[\implies L_A T = L_{(A^*)^*} T = L_{T^*(A^*)^*} \in L(\As)   \]
+i.e. $L(\As)$ is a right ideal. Moreover $(TL_A)^* = L_{A^*}T^* = L_{(T(A))^*}$
+where the last equality follows by what we have just done. 
+Taking the adjoint gives
+\[ TL_A = (L_{T(A)^*})^* = L_{T(A)}  \in M(\As) \]
+so $L(\As)$ is a left ideal. $L(\As)$ is closed in $M(\As)$ because $L$ is isometric 
+(so $L(\As)$ is complete).
+\end{proof}
+
+Note that if $\As$ is unital with unit $I$, then $M(\As)= L(\As) \simeq \As$.
+Indeed, let $T \in M(\As)$ and let $A = (T^*(I))^* \in \As$. Then 
+\begin{align*}
+    L_{A}(B) = (T^*(I))^*B = I^* T(B)= T(B) \quad \text{ for all } B \in \As
+\end{align*}
+so $T \in L_{A} \in L(A)$.
+
+\subsection{Adjoining a unit to a non-unital $C^*$-algebra}
+Let $\As$ be a $C^*$-algebra and consider a $*$-algebra $\tilde{\As}$ as 
+defined previously. Define 
+\[ \tilde{L}\colon \tilde{\As} \to M(\As) \]
+by $\tilde{L}((A,\la)) = L_A + \la I_{\As}$ for $(A,\la) \in \As$.
+One readily checks that $\tilde{L}$ is a $*$-homomorphism.
+
+
+\begin{lemma}
+    Assume $\As$ is non-unital. Then $\tilde{L}$ is injective. (Does not hold for unital) 
+\end{lemma}
+\begin{proof}
+    Assume for contradiction that $\tilde{L}$ is not injective. So there exist 
+$(A,\la) \in \tilde{\As}\setminus \{0,0\}$ such that $\tilde{L}(A,\la) = 0_{\As} \in M(\As)$ (recall it is a linear map)
+i.e. $(L_A + \la I_{\As})(B) = AB + \la B = 0$ for all $B \in \As$.
+
+If $\la = 0$, we get $AB = 0$ for all $B \in \As$ which implies that $A =0$,
+which is a contradiction. Hence we must have $\la \neq 0$. 
+Then we get that $(-\tfrac{1}{\la}A)B = B$ for all $B \in \As$. $E = -\tfrac{1}{\la}A$
+is left unit in $\As$. Then $E^*$ is a right unit for $\As$.
+\begin{align*}
+    BE^* &= B  &&\forall B \in \As \\
+    (BE^*)^* &= B^*  &&\forall B \in \As \\
+    EB^* &= B^*  &&\forall B \in \As
+\end{align*}
+so we get $E = EE^* = E^*$ is a unit for $\As$, which is a contradiction. 
+\end{proof}
+
+Assume $\As$ is non-unital. Using the lemma we get a norm on $\tilde{\As}$ by
+\[
+||(A,\la)|| = \underbrace{||\tilde{L}(A,\la)||}_{\text{norm in }M(\As)}
+\]
+(injectivity is important, otherwise more than one non-zero element could map to zero)
+which satisfy the $C^*$-equality since $\tilde{L}$ is a $*$-homomorphism.
+
+Now observe that $\tilde{L}(\tilde{\As}) = L(A) + \C \cdot I_{\As}$ which is closed 
+(and therefore complete) in $M(\As)$. This relies on the following lemma.
+
+\begin{lemma}
+    Let $X$ be a normal space. Let $M,N$ be closed subspaces of $X$. Assume $N$ is finite 
+    dimensional. Then $M+N$ is a closed subspace of $X$.
+\end{lemma}
+\begin{proof}
+    Consider the quotient space $X/M$ with its quotient norm and let $q\colon X
+    \to X/M$ denote the quotient map. Then $q(N)$ is finite dimensional subspace of
+    $X/M$. Hence $q(M)$ is closed in $X/M$ c.f. MAT 4400. Thus $q^{-1} (q(N)) = M+N$
+     is closed in $X$, since $q$ is continuous.  $q(x) = x+M$. 
+\end{proof}
+This implies that the norm $||\cdot||$ on $\tilde{\As}$ is complete so we can 
+conclude $\tilde{\As}$ is a unital $C^*$-algebra with unit $I=(0,1)$.
+The map $A \mapsto (A,0)$ is a $*$-homomorphism of $\As$ into $\tilde{\As}$.
+which is isometric since $||(A,0)|| = ||\tilde{L}(A,0)|| = ||L_A||=||A||$.
+One easily sees that the range of this map is a closed ideal in $\tilde{\As}$,
+and we easily identify $\As$ with this ideal of $\tilde{\As}$. 
+
+\begin{proposition}
+    Let $\As$ be a $*$-algebra. Then there is at most one norm on $\As$ making
+it to a a $C^*$-algebra (if there exits one).
+\end{proposition}
+\begin{proof}
+    Assume there exits norms $||\cdot||_{j}$, $j =1,2$ on $\As$ 
+such that $(\As,||\cdot||_{j})$ is a $C^*$-algebra for $j=1,2$.
+We first consider the case where $\As$ is unital. Let $A \in \As$. For
+$j=1,2$, we have 
+\[
+||A||_{j}^{2} = ||\ub{A^*A}_{\text{self adj.}}
+||_{j} = r_{\As}(A^*A) \quad \leftarrow\text{does not depend on $j$}
+\]
+so $||A||_1 = ||A||_2$.
+
+Now assume $\As$ is non-unital. Then $\tilde{\As}$ is a unital $*$-algebra which
+becomes a $C^*$-algebra by using $||\cdot||_1$, or $||\cdot||_2$. From what we 
+have just done, the two norms on $\tilde{\As}$ must agree, so $||\cdot||_1$ and 
+$||\cdot||_2$ must also agree on $\As$.
+\end{proof}
+
+
+
+\begin{proposition}
+    Let $\phi \colon \As\to\Bs$ be $*$-homomorphism between $C^*$-algebra. 
+Then $||\phi(A)|| \leq ||A||$ for all $A \in \As$. In addition, 
+if $\phi$ is also injective, then $\phi$ is isometric.
+\end{proposition}
+\begin{proof}
+    1) Assume $\As$ is unital. Consider $\Bs' = \ol{\phi(\As)}^{||\cdot||} \subset \Bs$.
+    Then $\Bs'$ is a $C^*$-subalgebra of $\Bs$ which is unital with unit $\phi(I_{\As})$.
+    (Note: if $\phi(\As)  = \{0\}$ then the first assertion is trivial.) Considering 
+    $\phi$ as a $*$-homomorphism from $\As$ into $\Bs'$. We see that we may assume that 
+$\Bs$ is unital and $\phi(1_{\As}) = 1_{\Bs}$. 
+
+Let $A \in \As$. \ul{Then $\Sp_{\Bs}(\phi(A))\subseteq \Sp_{\As}(A)$}:
+Indeed, if $\la \not\in \Sp_{\As}(A)$, then $\la I_{\As} - A$ is invertible in 
+$\As$ with inverse $B$ and we set 
+\begin{align*}
+    (\la I_{\Bs} - \phi(A) )\phi(B) = \phi(\la I_{\As} - A)\phi(B) = I_{\Bs}
+\end{align*}
+and similarly on the left. This implies that $\la \not \in \Sp_{\Bs}(\phi(A))$. 
+From $\Sp_{\Bs}(\phi(A))\subseteq \Sp_{\As}(A)$ we set 
+$r_{\Bs} (\phi(A)) \leq r_{\As}(A)$ for all $A \in \As$. Hence for any $A \in \As$
+we set 
+\begin{align*}
+    ||\phi(A)||^2 &= ||\phi(A)^*\phi(A)|| \underset{*\text{-homo}}{=}
+    ||\phi(\underset{\text{self adj.}}{A^*A})|| = r_{\Bs}(\phi(A^*A)) \\
+    &\leq r_{\As}(A^*A) = ||A^*A|| = ||A||^2
+\end{align*}
+
+Next we precede to the injective case. To show that $\phi$ is isometric, it will 
+suffice to show that $\Sp_{\Bs}(\phi(A)) = \Sp_{\As}(A)$ for all $A \in \As$, with $A$ self adjoint.
+We will then have $r_{\Bs}(\phi(A)) = r_{\As}(A)$ for all $A \in \As$. Hence 
+\[||\phi(A)||^2 = ||\phi(A^*A)|| = r_{\Bs}(\phi(A^*A)) = r_{\As}(A^*A) 
+= ||A^*A|| = ||A||^2 \]
+
+Assume for contradiction that there exist a self adjoint $A \in \As$ such that 
+$\Sp_{\Bs}(\phi(A)) \neq \Sp_{\As}(A)$. We have seen that we always have 
+$\Sp_{\Bs}(\phi(A)) \subseteq \Sp_{\As}(A) \subset \R$. 
+We can find a function $f \colon \Sp_{\As}(A) \to \R$, $f$ continuous, $f \neq 0$
+with $f=0$ on $\Sp_{\Bs}(\phi(A))$ (i.e. $f(t) = \text{dist}(t, \Sp_{\Bs}(\phi(A))), t \in \Sp_{\As}(A)$).
+
+By Weierstrass theorem we can find a sequence of (real) polynomials $\{p_n\}$
+such that $p_n \to f$ uniformly on $\Om$. We then get $\phi(p_n(A)) = p_n(\phi(A))$. Furthermore 
+since $\lim_{n\to\infty} \phi(p_n(A)) = \phi(f(A))$ and $\lim_{n \to \infty}
+p_n(\phi(A)) = f(\phi(A))$ we get that \[\phi(f(A)) = f(\phi(A))\] by the
+continuous function calculus and the continuity of $\phi$.
+Hence we get $\phi(f(A)) = f(\phi(A)) = 0$, since $f = 0$ on $\Sp_{\Bs}(\phi(A))$. 
+Since $\phi$ is injective, we get $f(A) = 0$. Now, we know that the map $g \mapsto g(A)$
+is a $*$-isomorphism from $C(\Sp_{\As}(A))$ onto the $C^*$-algebra generated 
+by $A$ and $1_{\As}$. So this means that $f=0$ on $\Sp_{As}(A)$, which is a contradiction. 
+
+Next we consider the case where $\As$ is non-unital. 
+We can then form $\tilde{\As}$ and identify $\As$ with its canonical copy on $\tilde{\As}$.
+If $\Bs$ is non-unital, we can replace it by $\tilde{\Bs}$, so we can assume $\Bs$ is 
+unital. Let $I$ and $1_{\Bs}$, denote the unit of $\tilde{\As}$ and of $\Bs$ 
+respectively. Define $\tilde{\phi}\colon \tilde{\As} \to \Bs$ by 
+\[ \tilde{\phi}(A + \la I) = \phi(A) + \la 1_{\Bs} \]
+for $A + \la I \in \tilde{\As}$. It is elementary to check that 
+$\tilde{\phi}$ is a $*$-homomorphism between unital $C^*$-algebras, so using 
+the first part of the proof, we get that 
+\[ ||\tilde{\phi}(A) || \leq ||A|| \quad \text{for all } A \in \As.\]
+In fact we get 
+\[ ||\phi(A)|| = ||\tilde{\phi}(A)|| \leq||A|| \quad \text{for all }A \in \As. \]
+
+Finally assume $\phi$ is injective. Then $\tilde{\phi}$ is also injective:
+Assume $\tilde{\phi}(A + \la I) = 0$ i.e. $\phi(A) = - \la 1_{\Bs}$.
+If $\la \neq 0$, then we get $1_{\Bs} = \phi(-\tfrac{1}{\la}A)$, so $\phi(\As)$
+has a unit. Hence $\As$ has a unit, which is a contradiction (since $\phi$ is injective).
+
+So we must have $\la =0$. But then $\phi(A) = 0$, so $A = 0$. Thus $A+ \la I = 0$. 
+Using the first part again, we get that $\tilde{\phi}$ is isometric and it follows readily 
+that $\phi$ is isometric. 
+
+
+\end{proof}
+
+\section{The Gelfand transform of non-unital commutative $C^*$-algebra}
+
+Let $\As$ be a non-unital commutative $C^*$-algebra. Then 
+$\tilde{\As}$ is a unital commutative $C^*$-algebra, so we can form its 
+Gelfand transform $\tilde{\Gamma}\colon \tilde{\As} \to C (\tilde{\Om})$
+where $\tilde{\Om} = \widehat{(\tilde{\As})}$ is the character space of $\tilde{\As}$
+i.e.
+\[ \tilde{\Om} = \{ \psi \in \tilde{\As}^* : \psi\text{ is non-zero algebra homomorphism} \} \] 
+which is a compact Hausdorff space w.r.t the topology of pointwise convergence. 
+Define 
+\[ \Om = \{ \varphi \in \As^* : \varphi\text{ is non-zero algebra homomorphism} \} \] 
+Observe that every $\varphi \in \Om$ has a unique extension $\tilde{\varphi} \in \tilde{\Om}$
+given by $\tilde{\varphi}((A,\la)) = \varphi(A) + \la$ for $A \in \As$ and $\la \in \C$.
+Moreover we have 
+\[ \tilde{\Om} = \{\tilde{\varphi} : \varphi \in \Om\} \cupdot \{\tilde{0}\} \]
+where $\tilde{0} \in \tilde{\Om}$ is defined by $\tilde{0} (A,\la) = \la$ for all $A \in \As$,
+$\la \in \C$.
+We equip $\Om$ with the topology of pointwise convergence. We then get that 
+the map $\varphi \to \tilde{\varphi}$ is a homeomorphism from $\Om$ onto
+$\tilde{\Om}\setminus \{\tilde{0}\}$ (which is locally compact (Munkres)).
+So $\Om$ is locally compact Hausdorff: 
+
+Note that the restriction map $\Gamma = \tilde{\Gamma}\lvert_{\As} \colon \As \to
+C(\tilde{\Om})$ maps $\As$ bijectively onto the algebra 
+$\{ g \in C(\tilde{\Om}) : g(\tilde{0}) = 0 \}$.
+
+Indeed, if $g  = \Gamma(A)$ for $A \in \As$. Then 
+$g(\psi) = [\tilde{\Gamma}(A)](\psi) = \psi(A)$ for all $\psi \in \tilde{\Om}$,
+so $g(\tilde{0}) = \tilde{0}(A) = 0$. Conversely assume $g \in C (\tilde{\Om})$,
+$g(\tilde{0}) =0$. Write $g = \tilde{\Gamma}((A,\la))$ for $(A,\la) \in \tilde{\As}$,
+we then have $0=\tilde{0}(A) = [\tilde{\Gamma}(A,\la)](\tilde{0}) = \tilde{0}(A,
+\la) = \la$. Hence $g = \tilde{\Gamma}(A,0) = \Gamma(A)$. 
+
+Now we can identify $\{g \in C(\tilde{\Om}) : g(\tilde{0}) = 0\}$
+with $C_0(\Om)$ using the restriction map. So we can conclude $\Gamma\colon \As\to C_0(\Om)$
+is a $*$-isomorphism called the \emph{Gelfand transform of $\As$}.
+
+\subsection{About the continuous function calculus in non-unital $C^*$-algebras}
+$\As$ non-unital $C^*$-algebra, $I$ is the unit of $\tilde{\As}$. For
+$A \in \As$, we set 
+\[\Sp_{\As}(A) \coloneqq \Sp_{\tilde{\As}}(A) = \{ \la \in \C : \la I - A \in
+GL(\tilde{\As}) \} \]
+and $r_{\As}(A) = r_{\tilde{\As}}(A) = \sup\{ |\la| :\la \in \Sp_{\As}(A) \}$.
+Where there is no danger of confusion, we just write  $\Sp(A)$ and $r(A)$. 
+
+Note that we always have $0 \in \Sp(A)$ for otherwise we would have that 
+$A \in GL(\tilde{\As})$. But $(A,0)(B,\mu) = (AB +\mu A,0) \neq I$ for all
+$(B,\mu) \in \tilde{\As}$.
+
+
+
+
+Consider $A \in \As$ (non-unital $C^*$-algebra), with $A$ normal and let 
+$f \in C(\Sp(A))$. 
+Since $A$ is normal in $\tilde{\As}$ we can use the continuous function
+calculus in $\tilde{\As}$ and form $f(A) \in \tilde{\As}$. In general 
+$f(A) \not\in \As$, but if $f(0)=0$ (recall that $0 \in \Sp(A)$, since $\As$ is
+non-unital) then $f(A) \in \As$  (and $\Sp(f(A)) = f(\Sp(A))$).
+
+Indeed, we may then approximate $f$ uniformly on $\Sp(A)$ by sequences 
+$\{p_n\}$ of complex polynomials in $z$ and $\bar{z}$ satisfying $p_n(0) =0$
+for all $n \in \N$.
+Use Stone-Weierstrass and delete constant term (easy to show that we still have
+uniform convergence). We then get that $f(A) = \lim_{n\to\infty} p_n(A) \in
+\As$ (in norm).
+
+\section{(More on) Positivity in $C^*$-algebras}
+Let $\As$ be a (possibly non-unital) $C^*$-algebra.
+\begin{definition}
+    Let $A \in \As$. We say that $A$ is \emph{positive} in $\As$ and 
+    write $A \geq 0$, whenever $A^*=A$ and $\Sp(A) \subseteq [0,\infty)$.
+    We set 
+    \begin{align*}
+        \As^+ &\coloneqq \{ A \in \As : A \geq 0 \} \\
+        \Assa &\coloneqq \{ A \in \As : A = A^* \}
+    \end{align*}
+i.e. $\As^+ \subseteq \Assa$.
+\end{definition}
+
+As in the unital case, we can show 
+\begin{proposition}
+    The following conditions are equivalent for $A \in \As$.
+\begin{enumerate}[(1)]
+    \item $A \geq 0$. 
+    \item There exits $B \in \Assa$ such that $A = B^2$.
+    \item There exits $C \in \As^+$ such that $A = C^2$.
+\end{enumerate}
+Note: $C$ is then uniquely determined (as in the unital case) and we will
+write $C = A^{1/2}$.
+\end{proposition}
+\begin{proof}Assume $(1)$ holds.
+    Define $C = f(A)$, where $f \colon \Sp(A) \to[0,\infty]$ is given by 
+    $f(\la) = \sqrt{\la}$, $\la \in \Sp(A) \subseteq [0,\infty)$.
+    Then $C \in \Assa$ (here we use that $f(0)=0$) and 
+    $\Sp(C) = \Sp(f(A)) = f(\Sp(A)) \subseteq [0,\infty)$. 
+
+    $(2)\implies(3)$ is trivial.
+
+    If $(2)$ holds then $A \in \Assa$ and $\Sp(A) = \ub{\Sp(B}_{\R})^{2} \subseteq [0,\infty)$
+\end{proof}
+
+We set 
+\[
+I = \begin{cases} \text{the unit of $\As$ if $\As$ is unital} \\
+\text{the unit of $\tAs$ otherwise} 
+\end{cases}
+\]
+
+\begin{lemma}
+    Let $A \in \Assa$. The following conditions are equivalent.
+    \begin{enumerate}[(i)]
+        \item $A \geq 0$.
+        \item $||tI - A|| \leq t $ for all $t \geq ||A||$.
+        \item $||tI - A|| \leq t $ for some $t \geq ||A||$.
+        \item $||\, ||A||I - A|| \leq ||A||$.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[scale=0.6]
+        \draw[->] (0,0) -- (5,0) node[left, below]{$\la$};
+        \draw[->] (0,0) -- (0,5) node[left]{$y$};
+        \draw (3,0.1) --(3,-0.1) node[below]{$||A||$};
+        \draw (4,0.1) --(4,-0.1) node[below]{$t$};
+        \draw (0,4) -- (4,0); %node[midway,below]{$y=t-\la$};
+        \node at (3,2.5) (a) {$y=t-\la$};
+        \draw[dashed] (-1,5) -- (0,4);
+        \draw[dashed] (4,0) -- (5,-1);
+    \end{tikzpicture}
+    \caption{  } 
+    %\label{}
+\end{figure}    
+From the continuous function calculus (in $\tAs$) we get
+\[ ||tI-A|| = ||f(A)|| \underset{\text{isometric map}}{=} ||f||_{\infty} 
+    = \sup\{|t-\la| : \la \in \Sp(A) \} \leq t  \]
+$(ii) \implies (iv) \implies (iii)$ is obvious. 
+
+$(iii)\implies (i)$. Assume $(iii)$ holds.
+Then we know that 
+\[\Sp(A) \subset \R \cap \{ \la \in \C : |\la|\leq ||A|| \}
+\subseteq [-||A|| ,||A||] \subseteq [-t,t]
+\]
+As above we get that 
+$||tI - A || = \sup\{|t-\la|: \la \in \Sp(A)\}$.
+Using the assumption, we get that 
+$\sup\{|t-\la| : \la \in \Sp(A)\} \leq t$ and we see that all $\la \in \Sp(A)$
+have to be non-negative. 
+\end{proof}
+
+\begin{proposition}
+\begin{enumerate}[(1)]
+    \leavevmode
+    \item Let $A,B \in \As^+$, $\la \geq 0$. Then $A+B \in \As^+$ and 
+    $\la A \in \As^+$.
+
+    \item $\As^+ \cap (-\As^+) = \{0\}$. 
+
+    \item $\As^+$ is (norm) closed in $\As$ and therefore in $\Assa$.
+
+\end{enumerate}   
+\begin{proof}
+    $(1)$ Using the lemma, we get that 
+    $||\,||A|| I -A|| \leq ||A||$, $||\, ||B|| I - B || \leq ||B||$ (using the 
+triangle inequality). 
+    \[ ||\,\ub{(||A|| +||B||)}_{t} I + (A+B) || \leq ||A|| + ||B|| = t \]
+    since $||A+B|| \leq ||A|| + ||B|| = t$. We can use the lemma again to conclude that
+    $A+B \geq 0$. The proof that $\la A \in \As^+$ is elementary.
+
+    $(2)$ Assume that $A \in \As^+\cap (-\As^+)$. Then we have $\Sp(A)\subseteq[0,\infty)$ 
+and $\Sp(A)\subseteq (-\infty,0]$, so $\Sp(A) = \{0\}$. But $A$ is self adjoint, 
+so we get $||A|| = r(A) = 0$ i.e. $A = 0$.
+
+$(3)$ Assume $\{A_n\}_{n\in\N} \subseteq \As^+$, $A_n\to A \in \As$ in norm.
+Then $A \leftarrow A_n = A_{n}^{*} \to A^{*}$, since the $*$-operation is norm 
+continuous (in fact isometric), so $A = A^*$.
+Moreover 
+\begin{align*}
+    ||\,||A||I-A||&\leq ||\,(||A|| -||A_n||)I|| + ||\,||A_n|| I - A_n|| + 
+    ||A_n - A|| \\
+    &\leq ||A|| - ||A_n|| + \ub{||A_n ||}_{\text{using lem.}} + ||A_n - A|| \\
+    &\leq ||A_n - A|| + ||A_n|| + ||A_n-A|| \\
+    &\leq 2||A_n-A|| + ||A_n|| \to ||A||
+\end{align*}
+i.e. $||\,||A|| I - A || \leq ||A||$. Hence $A\geq 0$ using again the lemma
+\end{proof}
+\end{proposition}
+\begin{proposition}
+    Assume $A \in \Assa$. Then there exits elements $A^+, A^- \in \As^+$ such that 
+    $A = A^+ -A^-$ and $A^+A^- = 0$.
+\end{proposition}
+\begin{proof}
+    We define $\Id^{\pm} \colon \Sp(A) \to [0,\infty)$, by 
+    $\Id^{\pm}(\la) = \max\{\pm \la, 0\}$ for $\la \in \Sp(A)$.
+    Note that $\Id^{\pm} (0) = 0$, so we can set $A^{\pm} =\Id^{\pm}(A) \in \As$.
+    Then we can use that $\Id = \Id^{+} - \Id^{-}$ and $\Id^+ \Id^{-}=0$.
+\end{proof}
+
+\begin{definition}
+    For $A,B \in \Assa$, we define $A \leq B$ to mean that $B-A \geq 0$. It follows 
+    easily form the properties of $\As^+$, we have shown that $\leq$ is a
+    partial order on $\Assa$.
+\end{definition}
+\begin{example}
+    Assume $A \in \As^+$, $||A|| \leq 1$. Then $A^2 \leq A$. Indeed, we have that 
+    $\Sp(A) \subseteq [0,1]$. So the function $f\colon \Sp(A)\to \R$ 
+defined by $f(\la) = \la - \la^2$ is non-negative. Hence 
+$\Sp(A-A^2) = \Sp(f(A)) = f(\Sp(A)) \subseteq [0,\tfrac{1}{4}]$, since $A-A^2 \in \Assa$
+we get $A-A^2 \geq 0$.
+\end{example}
+
+\begin{lemma}
+    For $R \in \As$ and $R^*R \in -\As^+$. Then $R =0$.
+\end{lemma}
+\begin{proof}
+    The assumption says that $\Sp(-R^*R) \subseteq [ 0, \infty)$. Hence, using 
+    the exercise 9, we get that $\Sp(-RR^*)\cup\{0\} = \Sp(-R^*R)\cup \{0\}
+    \subseteq [0,\infty)$. It follows that $-RR^* \geq 0$.
+    Now write $R = S + iT$, $S,T \in \Assa$. Then 
+    \begin{align*}
+    R^*R+R+R^* &= (S-iT)(S+iT) + (S+iT)(S-iT) \\
+    &= S^2 -iTS + iST + T^2 + S^2 + iTS -iST + T^2\\
+    &= 2S^2 + 2T^2
+    \end{align*}    
+    Now $S^2$ and $T^2$ are positive, so 
+    \[R^* R = 2S^2 + 2T^2 + (-RR^*) \geq 0\]
+    Hence $R^*R \in \As^+ \cap (-\As^+) = \{0\}$ (cf. previous proposition).
+    So $||R||^2 = ||R^*R|| = 0$ i.e. $R=0$.
+
+\end{proof}
+
+\begin{theorem}
+    Let $A \in \As$. Then $A \geq 0$ if and only if $A = B^*B$
+for some $B \in \As$, so $\As^+ = \{ B^*B : B \in \As \}$.
+\end{theorem}
+\begin{proof}
+    If $A\geq 0$, then $A = A^{1/2}A^{1/2} = B^*B$, with $B = A^{1/2}$, with 
+$A^{1/2}$ is self adjoint. 
+
+Conversely, assume $A = B^*B$, $B \in \As$. Then $A \in \Assa$, moreover we have 
+seen in previous proposition that $A = A^+ -A^-$ where $A^{\pm}  = \Id^{\pm}(A)$,
+so $A^+A^- = 0$, $A^+,A^- \in \As$.
+
+Define $R = BA^-$. Then we have
+\begin{align*}
+    R^*R &= A^-B^*BA^- = A^-(A^+-A^-)A^- \\
+         &= A^- \ub{A^+A^-} - (A^-)^3 = - (A^-)^3
+\end{align*}
+since $\Sp((A^-)^3) = \Sp(A^-)^3 \subseteq [0,\infty)$, we have
+$(A^-)^3 \geq 0$. Hence $R^*R \in -\As^+$.
+The lemma gives that $R=0$, which in turn gives that $(A^-)^3 = 0$ 
+(here we use that $A^-$ is not self-adjoint and not nilpotent).  
+Thus we get $||A^-|| = r(A^-) = 0$ i.e. $A^{-} = 0$, so $A = A^{+} \in \As^+$
+as desired. 
+\end{proof}
+
+\begin{proposition}
+    A unital $C^*$-algebra, $A,B \in \As^+ \cap GL(\As)$. Then 
+$A \leq B \implies B^{-1} \leq A^{-1}$.
+\end{proposition}
+\begin{proof}
+    Assume $A \leq B$. The other assumption says that 
+    $\Sp(A) \subseteq (0,\infty)$ and $\Sp(B) \subseteq (0,\infty)$. 
+    We can form $A^{-1/2}$ and $B^{-1/2}$ in $\As$, by applying the 
+    function $t \mapsto t^{-1/2}$ defined on $\Sp(A)$ (resp. $\Sp(B)$).
+    Note that $A^{-1/2}, B^{-1/2} \in \As^+$.
+    Using ex 11, we get that $B^{-1/2}AB^{-1/2} \leq B^{-1/2}BB^{-1/2} = I$. 
+    Hence $(A^{1/2}B^{-1/2})^* A^{1/2}B^{-1/2} \leq I$. 
+    From ex 7b we get that $||A^{1/2}B^{-1/2} || \leq 1$. This gives that
+    $||(A^{1/2}B^{-1/2})^* || \leq 1$, hence $||B^{-1/2}B^{1/2}|| \leq 1$. 
+    By ex 7b we now get 
+    \begin{align*}
+        (B^{-1/2}A^{1/2})^* B^{-1/2}A^{1/2} &\leq I \\
+        A^{1/2}B^{-1/2} B^{-1/2}A^{1/2} &\leq I \\
+        A^{1/2}B^{-1} A^{1/2} &\leq I 
+    \end{align*}
+Using ex. 11 we get 
+\begin{align*}
+    A^{-1/2} (A^{1/2}B^{-1}A^{-1/2})A^{-1/2} &\leq A^{-1/2}IA^{-1/2} = A^{-1} \\
+    B^{-1} &\leq A^{-1}
+\end{align*}
+\end{proof}
+
+\section{Approximate units in non-unital $C^*$-algebras}
+\begin{definition}
+    An (increasing) approximative unit (or identity) in a non-unital 
+$C^*$-algebra $\As$ is a net $\{e_{\al}\}$ of self-adjoint elements in $\As$
+satisfying 
+\begin{enumerate}[(i)]
+    \item $e_{\al} \geq 0$, $||e_{\al}|| \leq 1$ for all $\al$.
+    \item $\al \preceq \beta$ implies $e_{\al} \leq e_{\beta}$.
+    \item $\lim_{\al} ||Ae_{\al} - A|| = \lim_{\al}||e_{\al}A - A|| = 0$
+    for all $A \in \As$.
+\end{enumerate}
+
+\begin{theorem}
+    Any non-unital $C^*$-algebra has an approximative unit. 
+\end{theorem}
+\begin{proof}
+    Let $\Is = \{\text{all finite non-empty subset of $\Assa$}\}$ ordered by 
+set inclusion. For each $n \in \N$, define $f_n \colon [0,\infty) \to [0,1)$
+by 
+\[f_n(t) = \frac{nt}{1+nt} \]
+Since $f_n$'s are continuous on $[0,\infty)$ and $f_n(0)= 0$ 
+for all $n \in \N$, we can apply (the restriction of $f_n$ on any 
+element $A\in \As^+$, by considering $f_n\lvert_{\Sp(A)}$) and 
+obtain an element in $\As^+$. We will denote this element by $f_n(A)$.
+For any $\al = \{A_1, \ldots, A_n\} \in \Is$  we define
+$e_{\al} = f_n(A_{1}^{2}, \ldots, A_{n}^{2})$. We now check that $(i)$, $(ii)$ and 
+ $(iii)$ holds. 
+\begin{enumerate}[(i)]
+    \item Let $\al$ be as above. Since $A_{1}^{2} + \cdots + A_{n}^{2} \geq 0$
+we get that $f_n(A_{1}^{2}+ \cdots + A_{n}^{2}) \geq 0$. 
+Moreover $\Sp(e_{\al}) = f_n (A_{1}^{2}+ \cdots + A_{n}^{2}) \subseteq [0,1]$,
+so $||e_{\al}|| \leq 1$.
+
+\item 
+Consider $\al \leq \beta$ in $\Is$. So let $\al$ be as above and assume 
+$\beta = \{A_1, \ldots, A_m\}$ where $n \leq m$. To show that 
+$e_{\al} \leq e_{\beta}$ it suffices to show that 
+$I-e_{\beta} \leq I -e_{\al}$ (in $\tAs$). Since 
+$1 - f_k(t) = \frac{1}{1+kt}$ for all $t \geq 0$ and all $k \in \N$
+it is the enough to show that 
+\[
+\(I + m(A_{1}^{2}+ \cdots + A_{m}^{2}) \)^{-1} \leq 
+\(  I + n (A_{1}^{2}+ \cdots + A_{n}^{2}) \)^{-1}
+\]
+But using the previous proposition this inequality will follow if we can 
+show that 
+\[
+I + n(A_{1}^{2}+ \cdots + A_{n}^{2}) \leq I + m(A_{1}^{2}+ \cdots + A_{n}^{2})
+\]
+This inequality follows immediately using that $\As^+$ is a cone.  
+
+\item 
+Assume $A^* = A \in \As$ and $n \in \N$.
+Consider $\al = \{A_1, \ldots, A_n\}$ where we choose $A_1 = A$.
+Let  $\beta = \{A_1, \ldots, A_m\}$, $m \geq n$. Then 
+$A^2 \leq A_{1}^{2} + \cdots + A_{n}^{2}$, so 
+exercise 11 gives 
+$(I - e_{\beta} )(A^2) (I -e_{\beta})\leq (I -e_{\beta})(A_{1}^{2} + \cdots +
+A_{n}^{2})(I -e_{\beta})$. Set now 
+$g_m(t) = (1-f_m(t))t (1-f_m(t)) = \frac{t}{(1+mt)^2}$.
+We have 
+\[ (I - e_{\beta} )(A^2) (I -e_{\beta})\leq 
+g_m(A_{1}^{2} + \cdots + A_{n}^{2})
+\]
+since $g_m(t) \leq \frac{1}{4m}$ for all $t \geq 0$ we get that
+\begin{align*}
+    (I - e_{\beta} )(A^2) (I -e_{\beta}) &\leq \frac{1}{4m} I \\
+    (A-e_{\beta}A)^* (A - e_{\beta}A) &\leq \frac{1}{4m} I
+\end{align*}
+Using exercise $7b$ we deduce that 
+$||2\sqrt{m} (A -e_{\beta}A)|| \leq 1$, so $||A-e_{\beta}A|| \leq
+\frac{1}{2\sqrt{m}} \leq \frac{1}{2\sqrt{n}}$.
+so given $\eps > 0$, we can choose $n$ such that $\tfrac{1}{2\sqrt{n}} \leq \epsilon$
+we then get $||A-e_{\beta}A||< \eps$ for all $\beta \succeq \al$ for $\al$ as 
+chosen before. So $||A-e_{\beta}A || \to 0$. Hence 
+$||A-Ae_{\beta}|| = ||(A - Ae_{\beta})^*|| = ||A-e_{\beta}A|| \to 0$.
+This shows $(iii)$ $A \in \Assa$. If $A \not\in \Assa$, we can write 
+$A = S + iT$ where $S,T \in \Assa$ and apply what we have done to $S$ and $T$.
+
+\end{enumerate}
+
+\end{proof}
+
+
+\begin{note}
+\begin{enumerate}[(1)]
+    \item If $\As$ is unital, then $e_{n}  =I$ for all $n \in \N$, satisfies 
+all conditions for an approximate unit in $\As$.
+
+\item For $\As = C_{0}(\R)$ or $\As = \Ks(H)$ one can describe 
+explicitly some natural approximate units (cf. Exercise for next week)
+
+\item If $\As$ is a separable, then one can pick an approximative unit in 
+$\As$ with countable index set. 
+($C^*$-algebras with this property is called $\sigma$-unital. For proof, see 
+Murphy)
+
+\end{enumerate}    
+
+\end{note}
+
+\end{definition}
+
+
+\section{Ideal and quotients}
+\begin{proposition}
+    Let $\Js$ be a norm closed ideal in a $C^*$-algebra $\As$ (nothing else than norm closed make sens). Then $\Js$ is self-adjoint ($B \in \Js \implies B^* \in \Js$). 
+Hence $\Js$ is a $C^*$-subalgebra. 
+\end{proposition}
+\begin{proof}
+    Let $\Js^* = \{B^* : B \in \Js\}$ and $\Ks = \Js\cap \Js^*$. Note that 
+    $\Ks$ is nonempty since $B^*B \in \Ks$,for all $B\in \Js$ (using that $\Js$ is an ideal),
+so $B^*B \in \Js$, but $B^*B$ is self adjoint so $B^*B \in \Js^*$.
+Moreover one easily verifies that $\Ks$ is a $C^*$-subalgebra of $\As$.
+So we may pick an approximative unit $\{e_{\al}\}$ for $\Ks$. Since 
+$\Ks \subseteq \Js$, we have $e_{\al} \in \Js$ for all $\al$. Let 
+$B \in \Js$. We then have 
+\begin{align*}
+    ||B-e_{\al}B||^2 &=
+    ||B(I-e_{\al})||^2 = ||(I-e_{\al}) B^*B (I - e_{\al})|| \\
+    &\leq \ub{||I-e_{\al}||}_{\leq 1} ||\ub{B^*B}_{\in \Ks}(I-e_{\al})|| \to 0
+\end{align*}
+where $I$ is the unit in the unitization if $\As$ is non-unital and we use that 
+$\Sp(I-e_{\al})\subseteq [0,1]$. So $Be_{\al} \to B$.
+Hence
+\begin{align*}
+||B^* - \ub{e_{\al}}_{\in \Js}B^* || = ||(B-e_{\al}B)^* ||   = ||B-Be_{\al}|| \to 0 
+\end{align*}
+so $B^* \in \Js$ (since $\Js$ is closed).
+\end{proof}
+
+
+Consider a closed ideal $\Js$ in a $C^*$-algebra $\As$. We know that $\As/\Js$
+is a Banach algebra w.r.t the quotient norm.
+\begin{align*}
+    ||A+\Js|| &= \inf\{ ||A-B|| : B\in \Js \} \\
+              &= \inf\{ ||A+B|| : B\in \Js \}
+\end{align*}
+Since $J$ is self-adjoint, we may define a $*$-operation on $\As/\Js$ by
+\[ (A + \Js)^* = A^* + \Js \quad \text{for all } A \in \As.\]
+This is well defined since 
+$A +\Js = A' + \Js$ i.e. $A-A' \in \Js$, then 
+$A^* - (A')^* \in \Js^* = \Js$, so $A^* + \Js = (A')^* + \Js$.
+Moreover it is trivial to check that this is a involution on 
+$\As/\Js$, so $\As/\Js$ is a $*$-algebra.
+
+\begin{theorem}
+    $\As /\Js$ is a $C^*$-algebra.
+\end{theorem}
+\begin{proof}
+    It only remains to show that the $C^*$-equality holds. As we have seen at
+another occasion, it suffices to show that 
+\begin{align*}
+    ||A+J||^2 \leq ||(A + \Js)^*(A+ \Js)||\quad \text{ for all } A \in \As.
+\end{align*}
+Let $\{e_{\al}\}$ be an approximative unit to $\Js$. Observe that for 
+$A \in \As$ then $||A + \Js|| = ||A-Ae_{\al}||$. 
+Indeed, let $\eps > 0$ and choose $B \in \Js$ such that 
+$||A+B|| \leq ||A+\Js|| + \eps$. Next choose $\al_0$ such that 
+$||B-Be_{\al_0}|| \leq \tfrac{\eps}{2}$ for all $\al \succeq \al_0$. 
+Then for any $\al \succeq \al_0$, we get
+\begin{align*}
+    ||A+\Js|| &\leq ||A-Ae_{\al}|| \leq ||(A+B)(I-e_{\al})|| + ||B(I-e_{\al})|| \\
+&\leq ||A+B|| + \tfrac{\eps}{2} \leq ||A+\Js|| + \tfrac{\eps}{2}+ \tfrac{\eps}{2}.
+\end{align*}
+It follows that the formula holds. Using it we get that for any $A \in \As$,
+we have
+\begin{align*}
+    ||A+\Js||^2 &= \lim_{\al} ||A-Ae_{\al}|| = \lim_{\al} ||(I-e_{\al})A^*A (I-e_{\al})||\\
+\end{align*}
+As
+\begin{align*}
+    ||(I-e_{\al})A^*A (I-e_{\al})|| \leq ||A^*A (I-e_{\al})|| = ||A^*A-A^*Ae_{\al}|| \to || A^*A + \Js|| 
+\end{align*}
+Hence 
+\begin{align*}
+||A + \Js||^2 \leq ||A^*A + \Js|| = ||(A + \Js)^*(A+\Js)||
+\end{align*}
+as desired. 
+\end{proof}
+
+
+\begin{corollary}
+    Let $\varphi \colon \As \to \Bs$ be a $*$-homomorphism between two 
+$C^*$-algebras. Then $\varphi(\As)$ is a $C^*$-subalgebra of $\Bs$, which 
+is $*$-isomorphic to $\As /\ker \varphi$. 
+\end{corollary}
+\begin{proof}
+    We have seen that $\varphi$ is a bounded i.e. continuous so $\ker\varphi$
+is a closed ideal of $\As$ and we may form $\As/\ker\varphi$.
+Now the map $\bar{\varphi}\colon \As/\ker\varphi \to \Bs$ given by
+$\bar{\varphi}(A + \ker\varphi) = \varphi(A)$ for $A \in \As$ is 
+well defined because $A-A' \in \ker\varphi$ implies 
+$\varphi(A) = \varphi(A')$.
+Moreover $\bar{\varphi}$ is injective (by construction) and 
+it is elementary to see that $\bar{\varphi}$ is a $*$-homomorphism. 
+Then we know that $\bar{\varphi}$ is isometric. This give that 
+$\varphi(\As) = \bar{\varphi} (\As/\ker\varphi)$ is complete, 
+and therefor closed. Since $\varphi(\As)$ is a $*$-subalgebra of $\Bs$ we
+get that it is a $C^*$-subalgebra of $\Bs$. 
+Finally $\bar{\varphi}\colon \As/\ker\varphi \to \varphi (A)$
+is a $*$-isomorphism.
+\end{proof}
+
+\begin{example}
+Let $\As, \Bs$ be two $C^*$-algebras. We can then form their
+\emph{direct sum} $\As \oplus \Bs = \As \times \Bs$ (as sets) and 
+define operations by 
+\begin{align*}
+    (A,B)+(A',B') &= (A+A',B+B') \\
+    (A,B)^* &= (A^*, B^*) \\
+    \la (A,B) &= (\la A, \la B) \\
+    (A,B)(A',B') &= (AA', BB') \\
+    ||(A,B)|| &= \max\{||A||, ||B||\}.
+\end{align*}    
+Then $A\oplus B$ is a $C^*$-algebra (check!).
+Define
+\begin{align*}
+    \pi_1 \colon \As\oplus \Bs \to \As && \pi_{1} (A,B) = A \\
+    \pi_2 \colon \As\oplus \Bs \to \As && \pi_{1} (A,B) = B \\
+\end{align*}
+Then $\pi_i$ are $*$-homomorphisms with 
+\begin{align*}
+    \ker \pi_1 = \{0\} \oplus \Bs \simeq \Bs    
+    \ker \pi_2 = \{0\} \oplus \As \simeq \As    
+\end{align*}
+so $\As \oplus\Bs /\ker \pi_1 \simeq \As$ and $\As \oplus\Bs /\ker \pi_2 \simeq
+\Bs$.
+
+\end{example}
+
+\begin{proposition}
+    Assume $\Js$ is a closed ideal in a $C^*$-algebra $\As$ and 
+$\Is$ is a closed ideal in $\Js$. Then $\Is$ is a closed ideal in $\As$.
+\end{proposition}
+\begin{proof}
+    Since $\Is^+$ spans $\Is$ it suffice to show that for give $A\in \As$ and 
+$B \in \Is^+$, we have $AB, BA \in \Is$. Let 
+$\{e_{\al}\}$ be an approximate unit for $\Js$. Then we have 
+$B^{1/2} \in \Is \subseteq \Js$, so $e_{\al}B^{1/2} \to B^{1/2}$.
+Then we can write $AB = AB^{1/2}B^{1/2} = 
+\lim_{\al} \ub{Ae_{\al}B^{1/2}}_{
+\Js} \ub{B^{1/2}}_{\in \Is} \in \Is $ since $\Is$ is a closed ideal in $\Js$.
+This implies that we also have $A^*B \in \Is$. Hence $BA = (A^*B)^* \in \Is^* = \Is$.
+
+
+\end{proof}
+
+\begin{corollary}
+    Let $H$ be a Hilbert space. Then $\Ks(H)$ is a simple $C^*$-algebra, meaning 
+that $\Ks(H)$ and $\{0\}$ are the only closed ideals in $\Ks(H)$.
+\end{corollary}
+\begin{proof}
+    Let $\Is$ be a non-zero ideal in $\Ks(H)$ (is a closed ideal in $\Bs(H)$). 
+    So $\Is$ is a closed ideal in $\Bs(H)$. But then we know that 
+    $\Fs(H) \subseteq \Is$. Hence $\Ks(H)  = \ol{\Fs(H)}^{||\cdot||} \subseteq
+    \Is \subseteq \Ks(H)$ i.e. $\Ks(H) = \Is$.
+\end{proof}
+
+\section{On positive linear functionals and states on $C^*$-algebras}
+We let $\As$ denote a $C^*$-algebra.
+\begin{definition}
+    A linear functional $\varphi\colon \As \to \C$ is called \emph{positive}
+when $\varphi(A)\geq 0$ for all $A \in \As^+$. In which case we write 
+$\varphi \geq 0$. In other words $\varphi(B^*B) \geq 0$ for all $B \in \As$.
+\end{definition}
+Note that if $\varphi,\psi$ are positive linear functionals on  $\As$ and 
+$\la \geq 0$, then $\varphi + \psi \geq 0$ and $\la\varphi \geq 0$ (cone).
+
+Note also that $\varphi \geq 0$ if and only if $\varphi(x)\leq \varphi(y)$
+for all $x,y \in \Assa$ such that $x \leq y$. 
+\begin{example}
+    $\Om$ compact Hausdorff space, $\mu$ finite Borel measure on $\Om$.
+Set $\As = C(\Om)$. Then 
+\[ \varphi_{\mu}(f) \coloneqq \int_{\Om} f \d \mu , \quad f \in \As\]
+gives a positive linear functional on $\As$, (and 
+Riesz representation theorem says that $\mu \mapsto \varphi_{\mu}$ is a 
+bijective correspondence).
+
+Note that 
+\[ |\varphi_{\mu}(f)| \leq \int_{\Om}|f|\d \mu \leq ||f|| \mu(\Om) \]
+for all $f \in \As$, and $\varphi_{\mu} (1_{\Om}) = \mu(\Om)$,
+so $\varphi_{\mu}$ is bounded with $||\varphi_{\mu}|| = \mu(\Om)$.
+\end{example}
+\begin{example}
+    $H$ Hilbert space, $\As = \Bs(H)$, $\xi \in H$.
+Let $\om_{\xi}\colon \As \to \C$ be defined by 
+$\om_{\xi}(A) = \ind{A\xi,\xi}$, $A \in \As$. Then 
+$\om_{\xi}(B^*B)= \ind{B^*B\xi,\xi} = \ind{B\xi,B\xi} = ||B\xi||^2 \geq 0$
+for all $B \in \As$, so $\om_{\xi}$ is a positive linear functional on $\As$.
+
+Note that $|\om_{\xi}(A)| \leq ||A\xi||\,||\xi|| \leq ||A||\,||\xi||^2$ 
+and $\om_{\xi}(I_{H}) = ||\xi||^2$, so $\om_{\xi}$ is bounded with $||\om_{\xi}|| = ||\xi||^2$.
+
+\end{example}
+
+\begin{example}
+    Assume $\varphi$ is multiplicative (not non-zero as for charters) linear 
+functional from $\As$ to $\C$. Then we have seen that $\varphi$ is self 
+adjoint, meaning that $\varphi(A^*) = \ol{\varphi(A)}$ (proof Gelfand-Neumark)
+in the case when $\As$ is unital, but by extending $\varphi$ to $\tAs$ when $\As$
+is non-unital, the argument goes through, so we get 
+\[\varphi(B^*B) = \varphi(B^*)\varphi(B) = |\varphi(B)|^2 \geq 0, \quad
+\text{for all }B\in \As.\]
+so $\varphi \geq 0$. Note that $\varphi$ is bounded with $||\varphi|| = 1$
+if $\varphi \neq 0$.
+[We have seen this when $\As$ is unital check this when $\As$ is non-unital.]
+\end{example}
+
+An important observation that will be used later is the following: 
+Let $\varphi$ be a positive linear functional on $\As$. Then we can define a 
+map $\ind{\cdot, \cdot}_{\varphi}\colon \As\times \As \to \C$ by
+$\ind{A,B}_{\varphi} = \varphi(B^*A)$ for $A, B \in \As$.  
+Then it is easy to check that $\ind{\cdot,\cdot}_{\varphi}$ gives
+a semi-inner product on $\As$ (like a inner product, except that we do not 
+require  $\ind{B,B}_{\varphi} = 0 \implies B = 0$).
+
+But the \emph{Cauchy-Swartz inequality} still holds i.e. we have
+$|\ind{A,B}_{\varphi}|^2\leq \ind{A,A}_{\varphi}\ind{B,B}_{\varphi}$ for all $A,B \in \As$.
+which says that 
+$|\varphi(B^*A)|^2 \leq \varphi(A^*A)\varphi(B^*B)$ for all $A,B\in \As$.
+
+\begin{proposition}
+    Let $\varphi$ be a positive linear functional on $\As$. Then $\varphi$
+is bounded. If $\As$ is unital, then $||\varphi|| = \varphi(I)$ where $I$
+is the unit of $\As$. If $\As$ is non-unital and $\{e_{\al}\}$ is an approximative 
+unit for $\As$, then $||\varphi|| = \lim_{\al} \varphi(e_{\al})$.
+\end{proposition}
+\begin{proof}
+\begin{enumerate}[(1)]
+    \item 
+    Assume $\As$ is unital (Most for fun). Let $A \in \As^+$. Then $A \leq ||A||I$
+so $\varphi(A)\leq \varphi(||A|| I) = ||A|| \varphi(I)$. Let $A \in \As$. 
+Then 
+\[|\varphi(A)|^2 = |\varphi(I^*A)|^2 \underset{\text{C.S}}{\leq} 
+\varphi(A^*A)\varphi(I^*I) \leq ||A^*A||\varphi(I)^2\]
+which gives that $|\varphi(A)|\leq \varphi(I)||A||$ for all $A \in \As$. 
+It follows that $\varphi$ is bounded with $||\varphi|| = \varphi(I)$.
+
+\item Assume $\As$ is non-unital. Let $(\As^+)_1 = \As_{1}^{+} = \{A \in \As^+: ||A||\leq 1\}$.
+Then we claim that 
+\[ M = \sup\{ \varphi(A) : A \in \As^{+}_{1} \}< \infty. \]
+Assume $M$ was not finite. Then we can pick a sequence $\{A_n\} \subseteq \As_{1}^{+}$
+such that $\varphi(A_n) \geq n$ for all $n \in \N$. Consider the series 
+\[ \sum_{n=1}^{\infty}\frac{1}{n^2} A_n \]
+which is absolutely convergent (Banach space), hence convergent in $\As$ to some $A \in \As$.
+Now 
+\[B_m = \sum_{n=1}^{m}\frac{1}{n^2}A_n \geq 0 \quad \text{for all }m \in \N\]
+so $A \in \As^+$, since $\As^+$ is closed. 
+
+moreover $A \geq B_m$ for all $m \in \N$, so we get 
+\[\varphi(A)\geq \varphi(B_m) = \sum_{n=1}^{m} \frac{1}{n^2}A_n \geq \sum_{n=1}^{m} 
+\frac{1}{n^2}n  = \ub{\sum_{n=1}^{m} \frac{1}{n}}_{\infty} \quad \text{for all }m\in \N  \]
+which implies that $\varphi(A)=\infty$ which is impossible. 
+
+Let $A \in \As_1$. Write $A = (B^+-B^-) + i (C^+-C^-)$ for $B^{\pm},C^{\pm}\in \As_{1}^{+}$.
+We then get 
+\[ |\varphi(A)| \leq \varphi(B^+) + \varphi(B^-) + \varphi(C^+) + \varphi(C^-)\leq 4M\]
+This shows that $\varphi$ is bounded. 
+
+Let $\{e_{\al}\}$ be an approximative unit for $\As$ and consider the net 
+$\{\varphi(e_{\al})\}$ it is an increasing net of non-negative real numbers, which 
+is bounded above by $||\varphi||$. (Since $\varphi$ is bounded) So $
+\delta \coloneqq \lim_{\al} \varphi(e_{\al})$ exist and $\delta \leq ||\varphi||$.
+For $A \in \As_1$, we have 
+\[|\varphi(\ub{e_{\al}}_{=e_{\al}^{*}}A)|^2\leq \varphi(\ub{A^*A}_{\in
+\As_1})\varphi(\ub{e_{\al}^*e_{\al}}_{e_{\al}^{2}}) \leq
+\varphi(e_{\al})||\varphi||\leq \delta ||\varphi||\]
+where we used that $0 \leq e_{\al}$, $||e_{\al}|| \leq 1$ i.e. $e_{\al}^{2}\leq e_{\al}$.
+We get 
+\[ |\varphi(A)|^2 = \lim_{\al}|\varphi(e_{\al}A)|^2 \leq \delta||\varphi|| \]
+This implies that $||\varphi||^2 \leq \delta ||\varphi||$ which  implies that
+$||\varphi||\leq \delta$. All together $\delta = ||\varphi||$ as desired. 
+\end{enumerate}
+\end{proof}
+
+
+\begin{proposition}\leavevmode
+\begin{enumerate}[(1)]
+    \item 
+    Let $\varphi \in \As^*$. If $\As$ is unital and $||\varphi|| = \varphi(I)$, 
+then $\varphi \geq 0$.
+\item More generally, assume $||\varphi|| = \lim_{\al}\varphi(e_{\al})$ for some
+approximative unit $\{e_{\al}\}$ for $\As$. Then $\varphi \geq 0$.
+
+\end{enumerate}
+
+\end{proposition}
+\begin{proof}
+\begin{enumerate}[(1)]
+    \item 
+    Assume $\As$ is unital. $||\varphi|| = \varphi(I)$. We can assume that
+$||\varphi||= 1$. (otherwise, we just look at $\psi =
+\frac{1}{||\varphi||}\varphi$, when $\varphi\neq 0$). Assume for contradiction
+that $\varphi$ is not positive, so there exits some $A\in \As^+$ such that
+$\varphi(A)\not\in [0,\infty)$. 
+Since $\Sp(A) \subseteq [0,\infty)$ we can choose some $\la \in \C$
+and $r> 0$ such that 
+\begin{align*}
+\varphi(A) &\not\in D(\la, r)\coloneqq \{ x \in \C: |\la -x|\leq r \} \\ 
+\Sp(A) &\subseteq D(\la,r)
+\end{align*}
+Then we have $\Sp(A -\la I) \subseteq D(0,r)$ so $||A-\la I||\leq r$ and 
+we also have 
+\[ |\varphi(A-\la I)|  = |\varphi(A) - \la \varphi(I)| = 
+|\varphi(A) - \la| > r\]
+But we also have
+\[ |\varphi(A-\la I)| \leq \ub{||\varphi||}_{=1} ||A-\la I ||\leq r \]
+so $\varphi \geq 0$.
+
+\item 
+Assume $||\varphi|| = \lim_{\al}\varphi(e_{\al})$ for some approxamative 
+unit $\{e_{\al}\}$ for $\As$. We can assume $||\varphi||=1$.
+As usual let 
+\[ \tAs = \begin{cases} \As &\text{if $\As$ is unital}\\ &\text{The unitization of $\As$ otherwise } \end{cases}\]
+and $I$ deontes the unit of $\tAs$.
+
+By the Hahn-Banach theorem, we can extend $\varphi$ to $\tilde{\varphi} \in 
+(\tAs)^*$ with $||\tilde{\varphi}|| = ||\varphi|| = 1$. 
+Let $z = \tvphi(I)$. Then $|z| \leq ||\tvphi||\, ||I||  = 1$. Moreover 
+$||2e_{\al} - I||\leq 1$ since $\Sp(e_{\al}) \subseteq [0,1]$ for all $\al$
+so 
+\[ |\tvphi(2e_{\al} - I)| \leq ||\tvphi|| \, ||2e_{\al} - I||\leq 1 \]  
+Next we have $|\tvphi(2e_{\al} - I)| = |2\vphi(e_{\al}) - z| \to |2-z|$. 
+Hence  $|2-z|\leq 1$.
+So we get that $z = 1$, i.e. $\tvphi(I) = 1$.
+So we have $||\tvphi|| = 1 = \vphi(I)$. By the first part we get that 
+$\tvphi \geq 0$, which implies that the restriction $\tvphi\lvert_{\As} = \vphi \geq 0$
+\end{enumerate}
+\end{proof}
+
+Note:
+The argument given in the proof of 2) shows that if $\varphi \geq 0$ on $\As$ 
+(non-unital) then $\varphi$ has a unique extension $\tvphi$ to $\tAs$ such that 
+$\tvphi\geq 0$ and $||\tvphi|| = ||\vphi||$, and $\tvphi$ is given by
+$\tvphi(A + \la I) = \vphi(A) + \la ||\vphi||$. 
+
+More generally we have:  
+
+\begin{theorem}[Hahn-Banach for positive linear functionals]
+   Assume $\As$ is a $C^*$-subalgebra of a $C^*$-algebra $\Bs$ and that 
+$\vphi$ is a positive linear functional on $\As$. Then $\varphi$ may be 
+extended to a positive linear functional $\vphi'$ on $\Bs$ such that 
+$||\vphi|| = ||\vphi'||$.
+\end{theorem}
+
+\begin{proof}
+    Again we may assume that $||\vphi||=1$. Set 
+\[ \widetilde{\Bs} = \begin{cases} \Bs &\text{if $\Bs$ is unital}\\ &\text{The unitization of $\Bs$ otherwise } \end{cases}\]
+and let $I$ denote the unit in $\tBs$.
+Since $\vphi$ is bounded on $\As$ be can extend using the Hahn-Banach theorem 
+$\As$ to a bounded linear functional $\tvphi$ on $\tBs$ such that $||\tvphi|| =
+||\vphi|| = 1$. Set $z = \tvphi(I)$ so $|z| \leq 1$. Let $\{e_{\al}\}$ be an 
+approxiamtive unite for $\As$. Since $\vphi \geq 0$, we know that $\lim_{\al} \vphi(e_{\al}) = ||\vphi|| = 1$. As in the previous proof, we set 
+\[\tvphi(2e_{\al} - I) \leq 1\]
+where $\tvphi(2e_{\al} - I) \to |2-z|\leq 1 $. Hence 
+$z = \tvphi(I) = 1$. So we have $||\tvphi|| = 1 = \tvphi(I)$. Part (1) of the previous proposition
+gives $\tvphi\geq 0$.
+Set $\vphi' = \tvphi\lvert_{\Bs}$. Then $\vphi'\geq 0$ and 
+$\vphi'\vert_{\As} = \tvphi\lvert_{\As}  = \phi$. Moreover 
+$1 \leq ||\vphi|| \leq ||\vphi'|| \leq ||\tvphi|| =1$.
+\end{proof}
+
+\begin{proposition}
+    Let $\phi, \psi$ be positive linear functionals on $\As$. Then 
+    \[ ||\vphi +\psi || = ||\vphi|| + ||\psi|| \]
+\end{proposition}
+\begin{proof}
+    Let $\{e_{\al}\}$ be an approximative uniti for $\As$. Then 
+    \begin{align*}
+        ||\vphi +\psi|| = \lim_{\al} (\vphi+\psi)e_{\al} = \lim_{\al}\vphi e_{\al}
+        + \lim_{\al} \psi e_{\al} = ||\vphi ||+||\psi||
+    \end{align*}    
+\end{proof}
+
+\begin{definition}
+    We set \[\Ks(\As) = \{ \vphi \in \As^* : \vphi\geq 0, ||\vphi||\leq 1 \}\]
+    and 
+    \[ \Ss(\As) = \{ \vphi \in \Ks(\As) : ||\phi||=1 \} \]
+    Elements of $\Ss(\As)$ are called \emph{states} and $\Ss(\As)$ are called the 
+    \emph{state} space of $\As$. 
+\end{definition}
+
+As we will see soon $\Ss(\As) \neq 0$ when $\As \neq \{0\}$.
+Note:  $\Ks(\As)$ and $\Ss(\As)$ are convex. This follows readily from the previous 
+proposition. We will come back to $\Ks(\As)$ and $\Ss(\As)$ later. 
+\begin{theorem}
+    Assume $\As \neq \{0\}$ and let $A \in \As\setminus\{0\}$ be \emph{normal}.
+    Then there exits $\vphi\in \Ss(\As)$ such that 
+    $|\vphi(A)| = ||A||$. 
+    Note that this implies that $||A|| = \sup\{ \vphi(A) : \vphi \in \Ss(\As)\}$.
+    More generally we get 
+    \[ ||B|| = \sup\{ |\vphi(B^*B)|^{1/2} : \vphi \in \Ss(\As)\}. \]
+
+\end{theorem}
+
+\begin{proof}
+    Set 
+\[\tAs = \begin{cases} \As &\text{if $\As$ is unital} \\&\text{the unitization if $\As$ is nonunital} \end{cases}\]
+$I$ unit of $\tAs$. Since $||A||=r(A)$ and $\Sp(A)$ is compact, we get that 
+there exits a $\la \in \Sp(A)$ such that $|\la| = ||A||$.
+Let $\Cs$ denote the $C^*$-subalgebra of $\tAs$ generated by 
+$A$ and $I$, which is commutative since $\As$ is normal. 
+By Gelfand theory we get that there exits $\gamma \in \widehat{\Cs}$
+such that $\gamma(\la) = \la$ (recall that $\Sp_{\Cs}(A) = \Sp_{\tAs}(A) = \Sp_{\As}(A)$).
+Let $\Bs$ be the $C^*$-subalgebra of $\Cs$ generated by $A$. Set $\psi=\gamma\lvert_{\Bs}$.
+Then $\psi$ is a multiplicative linear functional and 
+\[ |\psi(A)| = |\gamma(A)| = |\la| = ||A|| \neq 0, \] 
+so $\psi\neq0$.
+Hence $\psi\geq 0$, so $||\psi|| = \lim_{\al}\psi(e_{\al})$ for any approximative 
+unit $\{e_{\al}\}$ for $\Bs$. But $\ub{\psi(A)}_{\neq 0} \lim_{\al}\psi(e_{\al}) 
+= \lim_{\al}\psi(Ae_{\al}) = \psi(A)$, so lim $\psi(e_{\al})=1$.
+Hence $||\psi||=1$. Now $\Bs$ is $C^*$-subalgebra of $\As$. By Hahn-Banach theorem 
+for positive linear functional, we can extend $\psi$ to a positive linear functional 
+$\vphi$ on $\As$ with $||\vphi|| = ||\psi|| = 1$.
+So $\vphi \in \Ss(\As)$ and $|\vphi(A)| = |\psi(A)|=||A||$.
+\end{proof}
+Looking at the proof of this result, we see that we in fact proove that given 
+$\la \in \Sp(A)$, then there exits $\psi \in \Ss(\As)$ such that $\psi(A) = \la$.
+
+\begin{corollary}
+    Let $\As \neq \{0\}$ be a $C^*$-algebra. Then we have 
+\begin{enumerate}[(1)]
+    \item $A =0$ if and only if $\vphi(A)=0$ for all $\vphi \in \Ss(\As)$.
+    \item $A \in\Assa$ if and only if $\vphi(A)\in \R$ for all $\vphi \in \Ss(\As)$.
+    \item $A \geq 0$ if and only if $\vphi(A)\geq 0$ for all $\vphi \in \Ss(\As)$.
+\end{enumerate}
+\end{corollary}
+\begin{proof}
+
+\begin{enumerate}[(1)]
+    \item Assume $\vphi(A) =0$ for all $\vphi \in \Ss(\As)$, $A$ normal.
+If $A\neq 0$ we can use the previous proposition to produce some $\vphi \in \Ss(\As)$
+such that $|\vphi(A)| = ||A||$. Hence $A = 0$, a contradiction. 
+
+If $A$ is not normal, write $A = B + iC$ where $C,B\in \Assa$. We then have 
+$\ub{\vphi(B)}_{\in \R} + i\ub{\vphi(C)}_{\in \R} = 0$ for all $\vphi\in \Ss(\As)$,
+so $B = C = 0$ by the first part i.e. $A = 0$.
+
+\item We have seen that $(\implies)$ hold for any $\vphi\geq 0$ 
+(by writing $A = A^+-A^-$ for $A^{\pm} \in \As^+$).
+
+Conversly assume $\vphi(A) \in \R$ for all $\vphi \in \Ss(\As)$. 
+Then we have $\vphi(A^*-A) = \ol{\vphi(A)}-\vphi(A) = \vphi(A)-\vphi(A) = 0$
+for all $\vphi\in \Ss(\As)$. By $(1)$ we get $A^*-A=0$.
+
+\item $(\implies)$ follows by def of positiveness for linear functionals.
+For $(\impliedby)$  assume $\vphi(A)\geq 0$ for all $\vphi\in \Ss(\As)$. 
+$(2)$ gives that $A \in \Assa$. Moreover, let $\la \in \Sp(A)$. By the proof of the previous
+proposition we can find $\psi \in \Ss(\As)$ such that $\psi(A)= \la$.
+Hence $\psi(A)\geq 0$ using the assumption, so $\Sp(A)\subseteq [0,\infty)$.
+Hence $A\geq 0$.
+\end{enumerate}
+
+\end{proof}
+\begin{definition}
+    Let $\As$ be a $C^*$-algebra and let 
+     $\vphi \in \As^*$. Then we define 
+$\vphi^*\colon \As\to \C$ by $\vphi^*(A) = \ol{\vphi(A^*)}$, $A\in \As$.
+\end{definition}
+
+Then it is an easy exercise to check that 
+$\vphi^* \in \As^*$ such that $||\vphi|| = ||\vphi^*||$
+and $(\vphi^*)^* = \vphi$. Moreover for $\vphi,\psi \in \As^*$, $\la \in \C$ 
+we have $(\vphi+\psi)^* = \vphi^* +\psi^*$ and $(\la\vphi)^* = \ol{\la}\vphi^*$.
+Note that $\vphi \in \As^*$ is self-adjoint if and only if $\vphi = \vphi^*$.    
+    
+Moreover if $\psi \in \As^*$ we can write 
+\[\psi = \ub{\frac{\psi + \psi^*}{2}}_{\text{self-adj.}} + i\ub{\(\frac{1}{2i} (\psi -\psi^*)\)}_{\text{self-adj.}}\] 
+so any element of $\As^*$ is a linear combination of self-adjoint elements of
+$\As^*$.  Note also that $\vphi \in \As^*$ is self-adjoint if and only if
+$\vphi(\Assa) \subseteq\R$ (easy exercise). 
+
+Hence if $\vphi$ is self-adjoint the its restriction $\vphi'$ to $\Assa$ takes
+its value in $\R$. So $\vphi'$ is a linear functional on $\Assa$, considered 
+as a real vector space.
+
+Moreover $\vphi'$ is bounded with respect to the operator norm on $\Assa$ and
+$||\vphi'|| = ||\vphi||$. 
+\begin{proposition}
+   Let $\vphi \in \As^*$ be  self-adjoint, so $\vphi(\Assa) = \R$. 
+The restriction $\vphi'$ of $\vphi$ to $\Assa$ is then a linear functional on $\Assa$.
+(considered as a real vector space) and 
+$\vphi'$ is bounded with $||\vphi'|| = ||\vphi||$. 
+\end{proposition}
+\begin{proof}
+    We will first show that if $\vphi \in \As^*$, then  
+\[ ||\vphi|| = \sup \{ |\Re\vphi(A)|:A\in \As, ||A|| \leq 1 \}  \]
+Indeed, if $||A||\leq 1$, then 
+$|\Re \vphi (A)| \leq |\vphi(A)| \leq ||\vphi|| ||A|| \leq ||\vphi||$ so 
+$\sup \{ |\Re\vphi(A)|:A\in \As, ||A|| \leq 1 \} \leq ||\vphi|| $
+Let $A \in \As$, $||A||\leq 1$. Choose $\la \in \C$, $|\la|= 1$ such that 
+$\la\vphi(A) \subseteq \R$. Then $\vphi(\la A) = \la \vphi(A) \in \R$, 
+so $\vphi(\la A) = \Re \vphi(\la A)$.
+Moreover 
+\begin{align*}
+    &|\vphi(A)| \underset{\la=1}{=} |\la \vphi(A)| = |\Re( \la\vphi(A) )|
+    \underset{||\la A|| \leq ||A|| \leq 1}{\leq} \sup \{|\Re \vphi(B)| 
+    : B\in \As,||B||\leq 1\} \\
+%
+    &\implies ||\vphi|| \leq \sup \{|\Re \vphi(B)| : B\in \As,||B||\leq 1\}
+\end{align*}
+We can now prove the lemma. 
+If $A \in \Assa$, $||A||\leq 1$ then 
+\begin{align*}
+    |\vphi'(A)|\leq |\vphi(A)| \leq ||\vphi|| \quad \text{so } ||\vphi'||\leq||\vphi||.
+\end{align*}
+Consider now $A \in \As$, $||A||\leq 1$.
+Write $A = B + iC$, $B = (A+A^*)/2$, $C = (A-A^*)/(2i)$, then 
+$B,C \in \Assa$ and $||B||\leq ||A|| \leq 1$ and $||C||\leq||A||\leq 1$.
+Moreover 
+$\vphi(A) = \vphi(B) + i\vphi(C)$ since $\vphi$ is self-adjoint, so 
+$\Re(\vphi(A)) = \vphi(B)  =\vphi'(B)$, so 
+$|\Re \vphi(A)| = |\vphi'(B)| \leq ||\phi'||$
+since $||B||\leq 1$, $B \in \Assa$.
+Hence $\ub{\sup \{ |\Re \vphi(A)| : ||A||\leq 1, A\in \As\}}_{||\vphi||\text{
+by our first obs.}} \leq ||\vphi'||$.
+
+\end{proof}
+
+We now set 
+\[  (\As^*)_{\text{sa}} = \{ \vphi \in \As^* : \vphi^* = \vphi \}\]
+If $X$ is a real normed space, we wil denote its dual by $X^{\sharp}$.
+What we have hust seen is that we have a isometric linear map from 
+$(\As^*)_{\text{sa}}$ into $(\Assa)^{\sharp}$ sending $\vphi$ to its restriction
+$\vphi'$. It is easy to see that it is a bijection,
+the iverse map can be defined as follows: 
+
+If $\psi \in (\Assa)^{\sharp}$, then let $\tilde{\phi} \colon \As \to \C$ be 
+given by 
+\[ \tilde{\psi}(A) = \psi((A+A^*)/2) + i\psi((A-A^*)/(2i))  \]
+Then one checks that $\tilde{\psi} \in (\As^*)_{\text{sa}}$ and
+$\tilde{\psi}'=\psi$ on $\Assa$. Se we can identify 
+$(\As^*)_{\text{sa}}$ with $(\Assa)^{\sharp}$ using this map. 
+
+\section{The jordan decomposition theorem}
+Let $\vphi \in (\As^*)_{\sa}$. Then there exits $\vphi^+,\vphi^-$
+positive linear functionals on $\As$ such that 
+$\vphi = \vphi^+ - \vphi^-$ and 
+$||\vphi|| = ||\vphi^+|| + ||\vphi^-||$.
+It can be show that $\vphi^+$ and $\vphi^-$ are uniquely determined by these
+properties. 
+\begin{proof}
+
+    Set $\Om = \Ks(\As) = \{\vphi \in \As^* : \vphi\geq 0, ||\vphi||\leq 1\}$.
+    Note that $\Om$ is weak$^*$ closed subset of $(\As^*)_{1}$. Indeed, if 
+    $\{\vphi_{\al}\}$ is a net in $\Om$ converging with respect to
+    the weak$^*$ topology to some $\vphi \in (\As^*)_1$
+    for any $A \in \As^+$ we have $\vphi(A) = \lim_{\al} \underset{\geq
+    0}{\vphi_{\al}} (A)\geq 0$, since $\vphi_{\al}\geq 0$.
+    So $\vphi\geq 0$ i.e. $\vphi \in \Om$, since $(\As^*)_1$ is weak$^*$ compact
+    and Hausdorff we get that $\Om$ is weak$^*$ compact and Hausdorff. Now
+    define a map $\theta \colon \Assa \to C(\Om,\R)$ by 
+    \[ [\theta(A)](\vphi)\coloneqq \vphi(A) \quad \text{ for }A\in \Assa, \vphi\in \Om.\]
+    $\theta$ is clearly well defined and linear. Moreover it is positive i.e.
+    if $A\geq 0$, $[\theta(A)](\vphi) = \vphi(A)\geq 0$ for all $\vphi \in
+    \Om$, so $\theta (A)$ is positive in $C(\Om,\R)$. It is also \ul{isometric:}
+    
+    For $A \in \Assa$ we have 
+    \[ \sup\{ \ub{|[\theta(A)](\vphi)|}_{\vphi(A)} : \vphi \in \Om \} 
+    =\sup\{ \vphi(A) : \vphi \in \Om \} = ||A|| 
+    \] 
+    where we use the previous proposition. 
+    Let us now consider $\vphi \in (\As^+)_{\sa}$ and its restriction 
+    $\vphi'$ to $\Assa$.
+    
+    % Tikz-CD goes here
+    
+    Since $\theta(\Assa)$ is a subspace of $C(\Om,\R)$ and $\theta$ is injective,
+    we can define $\psi\colon \theta(\Assa) \to \R$ by 
+$\psi(\theta(A)) = \vphi'(A)$ for $A\in \Assa$. Then $\psi$ is linear and
+$|\psi(\theta(A))| = |\vphi'(A)| \leq ||\vphi'||\,\ub{||A||}_{=||\theta(A)||} $
+for all $A \in \Assa$.
+so $\psi$ is bounded with $||\psi|| \leq||\vphi'||$. On the other hand if $A
+\in \Assa$, then
+\[ |\vphi'(A)| = |\psi(\theta(A))| \leq ||\psi|| ||\theta(A)||\]
+so $||\vphi'||\leq ||\psi||$. Hence 
+$||\psi|| = ||\vphi'|| = ||\vphi||$. By Hahn-Banach theorem we can extend
+$\psi$ to $\rho \in C(\Om,\R)^{\sharp}$ with $||\rho || = ||\psi||$.
+Now by Riesz representation theorem, $\rho$ corresponds to a finite 
+signed regular measure on $\Om$ which decomposes as $\nu =\nu^+-\nu^-$,
+so we get that $\rho =\rho^+ - \rho^-$, where $\rho^{\pm}$ are positive linear functionals
+on $C(\Om,\R)$. 
+
+Now we can set $\vphi^{'\pm} = \rho^{\pm} \circ \theta \colon \ub{(\Assa)^{\sharp}}_{=(\As^{*})_{\sa}}\to \C$
+and let $\vphi^{\pm}$ be the corresponding elements in $(\As^*)_{\sa}$.
+Note that $\vphi^{\pm}\geq 0$, because 
+for $A\geq 0$ we have $\vphi^{\pm}(A) = \vphi^{'\pm}(A) =
+\rho^{\pm}(\ub{\theta(A)}_{\geq 0})\geq 0$. 
+Note also that since $\rho = \rho^+ - \rho^-$ we also get $\vphi = \vphi^+ -\vphi^-$
+and $\vphi' = \vphi^{'+} - \vphi^{'-}$. Finally we have 
+ \begin{align*}
+     ||\vphi|| &= ||\phi'|| = ||\psi|| = ||\rho||\underset{\text{jord. dec. thm.}}{=}
+    ||\rho^+|| + ||\rho^-|| \\ 
+    &\geq ||\vphi^{'+}|| +  ||\vphi^{'-}||
+ \geq ||\vphi^{+}|| +  ||\vphi^{-}||\geq ||\vphi||
+\end{align*}
+where we used that  $||\vphi|| = ||\vphi^+ + \vphi^-|| \leq ||\vphi^+|| + ||\vphi^-||$.
+So $||\vphi|| = ||\vphi^-|| +||\vphi^+||$.
+\end{proof}
+\begin{corollary}
+    Any $\varphi \in \As^*$ is a linear combination of positive linear functionals.
+\end{corollary}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+
