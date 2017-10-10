@@ -63,6 +63,7 @@
 \DeclareMathOperator{\Tr}{Tr}
 \DeclareMathOperator{\Sp}{sp}
 \def\vphi{\varphi}
+\def\top{\tilde{\oplus}}
 \newcommand{\wt}[1]{\widetilde{ #1 }}
 %%% Colours %%%
 \newcommand*{\BLUE}[1]{{\color{blue}#1}}
@@ -693,6 +694,111 @@ t & 0 &\ldots & 0 \\
 and $t \geq 0$ since $S \geq 0$, so $\vphi = \vphi_s = t\Tr$.
 Note that $||\vphi|| = t \Tr(I) = t n$, so $\vphi$ is a state when 
 $t=1/n$. Hence the only tracial state on $\As$ is $\tfrac{1}{n}\Tr$ (normalized trace).
+
+
+\section*{Ex 18}
+Let $\As$ is a $C^*$-algebra, $\vphi \in \As^*$. Define $\vphi^*(A) = \ol{\vphi(A^*)}$
+for all $A \in \As$. 
+\subsection*{a)}
+$\vphi^*$ is clearly linear. Moreover,
+$|\vphi^*(A)| = |\vphi(A^*)| \leq ||\vphi||\,||A^*|| =||\vphi||\,||A||$
+for all $A \in \As$.
+Thus $\vphi^*$ is bounded, so $\vphi^* \in \As^*$ with $||\vphi^*||\leq||\vphi||$.
+Now $(\vphi^*)^* (A) = \ol{\vphi^*(A^*)} = \vphi((A^*)^*) = \vphi(A)$ for all
+$A \in \As$, so $(\vphi^*)^* = \vphi$ (involution). 
+This gives $||\vphi||=||(\vphi^*)^*|| \leq ||\vphi^*||$. All together we
+get $||\vphi^*|| = ||\vphi||$.
+\subsection*{b)}
+Strait forward, use the definition. 
+
+\section*{Ex 20}
+Let $\{H_j\}_{j \in J}$ be a family of Hilbert spaces. Set
+\[  H = \{ \{\xi_j\} \in \prod_{j\in J} H_j : \sum_{j\in J} ||\xi_j||^2 < \infty  \} \]
+\subsection*{a)}
+Let $\xi = \{\xi_j\}, \eta= \{\eta_j \} \in H$. Then $\sum_{j\in J}
+\ind{\xi_j,\eta_j}$ is convergent. Enough to show absolute convergence. 
+We have 
+\begin{align*}
+    \sum_{j\in J} |\ind{\xi_j,\eta_j}| \underset{\text{C.S. for each }j}{\leq}
+     \sum_{j\in J} ||\xi_j||\eta_j||
+    \underset{\text{Holder}}{\leq} \( \sum_{j\in J} ||\xi_j||^2 \)^{1/2}
+\( \sum_{j\in J} ||\eta_j||^2 \)^{1/2}
+\end{align*}
+where we used the holder inequality in $\ell^2(J)$ using that 
+$\sum_{j\in J} ||\xi_j||^2, \sum_{j\in J} ||\eta_j||^2< \infty$.  
+
+\subsection*{b)}
+It is now easy to check that $(H, \ind{\cdot,\cdot})$, becomes a Hilbert space 
+which we denote $\oplus_{j\in J} H_j$ and call the direct sum of the family
+$\{H_j\}$.
+
+\subsection*{c)}
+For each $j\in J$, let $T_j \in \Bs(H_j)$. 
+Assume that $M\coloneqq\sup_{j\in J} ||T_j|| < \infty$.
+For $\xi  =\{\xi_j\} \in H$,
+define $T\xi = \{T_j\xi_j\}_{j\in J} \in \prod_{j\in J} H_j$.
+Then $T\xi \in H$, since 
+$\sum_{j\in J}||T_j \xi_j||^2 \leq \sum_{j\in J} ||T_j||^2 ||\xi_j||^2 \leq M^2
+\sum_{j\in J}  ||\xi_j||^2$, so we get a map 
+$T \colon H \to H$ given by $\xi \mapsto T\xi$ which is as usual linear. 
+Moreover, we have 
+ \begin{align*}
+     ||T\xi||^2  = \sum_{j\in J} ||T\xi_j||^2 \leq M^2 ||\xi||^2
+ \end{align*}
+so $T$ is bounded with $||T||\leq M$.
+Consider $\xi_k \in H_k$, $||\xi_k||\leq 1$ for some $k \in J$.
+Define $\tilde{\xi} = \{\tilde{\xi}_j\}$ where 
+$\tilde{\xi}_j = \xi_k$ where $j=k$ and $\tilde{\xi}_j = 0$
+otherwise.
+Then $||\tilde{\xi}|| = ||\xi_k|| \leq 1$ and 
+$T\tilde{\xi} = \{\eta_j\}$, where 
+\[\eta_j = \begin{cases} T_k\xi_k & j=k \\ 0 &\text{otherwise} \end{cases}\]
+so $||T(\tilde{\xi}) || \leq ||T_k\xi_k|| \leq ||T|| \,||\tilde{\xi}|| \leq ||T||$.
+so we get $||T_k||\leq ||T||$.
+Taking the sup of all $k$'s in $J$ we get $M\leq ||T||$. Hence $\sup_{j\in
+J}||T_j|| = ||T||$.
+
+\subsection*{d)}
+We will define $T$ by $\tilde{\oplus}_{j\in J}T_j$. 
+so
+\[ \(\top_{j\in J} T_j\) \( \{\xi_j\}_{j\in J}\) = \{T_j\xi_j\}_{j\in J}\]
+Assume that each $\As_j$ is a $C^*$-subalgebra of $\Bs(H_j)$ and form
+$\As \coloneqq \oplus_{j\in J}\As_j$.
+Define $\pi\colon \As\to\Bs(H)$ by
+\[ \pi (\{T_j\}) = \top_{j\in J} T_j,\quad\text{ for each } \{T_j\} \in \As\]
+Then $\pi$ is an \ul{isometric $*$-homomorphism}.
+Let us show that $\pi$ is $*$-preserving, that is 
+$\pi(\{T_j\}^*) = \pi(\{T_j\})^*$. Notice that 
+$\pi(\{T_j\}^*) = \pi(\{T_j^*\}) = \top_{j\in J} T_{j}^{*}$ and that 
+$\pi(\{T_j\})^* = (\top_{j\in J}T_j)^*$. Let 
+$\xi = \{\xi_j\}, \eta= \{\eta_j \} \in \As$. Then 
+\begin{align*}
+    \ind{\top_{j\in J} T_{j}^{*}\xi,\eta} 
+    &= \ind{\{T_{j}^{*}\xi_j\},\{\eta_j\}}  
+    = \sum_{j\in J} \ind{T_{j}^{*}\xi_j,\eta_j} \\
+    &= \sum_{j\in J} \ind{\xi_j,T_{j}\eta_j} 
+    = \ind{\{\xi_j\},\{ T_j\eta_j\}} = \ind{\xi,(\top_{j\in J}T_j)\eta}
+\end{align*}
+Thus $(\top_{j\in J}T_j)^* = \top_{j\in J}T_j$ as desired. 
+Note that $\pi$ is isometric since 
+$||\pi((\{T_j\})|| = ||\top_{j\in J} T_j|| \underset{\text{part c}}{=} \sup_{j\in J} 
+||T_j|| = ||\{T_j\}||$.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
