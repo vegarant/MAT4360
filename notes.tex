@@ -62,9 +62,12 @@
 \def\sa{\text{sa}}
 \def\tvphi{\tilde{\varphi}}
 
+\DeclareMathOperator{\Rep}{Rep}
 \DeclareMathOperator{\Id}{Id}
 \DeclareMathOperator{\Sp}{sp}
+\DeclareMathOperator{\Tr}{Tr}
 \def\vphi{\varphi}
+\def\top{\tilde{\oplus}}
 %%% Colours %%%
 \newcommand*{\BLUE}[1]{{\color{blue}#1}}
 \newcommand*{\RED}[1]{{\color{red}#1}}
@@ -1600,23 +1603,227 @@ So $||\vphi|| = ||\vphi^-|| +||\vphi^+||$.
     Any $\varphi \in \As^*$ is a linear combination of positive linear functionals.
 \end{corollary}
 
+\section*{Representation of $C^*$-algebra}
+\begin{definition}
+    Let $H$ be a Hilbert space and let $\As$ be a $C^*$-algebra. 
+    A $*$-homomorphism $\pi \colon \As \to \Bs(H)$ is called a representation 
+    of $\As$ on $H$ and we sometimes write $\pi \in \Rep(\As,H)$.
+    $\pi$ is called \emph{faithful} when it is injective.
+\end{definition}
 
+\begin{example}\leavevmode
+    \begin{enumerate}[(1)]
+        \item If $\As$ is a $C^*$-subalgebra of $\Bs(H)$. Then $\pi = \Id$ i.e.
+        ($\pi(A) = A$ for all $A \in \As$) is the \emph{identity
+    representation} of $\As$ on $\Bs(H)$.
 
+    \item $\As = C(\Om)$, where $\Om$ is a compact Hausdorff space. Let 
+    $\mu$ be a $\sigma$-finite regular boreal measure on $\Om$.
+    Then $\pi\colon \As \to \Bs(L^2(\Om,\mu))$ given by 
+    \[ [\pi(f)](g) = fg \quad \text{for all } f \in \As, g \in L^2(\Om,\mu)\]
+    is a representation of $\As$ on $L^2(\Om,\mu)$ which is faithful (exercise).
+    
+\item $\As = M_n(\C)$, $n\in \N$. $\As$ is naturally represented on $\C^n$ by
+    $[\pi(A)](\xi) = A\xi$ for $A\in \As$, $\xi\in \C^n$.
+$\As$ has another \textquote{natural} representation: Namely, we can make 
+$\As$ into a Hilbert space by setting $\ind{A,B} = \Tr(B^*A)$ for $A,B \in \As$,
+and define $\pi_{\Tr}\colon \As \to \Bs(\As)$, where $\As$ in $\Bs(\As)$ is
+considered as a Hilbert space, by 
+\[ [\pi_{\Tr}(A)](B)= AB, \quad\text{ for } A,B\in \As \] 
+Then $\pi_{\Tr}$ is a representation of $\As$ (on $\As$). 
+Trivial to check that $\pi_{\Tr}$ is a algebra homomorphism. Moreover,
+$\pi_{\Tr}(A^*) = \pi_{\Tr}(A)^*$ for all $A \in \As$. 
+Indeed, consider $B,C \in \As$. Then 
+\begin{align*}
+   \ind{[\pi_{\Tr}(A^*)](B),C} =\ind{A^*B,C} = \Tr(C^*A^*B)  
+\end{align*}
+while 
+\begin{align*}
+    \ind{B,\pi_{\Tr}(A)C} = \ind{B,AC} = \Tr((AC)^*,B) = \Tr(C^*A^*B).
+\end{align*}
+The assertion above follows. So $\pi_{\Tr}$ is a $*$-homomorphism, hence a 
+representation.
+Note that $\pi_{\Tr}$ is faithful. Indeed,  if $\pi_{\Tr}(A) = 0$, then $A = 
+[\pi_{\Tr}(A)](I)=0$.   
 
+\item Let $\As$ be a $C^*$-algebra, $H$ any Hilbert space. We can always consider 
+the \emph{zero}-representation of $\As$ on $H$, which is given by
+\[ 0_{H}^{\As} (A) = 0_{H}, \quad \text{ for all } A \in \As\]
+where $0_H$ is the zero operator on $H$. 
 
+\item Let $\{\As_j\}$ be a family of $C^*$-algebras. Set $\As = \oplus_{j\in
+J}\As_j$.  Assume $\pi_j \in \Rep(\As_j,H_j)$ for each $j\in J$. We have seen
+in exercise 20 that we can form the map $\pi\colon \As \to \Bs(\oplus_{j\in
+J}H_j)$ given by $\pi(\{A_j\}) = \top_{j\in J} \pi_j (A_j)$ for each $\{A_j\}
+\in \As$. That is 
+\[ [\pi(A)](\{\xi_j\}) = \{ [\pi_j(A)](\xi_j) \},\quad \text{for all } \{\xi_j\}\in \oplus_{j\in J}H_j \]
+  It is easy to check that $\pi \in \Rep(\As, \oplus_{j\in J}H_j)$
+which is faithful if each $\pi_j$ is faithful. $\pi$ is usually called the 
+\emph{direct sum} of the $\pi_j$'s and denoted by $\oplus_{j\in J}\pi_j$. 
 
+    \end{enumerate}
+\end{example}
 
+We will be interested in representation of $C^*$-algebras up to \textquote{unitary 
+equivalence}. 
 
+\begin{definition}
+    Let $T \in \Bs(H,H')$ be a bounded linear map between two Hilbert spaces
+$H$ and $H'$. Then $T$ has an \emph{adjoint} $T^* \in \Bs(H',H)$ which satisfies
+\[ \ind{T\xi,\eta} = \ind{\xi, T^*\eta} \quad \text{for all } \xi \in H \text{ and }\eta \in H'\]
+\end{definition}
+\begin{proposition}
+The map $T\mapsto T^*$ from $\Bs(H,H')$ into $\Bs(H',H)$ is conjugate linear,
+isometric, bijective and satisfies $(T^*)^* = T$ for all $T \in \Bs(H,H')$.
+\end{proposition}
+\begin{proof}
+The proof is essentially as when $H' = H$. Indeed, for $\eta\in H'$, consider
+the map $\xi \overset{\vphi_{\eta}}{\longrightarrow} \ind{T\xi,\eta}_{H'}$ from
+$H$ into $\C$. Then $\vphi_{\eta} \in H^*$ since $|\vphi_{\eta}(\xi)| \le
+||T||\, ||\xi||\,||\eta||$. By Riesz representation theorem there exist some
+vector in $H$, say $T^*\eta$ such that $\vphi_{\eta}(\xi) =
+\ind{\xi,T^*\eta}_{H}$ for all $\xi \in H$.  So we can define $T^*\colon H'\to
+H $ by $\eta \mapsto T^*\eta$. The rest is as in the usual case
+\end{proof}
 
+\begin{definition} Let $H$ and $H'$ be Hilbert spaces.
+    $U \in \Bs(H,H')$ is called a \emph{unitary} (operator) when
+     \begin{align*}
+         U^*U &= I_{H} \\
+         UU^* &= I_{H'}
+     \end{align*}
+\end{definition}
+This is equivalent to requiring that $U$ is an isometric, surjective linear map 
+from $H$ into $H'$ (exercise). 
 
+Note: Unitaries are also called Hilbert space isomorphism.  
 
+\begin{definition}
+    Let $\pi \in \Rep(\As,H)$, $\pi \in \Rep(\As,H')$.
+Then we say $\pi$ is \emph{unitary equivalent} to $\pi'$  and write $\pi\sim\pi'$
+when there exist unitary $U \in \Bs(H,H')$ such that 
+\[ \pi'(A) = U\pi(A)U^*, \quad\text{for all }A \in \As \] 
+\end{definition}
 
+\begin{definition}
+    Let $K$ be a subspace of a Hilbert space $H$. Let $T \in \Bs(H)$. Then we 
+say that $K$ is \emph{invariant under} $T$, when $T(K)\subseteq K$.
+\end{definition}
 
+\begin{definition}
+    Let $\Ss\subseteq \Bs(H)$. $K$ closed subspace of $H$. We can say that 
+$K$ is $\Ss$-invariant if $K$ is invariant under $T$ for all $T \in \Ss$.
+\end{definition}
 
+Assume from now on that $K$ is closed.
+\begin{observation}
+\leavevmode
+\begin{enumerate}[(1)]
+    \item 
+$K$ is invariant under $T$ if and only if $K^{\perp}$ is invariant under $T^*$.
+\medskip
 
+Assume the LHS holds. Let $\eta\in K^{\perp}$. Then for all $\xi \in K$ we have 
+$\ind{\xi,T^*\eta}=\ind{T\xi,\eta} = 0$ so $T^*\eta \in K^{\perp}$. Hence the 
+RHS holds. To see that the converse holds we now apply the first part with 
+$K^{\perp}$ instead of $K$ and $T^*$ instead of $T$.
 
+\item $K$ is invariant under $T$ and under $T^*$ if and only if $K$ and
+$K^{\perp}$ are invariant under $T$.
 
+\item
+Let $P_{K}$ denote the orthonormal projection from $H$ onto $K$. Then
+$K$ is invariant under $T$ and $T^*$ if and only if $P_K$ commutes with $T$, i.e.
+$P_KT=TP_K$.
+\medskip
 
+Assume $K$ and $K^{\perp}$ are invariant under $T$. Let $\xi \in H$ so 
+$\xi = \ub{P_K\xi}_{\xi_{K}} + \ub{(I-P_{K})\xi}_{\xi_{K^{\perp}}}$. 
+This gives 
+\[
+(P_KT)\xi = P_K (\ub{T\xi_{K}}_{\in K} + \ub{T\xi_{K^{\perp}}}_{\in K^{\perp}})
+= P_KT\xi_{K}= P_KTP_K\xi
+\]
+while 
+$(TP_K)\xi = \ub{TP_K \xi}_{\in K} = P_KTP_K\xi$. 
+Assume $P_KT = TP_K$. Let $\eta \in K$, $\eta^{\perp}\in K^{\perp}$. 
+Then $T\eta = TP_K \eta = P_KT\eta \in K$. and 
+$T\eta^{\perp} = T(I-P_K)\eta = \ub{(I-P_K)}_{P_{K^\perp}} T\eta^{\perp} \in K^{\perp}$
+so $K$ and $K^{\perp}$ are invariant under $T$.
+
+\item
+Assume $\Ss$ is a $*$-subalgebra of $\Bs(H)$ and $K$ is a closed subspace
+of $H$ . Then 
+\begin{align*}
+K \text{ is } \Ss\text{-invariant} \iff& \text{$K^{\perp}$ is $\Ss$-invariant} \\
+\iff& \text{$P_K$ commutes with $\Ss$} \\
+  &\text{i.e. $P_K$ commutes with $T$ for every $T \in \Ss$.}
+\end{align*}
+The first $\iff$ follows from obs 1. The second follows from obs 3.
+
+\end{enumerate}
+
+\end{observation}
+
+\begin{definition}
+    Let $\pi\in \Rep(\As,H)$, $K$ closed subspace of $H$. Then we say that $K$
+is \emph{$\pi$-invariant} when $K$ is $\pi(\As)$-invariant.
+\end{definition}
+Using observation 4 we get that $K$ is $\pi$-invariant $\iff$ $K^{\perp}$
+is $\pi$-invariant $\iff$ $P_K$ commutes with $\pi(\As)$.
+
+Assume $K$ is $\pi$-invariant. We can the form 
+$\pi_1 = \pi\lvert_{K} \in \Rep(\As,K)$ by setting
+$[\pi_1(A)](\eta) = [\ub{\pi(A)}_{\in K}](\eta)$ for all $\eta \in K$ and 
+all $A \in \As$.
+We can also form 
+$\pi_2 = \pi\lvert_{K^{\perp}} \in \Rep(\As,K^{\perp})$ by setting
+$[\pi_2(A)](\eta^{\perp}) = [\pi(A)](\eta^{\perp})$ for all $\eta^{\perp} \in K^{\perp}$ and 
+all $A \in \As$.
+
+\begin{observation}
+    Observe that $\pi\sim\pi_1 \oplus\pi_2$.
+
+Indeed, we can define $U\colon H\to K\oplus K^{\perp}$ by 
+$U(\xi) = (P_{K}\xi,P_{K^{\perp}}\xi)$. Then $U$ is unitary with 
+$U^*((\eta,\eta^{\perp})) = \eta +\eta^{\perp}$ such that
+$(\pi_1\oplus\pi_{2})(A) = U\pi(A)U^*$ since 
+\begin{align*}
+    (U\pi(A)U^*)(\eta,\eta^{\perp}) 
+    &= (U\pi(A))(\eta + \eta^{\perp}) \\
+    &= U\bigg(\ub{\pi(A)\eta}_{\in K} + \ub{\pi(A)\eta^{\perp}}_{\in K^{\perp}}\bigg) \\
+    &= (\pi(A)\eta,\pi(A)\eta^{\perp}) \\
+    &= (\pi_1(A)\eta,\pi_{2}(A)\eta^{\perp}) \\
+    &= [(\pi_1\oplus\pi_2)(A)](\eta,\eta^{\perp})
+\end{align*}
+\end{observation}
+\begin{definition}
+We say that $\pi \in \Rep(\As,H)$ is \emph{irreducible} when $\{0\}$ and $H$
+are the only closed $\pi$-invariant subspaces of $H$.
+\end{definition}
+Notation: Let $S \subseteq H$. We set $[S] = \ol{\Span{S}}^{||\cdot||}$. It is called 
+the closed span of $S$.
+\begin{example}
+    Assume $\pi \in \Rep(\As,H)$. Let $H_{\pi} = [\pi(\As) H]$ (closed span)
+where $\pi(\As)H = \{ \pi(A)\eta : A \in \As,\eta\in H \}$. We call 
+$H_{\pi}$ the \emph{essential space} of $\pi$.
+
+Note that $H_{\pi}$ is $\pi$-invariant. Let $A \in \As$, $\xi \in H$. 
+Then $\pi(A)\pi(B)\xi = \pi(AB)\xi \in \pi(\As)H$ for all $B \in \As$. So 
+$\pi(A)(\pi(\As)H) \subseteq \pi(\As)H$ so 
+by linearity $\pi(A) (\Span{\pi(\As)H}) \subseteq \Span{\pi(\As)H}$. So
+$\pi(A)([\pi(\As)H]) = \pi(A)H_{\pi} \subseteq H_{\pi}$ by continuity.
+
+Note that $\pi\lvert_{(H_{\pi})^{\perp}} = 0$-represenation on $(H_{\pi})^{\perp}$ 
+of $\As$. That is 
+$[\pi(A)](\eta^{\perp} = 0)$ for all $A \in \As, \eta^{\perp} \in (H_{\pi})^{\perp}$.
+Indeed, for $A \in \As, \eta^{\perp} \in (H_{\pi})^{\perp}$ we have 
+\[ [\pi(A)]\eta^{\perp} \in (H_{\pi})^{\perp}\cap H_{\pi}  = \{0\}\]
+using that $(H_{\pi})^{\perp}$ is $\pi$-invariant. 
+We get that $\pi \sim \pi\lvert_{H_{\pi}}\oplus \tilde{0}_{(H_{\pi})^{\perp}}$,
+so we safely restict our attention to $\pi\lvert_{H_{\pi}}$.
+
+\end{example}
 
 
 
