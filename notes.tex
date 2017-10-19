@@ -37,6 +37,7 @@
 \newtheorem*{proposition}{Proposition}
 \newtheorem*{observation}{Observasjon}
 \newtheorem*{example}{Example}
+\newtheorem*{exercise}{Exercise}
 \newtheorem*{note}{Note}
 \newtheorem*{remark}{Remark}
 
@@ -61,7 +62,11 @@
 \def\Assa{\As_{\text{sa}}}
 \def\sa{\text{sa}}
 \def\tvphi{\tilde{\varphi}}
-
+\def\Hpi{H_{\pi}}
+\def\eal{e_{\alpha}}
+\def\dA{\dot{A}}
+\def\dB{\dot{B}}
+\def\piess{\pi^{\text{ess}}}
 \DeclareMathOperator{\Rep}{Rep}
 \DeclareMathOperator{\Id}{Id}
 \DeclareMathOperator{\Sp}{sp}
@@ -1821,24 +1826,252 @@ Indeed, for $A \in \As, \eta^{\perp} \in (H_{\pi})^{\perp}$ we have
 \[ [\pi(A)]\eta^{\perp} \in (H_{\pi})^{\perp}\cap H_{\pi}  = \{0\}\]
 using that $(H_{\pi})^{\perp}$ is $\pi$-invariant. 
 We get that $\pi \sim \pi\lvert_{H_{\pi}}\oplus \tilde{0}_{(H_{\pi})^{\perp}}$,
-so we safely restict our attention to $\pi\lvert_{H_{\pi}}$.
-
+so we safely restict our attention to $\pi\lvert_{H_{\pi}}$. We will denote the 
+representation $\pi_{\Hpi}$ by $\piess$, so $\piess \colon \As\to \Bs(\Hpi)$
+\[ \piess(A) = \pi(A)\lvert_{\Hpi} \quad\text{ for } A \in \As\] 
 \end{example}
 
+\begin{exercise}
+Let $\{e_{\al}\}$ be an  approximative unit for $\As$ 
+(so if $\As$ is unital, $e_{\al} = I$ for all $\al$)
+
+Then $\piess(e_{\al}) \to I_{\Hpi}$ in the strong operator topology (SOT)
+i.e. \[[\piess(e_{\al})](\xi) \underset{\al}{\to}\xi, \quad\text{ for all }\xi \in \Hpi\]
+\end{exercise}
+\begin{definition}
+    Let $\pi \in \Rep(\As, H)$ is called \emph{non-degenerate} when $\Hpi = H$.
+\end{definition}
+\begin{exercise}
+If $\pi \in \Rep(\As,H)$ then $\piess \in \Rep(\As,\Hpi)$ is non-degenerate. So 
+we are mostly interested in non-degenerate representation.
+Let $\pi \in \Rep(\As,H)$. Then $\pi$ is non-degenerate $\iff$ 
+$\pi(e_{\al})\to I_{H}$ in the SOT for some approximate unit $\{\eal\}$
+for $\As$. (In particular if $\As$ is unital, then $\pi$ is non-degenerate
+$\iff$ $\pi(I) = I_H$). 
+\end{exercise}
+
+\begin{definition}
+    Let $\pi \in \Rep(\As,H)$ is called \emph{cyclic} if there exist some 
+$\xi\in H$ such that $H = [\pi(\As)\xi]$, in which case we say that $\xi$
+is a \emph{cyclic vector} for $\pi$.
+\end{definition}
+Note that $\pi(\As)\xi$ is a subspace of $H$, so $[\pi(\As)\xi] = \ol{\pi(\As)\xi}^{||\cdot||}$
+
+\begin{observation}
+    A cyclic vector is obviously non-degenerate. Moreover a irreducible representation
+is cyclic. Indeed, let $\pi \in \Rep(\As, H)$ be irreducible, and let $\xi$ be \ul{any}
+non-zero vector in $H$. 
+Then $[\pi(\As)\xi]$ is $\pi$-rnvariant, since $\pi(A)\pi(B) \xi = \pi(AB)$ (continuity argument).
+so it has to be equal to $H$ since $[\pi(\As)\xi]\neq 0$. If $H\neq \{0\}$, then the assertion
+is trivial (since $\pi$ is the $0$-representation of $\{0\}$). This shows that any non-zero vector is cyclic. 
+
+The continuity argument is like this. Let $K$ be a subspace of $H$, and 
+assume that $K$ is $\pi$-invariant. Consider $\eta \in \ol{K}^{||\cdot||}$,
+so there exist some $\eta_n \in K$, such that $\eta_n\to \eta$. 
+Let $A \in \As$. Then $\pi(A)\eta = \lim_{n\to\infty} \ub{\pi(A)\eta_n}_{\in K} \in \ol{K}$.
+\end{observation}
+
+\begin{proposition}
+Let $\pi \in \Rep(\As,H)$ be non-degenerate. Then $\pi \sim \oplus_{j\in J}\pi_j$
+for some family $\{\pi_j\}_{j\in J}$ where each $\pi_j \in \Rep(\As,H_j)$ is cyclic.
+\end{proposition}
+We will use the following result.
+\begin{exercise}
+Let $\{H_j\}_{j\in J}$ be a family of closed subspaces of a Hilbert space $H$
+satisfying that $H_j \perp H_k$ for all $j\neq k$ and 
+\[ \left[ \cup_{j\in J}H_j \right] = H. \]
+Then $H$ is isomorphic to $\oplus_{j\in J} H_j$ in the sens that there exits a
+unitary $U \colon H \to \oplus_{j\in J} H_j$. Moreover, if 
+$\pi \in \Rep(\As,H)$ such that each $H_j$ is $\pi$-invariant and we let
+$\pi_j\in \Rep(\As,H_j)$ be given by restriction i.e.
+$\pi_j(A)\xi = \pi(A)\xi$ for all $A\in \As, \xi\in H)j$.
+Then $\pi \sim \oplus_{j\in J}\pi_j$.
+\end{exercise}
+
+\begin{proof}[Proof of proposition]
+    We may assume $H\neq \{0\}$. Let 
+\[ \Fs = \{ F\subset H : [\pi(A)\xi] \perp [\pi(A)\eta], ~\forall \xi,\eta \in F, \xi\neq \eta\} \]
+ordered by inclusion. If $\Gs$ is a totally ordered subset of $\Fs$. Then 
+$U_{G \in \Gs} \subseteq H$ is an upper bound for $\Gs$, so we can apply 
+zorn's lemma and find the maximal element on $\Fs$. Let us call it 
+$M  = \{\xi_j\}_{j\in J}$ where $\xi_j\neq \xi_k$ for $j\neq k$. Set
+$H_j =[\pi(\As)\xi_j]$ for each $j\in J$. By construction we have 
+$H_j \perp H_k$ for $j\neq k$. Moreover 
+$H = [\cup_{j\in J}H_j]$: Assume $\xi \in H\setminus \{0\}$ such that 
+$\xi \in [\cup_{j\in J}H_j]^{\perp}$. Note that $\xi \not\in H_j$ for all $j$.
+We also have that $\xi_j \in H_j$ for because $\pi$ is non-degenerate, so 
+$\xi_j = \lim_{\al}\pi(e_{\al})\xi_j \in H_j$ where $\{e_{\al}\}$ is an approximate
+unit for $H$, so $\xi\neq \xi_j$ for all $j\in J$.
+
+Next for any $A,B \in \As$, $j\in J$ we have \[ 0 =
+\ind{\xi,\ub{\pi(A^*B)\xi_j}_{\in H_j}} = \ind{\pi(A)\xi,\pi(B)\xi_j}  \] so
+$[\pi(\As)\xi]\perp [\pi(\As)\xi_j]$ for all $j\in J$. This gives that $M
+\subsetneqq M \cup \{\xi\}$ which contradicts the maximality of $M$. Thus we
+can apply the previous exercise to get that $H \simeq \oplus_{j\in J} H_j$
+since each $H_j$ is $\pi$-invariant we also get that $\pi\sim \oplus_{j\in J}
+\pi_j$ where each $\pi_j$ is the restriction to a representation of $\As$on
+$H_j$. It s then clear that each $\pi_j$ is cuclic with cyclic vector $\xi_j$.
+\end{proof}
+
+\begin{proposition}
+    Consider $\pi \in \Rep(\As,H)$, with $\pi$ non-degenerate and $\xi \in H$.
+define $\vphi\colon \As \to \C$ by $\vphi(A) = \ind(\pi(A)\xi,\xi)$ for $A\in
+\As$. Then $\vphi$ is  positive on $\As$ with 
+$||\vphi|| = ||\xi||^2$. Let $H_{\xi} = [\pi(\As)\xi]$ and let 
+$\pi_{\xi} \coloneqq $ The restriction of $\pi$ to a representation of $\As$ on 
+$H_{\xi}$. Then $\pi_{\xi}$ is cyclic with $\xi$ as cyclic vector 
+(and $\vphi(A) = \ind{\pi_{\xi}(A)\xi,\xi} $ for all $A \in \As$.)
+(We are going to see that this resutl has a converse)
+\end{proposition}
+\begin{proof}
+   We have 
+$\vphi(A^*A) = \ind{\pi(AA^*)\xi,\xi} = ||\pi(A)\xi||^2 \geq 0$, so $\vphi\geq 0$.
+Let $\{e_{\al}\}$ be an approximatrive unit of $\As$. Then 
+$\pi(e_{\al}) \to I_{H}$ in the SOT
+\begin{align*}
+    \vphi(e_{\al}) = \indi{\ub{\pi(e_{\al})\xi}_{\to\xi},\xi}\to ||\xi||^2
+\end{align*}
+so $||\vphi|| = \lim_{\al}\vphi(e_{\al}) = ||\xi||^2$. The rest is easy. 
+\end{proof}
+
+We will use the following observation
+\begin{observation}
+    Assume $(V,[\cdot,\cdot])$ is a semi-inner-product space 
+(i.e. $[\cdot,\cdot]$ is like an inner-product, ecept that 
+$[v,v] = 0$ does not nessesarily implies that $v=0$).
+Set 
+\[ \Ns = \{v \in V : [v,v] = 0\} \]
+Then $\Ns$ is a subsapce of $V$:
+
+Indeed, we have 
+\[ \Ns = \{v \in V : [v,w] = 0, \text{ for all }w \in V\} \]
+where we use the Cauchy–Schwarz inequality. This is a subspace, due to
+the linearity of $[\cdot,\cdot]$ in the first variable.
+So we can form $H_0 = V/\Ns$. Note that 
+$\ind{v +\Ns, w + \Ns}_0 \coloneqq [v,w]$ for $v,w \in V$. 
+Turns $H_0$ into an inner-product space (check this).
+
+Now let $H$ denote the completion of $H_0$ w.r.t. the norm on $H_0$
+assosiated with $\ind{\cdot,\cdot}$. So $H_0$ is a Banach space and we may 
+identify $H_0$ as a dense subspace of $H$. We can 
+then form $H$ into a Hilbert space by setting 
+$\ind{\xi,\eta} = \lim_{n\to\infty} \ind{\xi_n,\eta_n}$ for 
+any $\{\xi_n\}, \{\eta_n\}\subseteq H_0$ such that $\xi_n\to \xi$ and 
+$\eta_n\to \eta$. 
+
+Not that if $\xi,\eta\in H_0$ the we may choose $\xi_n=\xi$ and $\eta_n =\eta$ for all
+$n\in\N$, so we get $\ind{\xi,\eta} = \ind{\xi,\eta}_{0}$ and in particular 
+that $||\xi|| = ||\xi||_0$.
+It follows that the norm on $H$ assosiated with $\ind{\cdot,\cdot}$ is the same 
+as the norm on $H$ obtained by completing $H$.
+
+\end{observation}
+
+\begin{theorem}[The GNS construction]
+    Let $\vphi$ be a psotive linear functional on a $C^*$-algebra $\As$. Then 
+there exits a cyclic representation $\pi_{\vphi}$ of $\As$ on some Hilbert space 
+$H_{\vphi}$ with a cyclic vector $\xi_{\vphi} \in H_{\vphi}$ such that 
+\[ \vphi(A) = \ind{\pi_{\vphi}(A)\xi_{\vphi},\xi_{\vphi}}\quad \text{for all }
+A \in \As \]
+and $||\vphi|| = ||\xi_{\vphi}||^2$. In particular if $\vphi$ is a sate on $\As$
+then $|| \xi_{\vphi} || = 1$.
+\end{theorem}
+\begin{proof}
+    For $A,B \in \As$, set $[A,B]_{\vphi} = \vphi(B^*AA)$. Then 
+$(\As,[\cdot,\cdot])$ is a semi-inner-product space (as one easily checks) 
+so we can set 
+\[ \Ns = \{ A \in \As : [A,A]_{\vphi} = 0 \} \quad \text{ and } \quad 
+H_0 = \As /\Ns\]
+Let $\indi{\dA,\dB}_0 = [A,B]_{\vphi} = \vphi(B^*A)$ where 
+$\dA = A + \Ns$ and $\dB = B  + \Ns$ for $A,B \in \As$.
+Moreover we let $(H_{\vphi}, \ind{\cdot,\cdot})$ denote the Hilbert space completion
+of $(H_0, \ind{\cdot,\cdot}_0)$. 
+
+Note that $\Ns$ is a \ul{left} ideal in $\As$
+i.e. we have $A \in \As$, $B \in \Ns$ $\implies$ $AB \in \Ns$.
+Indeed, if $A \in \As$ and $B \in \Ns$, then we have 
+$\Ns = \{ B \in \As : [B,C]_{\vphi}= 0, ~\forall C \in \As\}$, so
+$[AB,C]_{\vphi} = \vphi(C^*AB) = \vphi((A^*C)^*B) = [B,A^*C]_{\vphi} = 0$ since $B\in \Ns$, 
+for all $C \in \As$. Hence $AB \in \Ns$.
+
+As a consequence, for $A \in \As$ we can define $\pi_{0}(A)\colon H_0 \to H_0$
+by $[\pi_0(A)](\dB) = \dot{\ol{AB}}$ for all $B \in \As$ (here the overline denote the 
+element $\cdot$ acts on).
+Indeed, $\pi_0(A)$ is well defined, because 
+if $\dB = \dB'$, i.e. $B' = B + N$ for some $N \in \Ns$, then
+$AB' = AB + \ub{AN}_{\in \Ns}$, so $\dot{\ol{AB'}} = \dot{\ol{AB}}$.
+It's straith forward to verify that $\pi_0(A)$ is linear.
+
+Moreover $\pi_0(A)$ is bounded:
+Let $||\cdot||_0$ denote the norm on $H_0$, so 
+$||\dB||_0 = (\indi{\dB, \dB})^{1/2} = ([B,B]_{\vphi})^{1/2} =
+\vphi(B^*B)^{1/2}$. 
+Then we have
+\begin{align*}
+    ||\pi_0(A)(\dB)||_0 &= ||\dot{\ol{AB}}||_{0}^{2} = \vphi((AB)^*(AB)) 
+   = \vphi(B^*A^*AB) \\
+    &\leq ||A||^2\vphi(B^*B) = ||A||^2 ||\dot{B}||_{0}^{2} \quad \text{for all
+    } B \in \As.
+\end{align*}
+where the inequality follows from $A^*A \leq ||A^*A|| I$ (in $\tAs$) and 
+$B^*A^*AB \leq B^*||A^*A||B = ||A||^2 ||B^*B||_{0}^{2}$.
+So $\pi_0(A)$ is bounded with $||\pi_0(A)||^2 \leq ||A||$. Since $H_0$
+is dense in $H_{\vphi}$ we can extend in a unique way to $\pi_{\vphi}(A) \in \Bs(H_{\vphi})$
+satisfying $||\pi(A)|| = ||\pi_0(A)||$.
+
+One can now check that $A \mapsto \pi_{\vphi} (A)$ is a representation on $\As$
+on $H_{\vphi}$:
+Let us f. ex. show that $\pi_{\vphi}(A^*) = \pi_{\vphi}(A)^*$ for $A \in \As$.
+Let $B,B' \in \As$. Then we have 
+\begin{align*}
+    \indi{[\pi_{\vphi}(A)](\dB), \dB'} &= \indi{\dot{\ol{AB}},\dB'}_0 =
+\vphi((B')^*AB) \\
+&= \vphi((A^*B)^*B) = \indi{\dB \dot{\ol{A^*B'}}} = \indi{\dB, [\pi_0(A^*)]\dB'}.
+\end{align*}
+If $\eta \in H_{\vphi}$, $\dB_n \to \xi$ (recall $\dB_n$ is continuous) with $B_n \in \As$,
+then we get 
+\begin{align*}
+    \indi{[\pi_{\vphi}(A)]\xi,\dB'} = \lim_{n\to\infty} \indi{[\pi_{\vphi}(A)]\dB_n, \dB'}
+= \lim_{n\to\infty} \indi{\dB_n, [\pi_{\vphi}(A^*)]\dB'} = \ind{\xi,[\pi_{\vphi}(A)]\dB'}.
+\end{align*}
+where we use the continuity of the inner-product. Further, in the same way we get
+\begin{align*}
+    \indi{\pi_{\vphi}(A)\xi,\eta} = \indi{\xi, \pi_{\vphi}(A^*)\eta} \quad \text{for }
+\xi,\eta\in H_{\vphi}.
+\end{align*}
+i.e. \ul{$(\pi_{\vphi}(A))^* = \pi_{\vphi}(A^*)$}.
+
+If $\As$ is unital we can set $\xi_{\vphi} = \dot{I} \in H_0 \subseteq
+H_{\vphi}$.  Then we have $[\pi_{\vphi}(A)](\xi_{\vphi}) = \dot{\ol{AI}} =
+\dA$.  So we get that $\left[[\pi_{\vphi}(A)](\xi_{\vphi})\right]  = [H_0] =
+\ol{H_0}^{||\cdot||} = H_{\vphi}$, i.e. \ul{$\xi_{\vphi}$ is cyclic for
+$\pi_{\vphi}$}.
+
+Assume $\As$ is not unital, and let $\{e_{\al}\}$ be an approximative unit for $\As$.
+The idea now is to check that $\{\dot{\eal}\}$ is a Cauchy net in $H_{\vphi}$.
+Hence will converge to some $\xi_{\vphi} \in H_{\vphi}$. Then $\xi_{\vphi}$ is cyclic 
+for $H_{\vphi}$.
+For $A \in \As$ we get $\pi_{\vphi}(A) = \lim_{\al} \pi_{\vphi}(A)\dot{\eal} = 
+\lim_{\al} \dot{\ol{Ae_{\al}}} = \dA$.
+That where the last equality follows from $Ae_{\al}\to A$ $+$ a little
+continuity argument: Assume $B_{\al}\to B$ in $\As$ then we have 
+$||\dot{x}|| = \vphi(x^*x)^{1/2} \leq ||\vphi||^{1/2}||x||$ we get 
+$||\dB_{\al} - \dB|| \leq ||\vphi||^{1/2} ||B_{\al} - B|| \to 0$. Hence 
+$\dB_{\al}\to \dB$.
+
+Again we have $[\pi(A)\xi_{\vphi}] = \ol{H_0}^{||\cdot||} = H_{\vphi}$.
+
+Finnaly we have
+\begin{align*}
+    \vphi(A) = \vphi(e^{*}_{\al}A) = \lim_{\al} \indi{\dA,\dot{\eal}} = \indi{\dA, \xi_{\vphi}}
+= \indi{\pi_{\vphi}(a)\xi_{\al},\xi_{\vphi}} \quad\text{ for all }A \in \As.
+\end{align*}
 
 
 
 
 
-
-
-
-
-
-
-
-
-
+\end{proof}
 
 
 
