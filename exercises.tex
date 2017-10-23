@@ -59,6 +59,26 @@
 \def\whAs{\widehat{\As}}
 \def\tAs{\widetilde{\As}}
 \def\Assa{\As_{\text{sa}}}
+\def\sa{\text{sa}}
+\def\tvphi{\tilde{\varphi}}
+\def\Hpi{H_{\pi}}
+\def\eal{e_{\alpha}}
+\def\ebe{e_{\beta}}
+\def\ega{e_{\gamma}}
+\def\deal{\dot{e}_{\alpha}}
+\def\debe{\dot{e}_{\beta}}
+\def\dega{\dot{e}_{\gamma}}
+\def\dA{\dot{A}}
+\def\dB{\dot{B}}
+
+\def\pivp{\pi_{\vphi}}
+\def\Hvp{H_{\vphi}}
+\def\xivp{\xi_{\vphi}}
+\def\etavp{\eta_{\vphi}}
+
+
+\def\piess{\pi^{\text{ess}}}
+\DeclareMathOperator{\Rep}{Rep}
 \DeclareMathOperator{\Id}{Id}
 \DeclareMathOperator{\Tr}{Tr}
 \DeclareMathOperator{\Sp}{sp}
@@ -787,21 +807,68 @@ $||\pi((\{T_j\})|| = ||\top_{j\in J} T_j|| \underset{\text{part c}}{=} \sup_{j\i
 
 
 
+\section*{Ex 23}
+\subsection*{a)}
+Let $\As$ be a $C^*$-algebra, $\vphi$ a positive linear functional on $\As$.
+$\Ns = \{B \in \As : \vphi(B^*B) = 0\}$.  $H_0 = \As/\Ns$, $\dA = A + \Ns \in
+H_0$. $||\dA|| = \As/\Ns$ norm on $H_0$. Let $\{\deal\}$ is a cauchy net in 
+$(H_0, ||\cdot||)$. That is, given $\eps > 0$ there exits $\al_0$ such that 
+$||\debe - \deal|| < \eps$ for all $\al,\beta \succeq \al_0$.
 
+Indeed, recall first that $\{\vphi(\eal)\}$ is a net in $\R_+$ which converges to 
+$||\vphi||$.
+For $\ga \succeq \beta$ we have 
+\begin{align*}
+    ||\deal -\debe|| = \vphi((\ega - \ebe)^2) \leq \vphi(\ega - \ebe) 
+= \vphi(\ega) -\vphi(\ebe).
+\end{align*}
+where we used that $0 \leq \ega - \ebe \leq I$ $\implies$ $(\ega -\ebe)^2 \leq
+\ega - \ebe$. 
+Let $\eps > 0$ choose $\al_0$ such that 
+$|\vphi(\ega) - \vphi(\ebe)| < \(\frac{\eps}{2}\)^2$ whenever $\ga, \beta
+\succeq \al_0$.
+Now consider $\al,\beta\succeq \al_0$. Then 
+\begin{align*}
+    ||\debe - \deal|| &\leq ||\debe - \dot{e}_{\al_0}|| + ||\dot{e}_{\al_0} -
+\dot{e}_{\al}||\\
+&\leq (\vphi(e_{\beta}) -\vphi(e_{\al_0}))^{1/2} 
++ (\vphi(e_{\al}) - \vphi(e_{\al_0}))^{1/2} < \eps
+\end{align*}
+as desired
+\subsection*{b)}
+Let $A \in \As$. Then 
+\begin{align*}
+    ||\pivp(A)\xivp||^2 &= \ind{\pivp(A)\xivp, \pivp(A)\xivp} 
+= \ind{\pivp(A^*A) \xivp, \xivp} \\&= \vphi(A^*A)= ||\pi'(A)\xi'||^2.
+\end{align*}
+so the map $U_0 \colon \pivp(\As)\xivp \to \pi'(\As)\xi'$ defined by 
+$U_0(\pivp(A)\xivp) = \pi'(A)\xi'$ for all $A \in \As$. 
 
+It is well defined and isometric: 
+If $\pivp(A)\xivp = \pivp(A') \xivp$, then 
+$\pivp(A-A')\xivp =0$, so $||\pi'(A-A')\xi'|| = ||\pivp(A-A')\xivp|| = 0$, so
+$\pi'(A)\xi' = \pi'(A')\xi'$.
 
+In addition it is clearly linear and bijective. So we can extend $U_0$
+(by continuity) to an isometry $U \colon \Hvp \to H'$ i.e. $U$ is a unitary operator 
+between these spaces. 
 
-
-
-
-
-
-
-
-
-
-
-
+We then have 
+\begin{align*}
+[U\pivp(A)] &= (\pivp(B)\xivp) = U_0\pivp(AB)\xivp = \pi'(AB)\xi' \\ &=
+\pi'(A)\pi'(B)'\xi' = [\pi'(A)U_0](\pivp(B)\xivp) \quad \text{ for all }A,B\in
+\As.
+\end{align*}
+By density, we get $U\pivp(A) = \pi'(A)U$ for all $A \in \As$ so, $U\pivp U^* =
+\pi'(A)$ for all $A\in \As$.
+Next, we have that $(U\xivp -\xi')\perp \pi'(A)\xi'$
+since 
+\begin{align*}
+\ind{U\xivp-\xi', \pi'(A)\xi'} &= \ind{\pi'(A^*)(U\xivp - \xi'), \xi'} = 
+\ind{U\pivp(A^*)\xivp - \pi'(A^*)\xi', \xi'} = 0
+\end{align*}
+for all $A \in \As$. Hence $(U\xivp - \xi') \perp(\ol{\pi'(\As)\xi'}^{||\cdot||})^{\perp} = 
+(U\xivp - \xi') \perp (H')^{\perp} = \{0\}$. 
 
 
 
