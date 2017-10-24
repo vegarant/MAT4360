@@ -63,9 +63,23 @@
 \def\sa{\text{sa}}
 \def\tvphi{\tilde{\varphi}}
 \def\Hpi{H_{\pi}}
-\def\eal{e_{\alpha}}
 \def\dA{\dot{A}}
 \def\dB{\dot{B}}
+\def\Hpi{H_{\pi}}
+\def\eal{e_{\alpha}}
+\def\ebe{e_{\beta}}
+\def\ega{e_{\gamma}}
+\def\deal{\dot{e}_{\alpha}}
+\def\debe{\dot{e}_{\beta}}
+\def\dega{\dot{e}_{\gamma}}
+\def\dA{\dot{A}}
+\def\dB{\dot{B}}
+
+\def\pivp{\pi_{\vphi}}
+\def\Hvp{H_{\vphi}}
+\def\xivp{\xi_{\vphi}}
+\def\etavp{\eta_{\vphi}}
+
 \def\piess{\pi^{\text{ess}}}
 \DeclareMathOperator{\Rep}{Rep}
 \DeclareMathOperator{\Id}{Id}
@@ -1057,13 +1071,13 @@ $\As/\Js$, so $\As/\Js$ is a $*$-algebra.
     It only remains to show that the $C^*$-equality holds. As we have seen at
 another occasion, it suffices to show that 
 \begin{align*}
-    ||A+J||^2 \leq ||(A + \Js)^*(A+ \Js)||\quad \text{ for all } A \in \As.
+    ||A+\Js||^2 \leq ||(A + \Js)^*(A+ \Js)||\quad \text{ for all } A \in \As.
 \end{align*}
 Let $\{e_{\al}\}$ be an approximative unit to $\Js$. Observe that for 
 $A \in \As$ then $||A + \Js|| = ||A-Ae_{\al}||$. 
 Indeed, let $\eps > 0$ and choose $B \in \Js$ such that 
 $||A+B|| \leq ||A+\Js|| + \eps$. Next choose $\al_0$ such that 
-$||B-Be_{\al_0}|| \leq \tfrac{\eps}{2}$ for all $\al \succeq \al_0$. 
+$||B-Be_{\al}|| \leq \tfrac{\eps}{2}$ for all $\al \succeq \al_0$. 
 Then for any $\al \succeq \al_0$, we get
 \begin{align*}
     ||A+\Js|| &\leq ||A-Ae_{\al}|| \leq ||(A+B)(I-e_{\al})|| + ||B(I-e_{\al})|| \\
@@ -2099,16 +2113,71 @@ is a unitary operator. Exercise for next week: Check that $U$ does the job.
 
 \end{proof}
 
+\section*{The Gelfand-Neimark theorem}
+
+\begin{theorem}[GN-theorem]
+    Let $\As$ be a $C^*$-algebra. Then $\As$ has a faithful
+representation $\pi$ on a Hilbert space $H$. 
+(This means that $\As$ is $*$-isomorphic to $\pi(\As)$ which is a 
+$C^*$-subalgebra of $\Bs(H)$ $\implies$ isometric).
+\end{theorem}
+\begin{proof}
+    Let $S = \Ss(\As)$ be the state space of $\As$. For each $\vphi \in S$ 
+we can form it's GNS triple $(\Hvp, \pivp, \xivp)$. 
+Define $H = \oplus_{\vphi \in S} \Hvp$ and $\pi = \oplus_{\vphi \in S}\colon
+\As\to \Bs(H)$. So $[\pi(A)](\{\etavp\}_{\vphi\in S}) = \{ \pivp(A)\etavp\}_{\vphi \in S}$
+for all $A \in \As$, and all $\{\etavp\} \in H$.
+
+$\pi$ is faithful: Assume $A\in \As$, $\pi(A) =0$. The we have 
+$\{ \pivp(A)\etavp \}_{\vphi\in S} = \{0\}_{\vphi \in S}$ for all $\{\etavp\}
+\in H$. Consider any $\vphi_0 \in S$. Define $\{\etavp\}_{\vphi \in S}$ by
+\[ \etavp = \begin{cases} \xi_{\vphi_0} & \text{if } \vphi = \vphi_0 \\
+0 & \text{otherwise} \end{cases} \]
+The we get $\pi_{\vphi_0}(A) \xi_{\vphi_0} = 0$, so $\vphi(A) = \ind{\pi_{\vphi_0}(A)\xi_{\vphi_0}, \xi_{\vphi_0}}= 0$.
+Since $S = \Ss(\As)$ separates the points in $\As$. This implies that $A=0$ 
+(otherwise we cloud find a state $\vphi_0$ such that the above is non-zero).
+\end{proof}
+
+The representation $\pi_u = \oplus_{\vphi \in \Ss(\As)}\pivp$ defined in the proof 
+above is often called the \emph{universal representation} on $\As$.
+The following property is useful is some situations.
+\begin{observation}
+    Every positive linear functional on $\pi_u(\As)$ is of the form 
+$T \to \ind{T\eta,\eta}$ for all $T \in \pi_u(\As)$ for some $\eta \in H \( = \oplus_{\vphi \in \Ss(\As)}\Hvp\)$ i.e.
+given a positive linear functional $\psi$ on $\pi_u(\As)$. Then there exists $\eta \in H$
+such that $\psi(T) = \ind{T\eta,\eta}$ for all $T \in \pi_u(\As)$.
+(Only valid for faithful representations)
+\end{observation}
+\begin{proof}
+    We can clearly assume that $\psi$ is a sate (divide by norm) on $\pi_u(\As)$.
+Then we can define $\tilde{\psi}(A) = \psi(\pi_u(A))$, $A \in \As$ (isometry).
+Then $\tilde{\psi}$ is a sate on $\As$ i.e. $\tilde{\psi} \in \Ss(\As)$.
+Define $\eta = \{\etavp\}_{\vphi \in \Ss(\As)} \in H$ by 
+\[ \eta_{\vphi} = \begin{cases} \xi_{\tilde{\psi}} &\text{if } \vphi =
+\tilde{\psi} \\ 0 &\text{otherwise} \end{cases} \]
+Then $\tilde{\psi}(A) = \ind{\pi_{\tilde{\psi}}(A)\xi_{\tilde{\psi}}, \xi_{\tilde{\psi}}} = \ind{\pi_u(A)\eta,\eta}$ for all $A \in \As$.
+Since $\pi_u(A)\{\etavp\}=\begin{cases} \pi_{\tilde{\psi}}(A)\xi_{\tilde{\psi}} &\text{if } \vphi = \tilde{\psi} \\ 0 &\text{otherwise} \end{cases}$.
+Hence $\psi(\ub{\pi_u(A)}_{T}) = \indi{\ub{\pi_{u}(A)}_{T}\eta,\eta}$ for all $A \in \As$
+\end{proof}
 
 
+A nice application of the GN-Theorem is as follows. Consider first a $*$-algebra $\As$, and let 
+$n\in \N$. We can the form $M_n(\As) = \{ [A_{ij}] : A_{ij} \in \As, i,j = 1,\ldots,n \}$
+with its obvious natural operations (similar to those for matrices) f. ex.
+$[A_{ij}]^* = [A_{ji}^{*}]$ and obtain a $*$-algebra. 
 
+Next observe that if $\psi\colon \As \to \Bs$ is a $*$-isomorphism from a $*$-algebra
+$\As$ onto a $C^*$-algebra, then we can make $\As$ into a $C^*$-algebra by defining 
+$||A|| = ||\psi(A)||$ for $A \in \As$.
 
-
-
-
-
-
-
+Let us consider $\As = M_{n}(\Bs(H))$ for some $n \in \N$ and a Hilbert space $H$.
+Then define $\psi\colon \As\to \Bs(H^n)$ where $H^n = H\oplus\cdots\oplus H$ by 
+\[ [\psi([T_{ij}])](\xi_1\oplus \cdots \oplus \xi_n) = \( \sum_{j=1}^{n}T_{1j}\xi_j \oplus
+\cdots \oplus \sum_{j=1}^{n}T_{nj}\xi_j \) \quad \forall T_{ij} \in \As, \forall \xi_1\oplus\cdots\oplus\xi_n\in H^n\]
+Then (exercise) $\psi$ is a $*$-isomorphism, and we have 
+\[ \max_{ij} ||T_{ij}||\leq ||\psi([T_{ij}])|| \leq \(\sum_{i,j=1}^{n} ||T_{ij}||^2\)^{1/2} \]
+so we get that $\As = M_n(\Bs(H))$ is a $C^*$-algebra with the norm 
+$||[T_{ij}]|| = ||\psi([T_{ij}])||$.
 
 
 
