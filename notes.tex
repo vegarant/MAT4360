@@ -35,7 +35,7 @@
 \newtheorem*{lemma}{Lemma}
 \newtheorem*{corollary}{Corollary}
 \newtheorem*{proposition}{Proposition}
-\newtheorem*{observation}{Observasjon}
+\newtheorem*{observation}{Observation}
 \newtheorem*{example}{Example}
 \newtheorem*{exercise}{Exercise}
 \newtheorem*{note}{Note}
@@ -52,8 +52,8 @@
 \def\Psfin{\mathcal{P}_{\textnormal{fin}}}
 \def\Fbb{\mathbb{F}}
 \def\Tbb{\mathbb{T}}
-\def\Ff{\mathfrak{F}}
-\def\Kf{\mathfrak{K}}
+\def\Ff{\mathcal{F}}
+\def\Kf{\mathcal{K}}
 \def\ex{\textnormal{ex}\,}
 \def\co{\textnormal{co}\,}
 \def\whAs{\widehat{\As}}
@@ -113,7 +113,7 @@ This is equivalent to requiring that $T$ maps bounded sets in $H$ into relative
 
 \begin{itemize}
     \item Every compact operator is bounded. 
-    \item Every bounded finite rank (finite dimensional image) operator is compact.
+    \item Every bounded finite rank (finite-dimensional image) operator is compact.
     \item $\Ff(H) = \{ T \in \Bs(H): T \text{ has finite rank} \}$. 
     \item $\Kf(K) = \{T \in \Bs(H) : T \text{ is compact operator}\}$.
 \end{itemize}
@@ -124,7 +124,7 @@ and $\Kf(H) \neq \Bs(H)$ when $H$ is infinite dimensional (Since $I_{H} \in
 \begin{itemize}
     \item $\Ff(H)$ and $\Ks(H)$ are both ideals in $\Bs(H)$. 
 \end{itemize}
-Note: by ideal in an algebra we will always mean, unless otherwise specified a two sided ideal.
+Note: by ideal in an algebra we will always mean, unless otherwise specified a two-sided ideal.
 So 
 \[S \in \Ff(H), T \in \Bs(H)  \implies \begin{cases} ST \in \Ff(H) \\ TS \in \Ff(H) \end{cases}\]
 Moreover they are both \emph{self-adjoint} ideals (A subset $\Js \subset
@@ -138,9 +138,9 @@ Moreover they are both \emph{self-adjoint} ideals (A subset $\Js \subset
 \end{proposition}
 \begin{proof}
     We first observe that any finite rank $S \in \Ff(H)$ is of the form 
-    \[ S(x) = \sum_{i=1}^{n} \ind{x,\eta_j}\xi_j  \quad \text{ for some }\eta_1, 
+    \[ S(x) = \sum_{j=1}^{n} \ind{x,\eta_j}\xi_j  \quad \text{ for some }\eta_1, 
     \ldots, \eta_n,\xi_1,\ldots, \xi_n\in H, ~\xi_j \neq 0\]
-    Indeed, let $\{\xi_1, \ldots, \eta_n\}$ be an orthonormal basis for $S(H)$ (image of $S$, for $S\neq 0$). Then $Sx = \sum_{j=1}^{n} \ind{Sx, \xi_j}\xi_j = \sum_{j=1}^{n}\ind{x,S^*\xi_j}\xi_j$ for all $x \in H$
+    Indeed, let $\{\xi_1, \ldots, \xi_n\}$ be an orthonormal basis for $S(H)$ (image of $S$, for $S\neq 0$). Then $Sx = \sum_{j=1}^{n} \ind{Sx, \xi_j}\xi_j = \sum_{j=1}^{n}\ind{x,S^*\xi_j}\xi_j$ for all $x \in H$
 
 \begin{itemize}
     \item 
@@ -158,8 +158,8 @@ and $S = ATB$. Then $S \in \Js$ (since $\Js$ is an ideal and $T \in \Js$) and
 = \ind{x,\xi}\eta, \quad \text{for all }x\in H\]
 which shows what we wanted.
 
-\item Assume $\Js$ is a non-zero normed closed ideal in $\Bs(H)$. Then $\Ff(H) \subset \Js$
-by $1)$ so $\Kf(H) =\ol{\Ff(H)}^{||\cdot||}  \subseteq \Js$ since $\Js$ is normed closed
+\item Assume $\Js$ is a non-zero norm-closed ideal in $\Bs(H)$. Then $\Ff(H) \subset \Js$
+by $1)$ so $\Kf(H) =\ol{\Ff(H)}^{||\cdot||}  \subseteq \Js$ since $\Js$ is norm-closed
 \end{itemize}
 \end{proof}
 \begin{remark}
@@ -168,7 +168,7 @@ the only closed ideals of $\As$. From the above proof we see that if $\Js$ is a
 norm-closed ideal of $\Kf(H)$ which is non-zero then we also get
 $\ol{\Ff(H)}^{||\cdot||} = \Kf(H) \subseteq \Js \subseteq \Kf(H)$, so $\Js =
 \Kf(H)$.
-This means that $\Kf(H)$ is simple. In particular $M(n,\C) \simeq \Kf(\C^n) =
+This means that $\Kf(H)$ is simple. In particular $M_n(\C) \simeq \Kf(\C^n) =
 \Bs(C^n)$ is simple.
 \end{remark}
 
@@ -193,19 +193,19 @@ Note: $(3) \iff (4)$ by the characterization of compactness with help of nets.
     $S \in \Ff(H)$ such that $||S-T|| < \eps/3$. Now we have 
 \[ ||T\xi_{\al} - T\xi || \leq \ub{||T\xi_{\al} - S\xi_{\al}||}_{\leq ||T-S||}
 + ||S\xi_{\al} - S\xi|| + \ub{||S\xi-T\xi||}_{\leq ||T-S||}\]
-since $S$ is weak-weak continuous (cf. lemma 4) we have htat $S\xi_{\al}\to S$ 
+since $S$ is weak-weak continuous (cf. lemma 4) we have that $S\xi_{\al}\to S\xi$ 
 weakly. But the range of $S$ is finite dimensional, so we can use lemma 1 with 
-$X = \text{Range}S$ to deduce that $||S\xi_{\al}-S\xi||\leq \eps/3$ for all 
+$X = \text{Range}(S)$ to deduce that $||S\xi_{\al}-S\xi||\leq \eps/3$ for all 
 $\al \geq \al_0$. Then for $\al \geq \al_0$ we get 
 $||T\xi_{\al} - T\xi|| \leq 2\eps/3 + \eps/3 = \eps$ which shows that 
-$T\xi_{\al} -T\xi$ in norms as desired.
+$T\xi_{\al} \to T\xi$ in norm as desired.
 
 $(2)\implies (3)$ This follows from lemma 2. $(3) \iff (4)$ is ok. 
 
 $(4) \implies (1)$. Assume $(4)$ holds. 
-Let $P_{\la}$ be as in lemma 3. Then $P_{\la}T \in \Ff(H)$ for all $\la$ 
-we want to show that $P_{\la}T \to T$ in operator norm. Assume this is not ture. 
-Then there exits $\eps > 0$ such that we can find for 
+Let $P_{\la}$ be as in lemma 3. Then $P_{\la}T \in \Ff(H)$ for all $\la$. 
+We want to show that $P_{\la}T \to T$ in operator norm. Assume this is not true. 
+Then there exists $\eps > 0$ such that we can find
 (by eventually going to subnets) some $\xi_{\la} \in H_1$ such that $||(P_{\la}T-T)\xi_{\la}||\geq \eps$.
 
 Using $(4)$ we can now assume that $\{T\xi_{\la}\}$ converges to some $\eta \in H$
@@ -225,8 +225,8 @@ We have  a contradiction.
 
 To prove this we will need some lemmas:
 \begin{lemma}[1]
-    Assume $X$ is a finite dimensional vector space. Then there exits only one 
-    topology $\tau$ (up to homeomorphisms) such that $(X,\tau)$ is a locally 
+    Assume $X$ is a finite dimensional vector space. Then there exists only one 
+    topology $\tau$ (up to homeomorphism) such that $(X,\tau)$ is a locally 
     convex Hausdorff topologic vector space.
 \end{lemma}
 
@@ -236,8 +236,7 @@ norm on $X$ by $||x|| = ||[x]_{\Bs}||$ where $[x]_{\Bs}$ is the coordinate
 representation of $x$ in $\Bs$ and $||\cdot ||$ is the euclidean norm. 
 
 $(X, ||\cdot ||)$ is a locally convex Hausdorff topological vector space with 
-respect to the norm topology, which is homeomorphic to ($\C^n$, euclidean top.). 
-(via the map, $x\mapsto [x]_{\Bs}$). 
+respect to the norm topology, which is homeomorphic to ($\C^n$, euclidean top.) (via the map $x\mapsto [x]_{\Bs}$). 
 
 Let now $\tau$ be any topology on $X$ such that $(X,\tau)$ is a locally 
 convex Hausdorff topological vector space. We will show that $(X,\tau)$
@@ -249,12 +248,12 @@ $i,j \in \{1,\ldots, n\}$. Define $S\colon (X,\tau)^* \to C^n$
 by $S(\rho) = [\rho(x_1),\ldots, \rho(x_n)]$. It is clear that $S$ is linear,
 moreover it is surjective:
 
-Assume this is not true. Then $M \coloneqq \text{Range}S$ is a subspace of $\C^n$
+Assume this is not true. Then $M \coloneqq \text{Range}(S)$ is a subspace of $\C^n$
 different from $\C^n$, so $M^{\perp}\neq \{0\}$, so we can pick some vector 
 $c \in \C^n \setminus \{0\}$ such that $c\perp M$ i.e. $\rho(x_1)\bar{c}_1 + 
 \ldots + \rho(x_n)\bar{c}_n = 0$ for all $\rho \in (X, \tau)^*$ i.e.
 $\rho(\bar{c}_1x_1 + \ldots + \bar{c}_n x_n) =  0 $ for all $\rho \in (X,\tau)^*$.
-By corollary of Hahn-Banach separation theorems we get that 
+By a corollary of the Hahn-Banach separation theorems we get that 
 $\bar{c}_1 x_1 + \ldots + \bar{c}_n x_n  = 0$ (since we can separate points).
 But $x_1,\ldots, x_n$ are basis elements (linear independent), so 
 $c_1 = \ldots = c_n = 0$, i.e. $c=0$.
@@ -264,17 +263,13 @@ such that $S(\rho_j) = e_j $ (standard basis vector in $C^n$).
 That is $\rho_{j}(x_i) =\delta_{ij}$ for all $i,j \in \{1,\ldots,n\}$.
 
 Now we can define $T\colon X \to \C^n$ by $T(x) = (\rho_1 (x),\ldots,
-\rho_n(x))$ is clearly linear and continuous with respect to $\tau$.  For $x =
+\rho_n(x))$ , which is clearly linear and continuous with respect to $\tau$.  For $x =
 \sum_{i=1}^{n}\la_i x_i \in X$ we have $\rho_{j}(x) =\sum_{i}^{n}
 \la_{j}\rho_j(x_i) = \la_j$. Thus $T(x) = (\la_1,\ldots,\la_n) = [x]_{\Bs}$ for
 all $x$, so $T$ is the coordinate map with respect to $\Bs$, which is an
 isomorphism with $T^{-1}(\la_1,\ldots,\la_n) = \la_1x_1 + \ldots, \la_nx_n$. We
-see that $T^{-1}$ is continuous because the vector space operation is
+see that $T^{-1}$ is continuous because the vector space operations are
 continuous with respect to $\tau$.
-
-
-
-
 \end{proof}
 
 
@@ -316,13 +311,13 @@ So we see that $P_{\la}(x) \to x$ in norm for all $x \in H$, as we wanted to sho
 \end{proof}
 
 \begin{example}
-    Assume that $T \in \Bs(H)$ is diagonalizable in the sens that there exits 
+    Assume that $T \in \Bs(H)$ is diagonalizable in the sense that there exists 
 an orthonormal basis $\{e_j\}_{j \in J}$ for $H$ and $\{\la_j\}_{j\in J} \in
 \ell^{\infty}(J)$ such that $T(e_j) = \la_je_j$ for all $j\in J$. Hence such that 
 \[ T(x) = \sum_{j \in J} \la_{j}\ind{x, e_j}e_j ~\forall x \in H \]
 Then we have that $T \in \Kf(H)\iff \{\la_j\}_{j\in J} \in C_{0}(J)$ 
 \begin{itemize}
-    \item[*] $\underset{\text{by def.}}{\iff}$ For every $\eps >0$, there exist
+    \item[*] $\underset{\text{by def.}}{\iff}$ For every $\eps >0$, there exists
     a finite subset $K_{\eps}$ of $J$ such that $|\la_j|<\eps$ for all $j\in
     J\setminus K_{\eps}$.
 
@@ -342,12 +337,12 @@ such that $K_{\eps} \subset F$ we have
 \end{align*}
 Se we get that $||T-T_F|| < \eps$, showing that $T_F \to F$ in op. norm. 
 
-Conversly, assume that $(*)$ does not hold i.e. there exits $\eps>0$ such that 
+Conversely, assume that $(*)$ does not hold i.e. there exists $\eps>0$ such that 
 $J_{\eps}$ is infinite. Then we can pick $\{j_k\}_{k\in \N} \subseteq J_{\eps}$
 with $j_k \neq j_{k'}$ for $k\neq k'$. Since $\sum_{k=1}^{\infty}
 |\ind{x,e_{j_k}}|^2 \leq ||x||^2 <\infty$, we have that $\ind{x,e_{j_k}} \to 0$
 as $k\to \infty$ so $\{e_{j_k}\}_{k\in \N}$ converges to 0 weakly (we can flip the order). 
-Now $||Te_{j_k}|| = ||\la_{j_k}|| \geq \eps$ for all $k \in \N$ ($H_1$ is weak-compact).. Hence $\{Te_{j_k}\}$
+Now $||Te_{j_k}|| = ||\la_{j_k}|| \geq \eps$ for all $k \in \N$ ($H_1$ is weak-compact). Hence $\{Te_{j_k}\}$
 does not converge to $0 = T(0)$, so $T\lvert_{H_1}$ is not weak-norm continuous. 
 Using the previous, this shows that $T$ is not compact. (We will show later that 
 every compact normal operator is diagonalizable).
