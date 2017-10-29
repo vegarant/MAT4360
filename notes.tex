@@ -1786,7 +1786,7 @@ The first $\iff$ follows from obs 1. The second follows from obs 3.
 
 \begin{definition}
     Let $\pi\in \Rep(\As,H)$, $K$ closed subspace of $H$. Then we say that $K$
-is \emph{$\pi$-invariant} when $K$ is $\pi(\As)$-invariant.
+is \emph{$\bs{\pi}$-invariant} when $K$ is $\pi(\As)$-invariant.
 \end{definition}
 Using observation 4 we get that $K$ is $\pi$-invariant $\iff$ $K^{\perp}$
 is $\pi$-invariant $\iff$ $P_K$ commutes with $\pi(\As)$.
@@ -2175,19 +2175,155 @@ Then define $\psi\colon \As\to \Bs(H^n)$ where $H^n = H\oplus\cdots\oplus H$ by
 \[ [\psi([T_{ij}])](\xi_1\oplus \cdots \oplus \xi_n) = \( \sum_{j=1}^{n}T_{1j}\xi_j \oplus
 \cdots \oplus \sum_{j=1}^{n}T_{nj}\xi_j \) \quad \forall T_{ij} \in \As, \forall \xi_1\oplus\cdots\oplus\xi_n\in H^n\]
 Then (exercise) $\psi$ is a $*$-isomorphism, and we have 
-\[ \max_{ij} ||T_{ij}||\leq ||\psi([T_{ij}])|| \leq \(\sum_{i,j=1}^{n} ||T_{ij}||^2\)^{1/2} \]
+\[ \max_{kl} ||T_{kl}||\leq ||\psi([T_{ij}])|| \leq \(\sum_{i,j=1}^{n} ||T_{ij}||^2\)^{1/2} \]
 so we get that $\As = M_n(\Bs(H))$ is a $C^*$-algebra with the norm 
 $||[T_{ij}]|| = ||\psi([T_{ij}])||$.
+\begin{proof}
+    It is  lengthy, but strait forward that $\psi$ is a $*$-homomorphism. 
+First we point out that $\psi$ is well defined i.e. that 
+$\psi([T_{ij}])$ is \ul{bounded}:
+We have for all $(\xi_1,\ldots, \xi_n) \in H_{1}^{n}$
+\begin{align*}
+ ||\sum_{j=1}^{n} T_{1j}\xi_j, \ldots, \sum_{j=1}^{n} T_{nj}\xi_j||^2
+&= \sum_{i=1}^{n} ||T_{ij}\xi_j||^2 \\
+&\underset{\Delta-\text{ineq.}}{\leq} \sum_{i=1}^{n} \(\sum_{j=1}^{n}
+||T_{ij}||\,||\xi_j|| \)^2 \\
+&\underset{\text{C.S-ineq}}{\leq}
+\sum_{i=1}^{n} \(\sum_{j=1}^{n} ||T_{ij}||^2\) \(\sum_{j=1}^{n}||\xi_j||^2\) \\
+&=\sum_{i=1}^{n} \(\sum_{j=1}^{n} ||T_{ij}||^2\) ||(\xi_1,\ldots,\xi_n)||^2 \\
+\end{align*}
+This shows that $\psi([T_{ij}])$ is bounded with 
+$||\psi([T_{ij}])||\leq \( \sum_{i,j=1}^{n}||T_{ij}||^2 \)^{1/2}$. 
+Moreover, consider $k,l \in \{1,\ldots, n\}$ and $\xi \in H_1$. 
+Set $\tilde{\xi} = (0,\ldots, \xi,\ldots, 0) \in (H^n)_1$, where $\xi$ has position $l$.
+Note that 
+\begin{align*}
+    ||\psi([T_{ij}]\tilde{\xi})||^2 = ||(T_{1l}\xi, \ldots, T_{nl}\xi)||^2 
+    = \sum_{i=1}^{n} ||T_{il}\xi||^2 \geq ||T_{kl}\xi||^2
+\end{align*}
+so $||T_{kl}\xi||\leq ||\psi([T_{ij}])||$ for all $\xi \in H_1$. Hence 
+$||T_{kl}|| \leq ||\psi([T_{ij}])=0$. Then $T_{kl} = 0$ for all $k,l \in \{1,\ldots,n\}$.
+
+Finally, $\psi$ is \ul{surjective}:
+Let $T \in \Bs(H^n)$. For each $i \in \{1,\ldots, n\}$ let $P_i\colon H^n \to H$
+denote the $i$'th projection map. Si if $\xi \in H^n$, then 
+$\xi = (P_1\xi,\ldots, P_n\xi)$. Moreover for each $j$ define
+$T_{ij}\colon H\to H$ given by 
+$T_{ij}\xi = P_iT (0,\ldots, \xi,\ldots,0)$, where $\xi$ is at position $j$.
+It is clear that each $T_{ij} \in \Bs(H)$. Moreover $\psi([T_{ij}]) = T$,
+since 
+\begin{align*}
+\psi([T_{ij}])(\xi_1,\ldots,\xi_n) &=
+(\sum_{j=1}^{n}P_1 T (0,\ldots,\xi,\ldots,0), \ldots,\sum_{j=1}^{n}P_n T (0,\ldots,\xi,\ldots,0))\\
+&\underset{\text{linearity}}{=} \( P_1T(x_1,\ldots, \xi_n),\ldots, P_nT(x_1,\ldots, \xi_n)\) \\
+&= T(\xi_1,\ldots,\xi_n).
+\end{align*}
+\end{proof}
+As a consequence $M_n(\Bs(H))$ becomes a $C^*$-algebra when equipped 
+with the norm $||[T_{ij}]|| \coloneqq ||\psi([T_{ij}])||$
+\begin{proposition}
+    Let $\As$ be a $C^*$-algebra, and let $n\in \N$.
+Then there exists a (unique) norm turning $M_n(\As)$ into a $C^*$-algebra.
+\end{proposition}
+\begin{proof}
+By the GN-theorem, we can pick a faithful $\pi \in \Rep(\As,H)$. 
+Set $\Bs = \pi(\As)$ which is a $C^*$-subalgebra of 
+$\Bs(H)$. Define $\tilde{\pi}\colon M_n(\As)\to M_n(\Bs)$ by
+$\tilde{\pi}([A_{ij}]) = [\pi(A_{ij})]$. It is almost obvious that $\pi$
+is a $*$-isomorphism. Now, $M_n(\Bs)$ is a $*$-subalgebra of $M_n(\Bs(H))$ 
+which is \ul{closed} in $M_{n}(\Bs(H))$.
+
+Indeed, assume $T^{(n)} = [T_{ij}^{(n)}]$ is a sequence in $M_n(\Bs)$
+which converges to some $T =[T_{ij}] \in M_n(\Bs(H))$. 
+Then for all $k,l\in \{1,\ldots,n\}$ we have 
+\begin{align*}
+    ||T_{ij}^{(n)} - T || &\leq \ub{||[T_{kl}^{(n)} - T_{kl}]||}_{\coloneqq ||\psi([T_{kl}^{(n)} - T_{kl}])||} = ||T^{n}-T|| \to 0
+\end{align*}
+so $T_{kl} = \lim_{n\to\infty} T_{kl}^{(n)} \in \Bs$. Hence $T \in M_n(\Bs)$ as
+desiered.
+
+We have therefore that $\pi \in M_n(\Bs)$ is a $C^*$-subalgebra of 
+$M_n(\Bs(H))$. We can now define 
+$||[A_{ij}]|| = ||\tilde{\pi}([A_{ij}])|| $ for $[A_{ij}] \in M_n(\As)$
+and this makes $M_n(\As)$ into a $C^*$-algebra (using the previous observation).
+\end{proof}
+
+\section{On von Neumann algebras and v.N. double commutant theorem}
+Let $H$ be a Hilbert space.
+We recall:
+\begin{itemize}
+    \item The \emph{strong operator topology} (SOT) on $\Bs(H)$ is the 
+topology induced by the family of seminorms $T\mapsto ||T\xi||$ for all
+$\xi \in H$.
+
+    \item The \emph{weak operator topology} (WOT) on $\Bs(H)$ is the 
+topology induced by the family of seminorms $T\mapsto |\ind{T\xi,\eta}|$ for all
+$\xi,\eta \in H$.
+\item By the \emph{norm topology}, we mean the operator-norm topology. 
+\end{itemize}
+
+For $\{S_{\al}\} \subseteq \Bs(H)$, $S \in \Bs(H) $ we have 
+\[ S_{\al} \overset{\text{norm}}{\longrightarrow} S
+\underset{\text{By def. of op.-norm}}{\implies}
+S_{\al} \overset{\text{SOT}}{\longrightarrow} S
+\underset{\text{By C.S. ineq.}}{\implies}
+S_{\al} \overset{\text{WOT}}{\longrightarrow} S
+\]
+and
+\[ \Ss \subset \ol{\Ss}^{||\cdot||} \subseteq \ol{\Ss}^{SOT} \subset \ol{\Ss}^{WOT} \]
+Hence if $\Ss$ is WOT-closed, then $\Ss$ is SOT-closed which implies that 
+$\Ss$ is normed closed.
+
+\begin{exercise}
+Let $\vphi$ be a linear functional on $\Bs(H)$. Then $\vphi$ is WOT-continuous 
+$\iff$ $\vphi$ is SOT-continuous, which implies that $\vphi$ is norm continuous.
+Moreover, if $\Cs$ is a convex subset of $\Bs(H)$, then 
+$\ol{\Cs}^{SOT} = \ol{\Cs}^{WOT}$.
+\end{exercise}
+
+\begin{definition}
+    For $\Ss\subset\Bs(H)$, we set 
+\[\Ss' = \{T \in \Bs(H): TS=ST,~\forall S\in \Ss\}\]
+is the \emph{commutant} of $\Ss$.
+\end{definition}
+
+One readily checks that $\Ss'$ is a subalgebra of $\Bs(H)$, containing $I_H$.
+Moreover $\Ss'$ is WOT-closed (hence also SOT-closed).
+Indeed, assume $\Ss' \ni T_{\al}\overset{\text{WOT}}{\longrightarrow} T \in \Bs(H)$.
+Let $S \in \Ss$. Then 
+\[TS = \text{WOT-}\lim_{\al} T_{\al}S = \text{WOT-}\lim_{\al}ST_{\al} = ST \]
+where we used that 
+$\indi{T_{\al}\ub{S\xi}^{\in H},\eta} \to \ind{TS\xi,\eta}$
+for all $\xi,\eta \in H$ and 
+similarly $\ind{ST_{\al}\xi,\eta} = \ind{T_{\al}\xi,S^*\eta} \to
+\ind{T\xi,S^*\eta} = \ind{ST\xi,\eta}$.
+Hence $T \in \Ss'$.
 
 
+\begin{note}
+Assume $\Ss\subseteq \Bs(H)$ is self-adjoint (i.e. $S \in \Ss \implies S^* \in \Ss$).
+Then $\Ss'$ is self-adjoint. Hence, in that case  $\Ss'$ is  a $*$-subalgebra
+(containing  $I_H$ and is WOT-closed).  
+\end{note}
+Consider $T \in \Ss'$. Then for any $S \in \Ss$, we have 
+$T^*S = (\ub{S^*}_{\in \Ss}\ub{T}_{\in \Ss'})^* = (TS^*)^* = ST^*$.
 
+\begin{note}
+We set $\Ss'' = (\Ss')'$ for $\Ss \subset \Bs(H)$.
+Then $\Ss = \Ss''$.
+Indeed, of $S \in \Ss$, then for all $T \in \Ss'$, we have $ST = TS$.
+\end{note}
 
+\begin{note}
+Note that if $\Ss \subseteq \Ts \subseteq \Bs(H)$, then 
+ $\Ts' \subseteq \Ss'$. 
+Indeed, let $A \in \Ts'$, then $AS = SA$ for $S \in \Ts, A \in \Ts$.
+\end{note}
 
-
-
-
-
-
+It follows from these two observations that 
+$((\Ss')')'\subseteq \Ss'$ since $\Ss \subseteq \Ss''$ 
+and $\Ss' \subseteq (\Ss')'' = ((\Ss')')'$, so we see that 
+$((\Ss')')' = \Ss'$ and the game stops here.
 
 
 
