@@ -75,6 +75,7 @@
 \def\Hvp{H_{\vphi}}
 \def\xivp{\xi_{\vphi}}
 \def\etavp{\eta_{\vphi}}
+\def\Linf{L^{\infty}}
 
 
 \def\piess{\pi^{\text{ess}}}
@@ -952,6 +953,7 @@ $\Re\vphi(u)< t \leq \Re\vphi(b)$ for all $u \in U$ and $b \in \ol{\Cs}^{\tau}$.
 For any net $\{x_{\al}\}$ in $\Cs$ we will then have $\Re\vphi(x) < t \leq \Re\vphi(x_{\al})$
 for all $\al$. So we can not have $\vphi(x_{\al})\to\vphi(x)$. This shows that 
 the RHS does not hold. 
+\end{proof}
 
 \begin{corollary}
     Let $\Cs$ be a (non-empty) convex subset of $\Bs(H)$. 
@@ -963,23 +965,113 @@ $(\Bs(H), SOT)^* = (\Bs(H), WOT)^*$.
 \end{proof}
 
 
+\section*{Ex 27}
+$(X, \Bs, \mu)$ is a finite measure space. Write $L^{\infty} = L^{\infty}(\mu)$
+and $L^2 = L^{2}(\mu)$.
 
+\subsection*{a)}
+$M\colon L^{\infty} \to \Bs(L^2)$ given by $M([f])[\xi] = [f\xi]$ is a well defined 
+faithfull representation of $\Linf$ on $L^2$. 
 
+Consider $[f] \in \Linf$, $[\xi] \in L^2$. Then $f\xi$ is measureable, since $f$
+and $\xi$ are measurable and we have 
+\[ \int_{X} |f\xi|^2 \d\mu \leq ||f||_{\infty} \int_{X}|\xi|^2 \d \mu 
+\leq ||f||^2 ||\xi||^2\]
+so $[f\xi] \in L^2$.
+We may therefore define $M([f])\colon L^2 \to L^2$ by $[\xi]\mapsto [f\xi]$ 
+because if $\xi = \xi'$ $\mu$-a.e., si $\xi'=\xi$ on some $E \in \Bs$, 
+with $\mu(E^c) =0$, then $f\xi = f\xi'$ on $E$ with $\mu(E^c)=0$ so 
+$[f\xi] = [f\xi']$. One checks then easily that $M([f])$ is a linear map
+and we also have that 
+\[
+||[f\xi]||_{2}^{2} = \int_{X}|f\xi|^2 \d \mu \leq ||[f]||_{\infty}^{2} ||[\xi]||_{2}^{2}
+\]
+so $M([f])$ is bouned with $||M([f])||\leq ||[f]||_{\infty}$.
+We can then proceed and verify that 
+$M\colon \Linf \to \Bs(L^2)$ is a $*$-representation. For example,
+we have 
+\begin{align*}
+    \ind{M([f])[\xi],[\eta]} = \int_{X}f\xi\ol{\eta}\d\mu =
+\int_{X}\xi \ol{\ol{f}\eta}\d \mu = \ind{[\xi], M([\ol{f}])[\eta]}
+\quad \forall [\xi],[\eta] \in L^2
+\end{align*}
+which implies that $M([f])^* = M([\ol{f}]) = M([f]^*)$ for all $f \in \Linf$.
 
+Moreover $M$ is faithful, for if $M([f]) = M([f'])$, then 
+$[f] = M([f])[1_{X}] = M([f'])(1_{X})= [f']$
+where we used that $[1_{X}] \in L^2$ since $\mu$ is finite.
+(It follows from this that $M$ is isometric).
 
+\subsection*{b)}
+Let $\Ms = M(\Linf) \subset \Bs(L^2)$. Then $\Ms' = \Ms$:
+First $\Ms$ is abelian, since $L^{\infty}$ is abilian, so 
+$\Ms \subseteq\Ms'$. Conversly, let $T \in \Ms'$, $T \neq 0$ (otherwise it beloing to $\Ms$).
+So $TM([f]) = M([f])T$  for all $[f] \in L^{\infty}$. 
+Set $[g] = T([1_{X}]) \in L^2$. Then $[g] \in L^{\infty}$:
+Let $A = \{ x \in X : |g(x)| > ||T|| \}$. Then $\mu(A) = 0$. This will give that 
+$||[g]||_{\infty} = \inf\{ M> 0: |g| < M,~ \mu\text{-a.e.} \} \leq ||T|| <\infty$.
 
+Indeed, assume for contradiciton that $\mu(A) > 0$. 
+Observe that if $[f] \in L^{\infty}$, then $[gf] = M([f])[g] = M([f])T[1_X] 
+= TM([f])[1_{X}] = T[f]$ where we used that $T \in \Ms'$.
+So 
+\[||[fg]|| \leq ||T|| ||[f]||_2  \qquad (*)\]
+Thus 
+\begin{align*}
+||T||^2 \mu(A) &= \int_{A}||T||^2\d \mu 
+< \int_{A}|g|^2\d\mu =\int_{X}|\chi_{A}g|^2 \d\mu \\&= ||[\chi_A g]||_{2}^{2}
+\underset{(*)}{\leq} ||T||^2 ||[\chi_{A}]||_{2}^{2} = ||T||^2 \mu(A)
+\end{align*}
+which gives a contradiction. 
 
+We then get that 
+\[ T[f] = [fg] = [gf] \underset{g \in\Linf}{=} M([g])[f]\quad\forall [f] \in \Linf \]
+But $\{[f]:[f]\in\Linf\}$ is dense in $L^2$ because all simple measurable functions belong 
+to $\Linf$ and these are dense in $L^2$ when $\mu$ is finite. 
 
+Since $T$ is bounded = continuous, we can conclude that 
+$T=M([g])$ in $L^2$. Hence $T \in \Ms$. So $\Ms' \subseteq \Ms$ i.e. $\Ms'=\Ms$.
 
+$\Ms$ is a v.N. algebra. Finally $\Ms$ is a maximal abelian v.N. subalgebra of $\Bs(L^2)$:
+Indeed, assume $\Ns$ is an abelian v.N. subalgebra of $\Bs(L^2)$ such that $\Ms \subseteq\Ns$.
+Then we have that $\Ns\subseteq\Ns'\subseteq\Ms' = \Ms$, so $\Ns = \Ms$.
 
-
-
-
-
-
-
-
+\section*{Ex 28}
+$H$ Hilbert space. $f \colon \R \to [-1,1]$ is given by 
+$f(x) = \frac{2}{1+x^2} = 2x(1+x^2)^{-1} = (1+x^2)^{-1}2x$ (notice the commutativeness).
+Assume $\{S_{\al}\} \subset \Bs(H)_{\sa}$, $S \in \Bs(H)_{\sa}$ and $S_{\al}\to S$ (SOT).
+Then $f(S_{\al})\to f(S)$ (SOT):
+\begin{proof}
+   Let $T \in \Bs(H)_{\sa}$. Then we have 
+\begin{align*}
+    f(T) - f(S) &=
+(1+T^2)^{-1}2T -2S(1+S^2)^{-1} \\
+&= (1+T^2)^{-1}2T(1+S^2)(1+S^2)^{-1} - (1+T^2)^{-1}(1+T^2)2S (1+S^2)^{-1} \\
+&= (1+T^2)^{-1}\(2T + 2TS^2 - 2S - 2T^2S\)(1+S^2)^{-1} \\
+&= 2(1+T^2)^{-1}(T-S)(1+S^2)^{-1} - 2(1+T^2)^{-1}T(T-S)S(1+S^2)^{-1}
+\end{align*}
+Let now $\xi \in H$. Look first at 
+\[
+\ub{2(1+S_{\al}^{2})^{-1}}_{A_{\al}} \ub{(S_{\al}-S)(1+S^2)^{-1}}_{B_{\al}}
+\]
+Hence 
+$S_{\al}\to S$ (SOT) now have 
+$B_{\al}\xi = (S_{\al}-S)(1+S^2)^{-1}\xi\to 0$.
+Moreover $||A_{\al}|| \leq 2$ since $\Sp(1+S^{2}_{\al})\subseteq [1,\infty)$,
+so $||A_{\al}B_{\al}\xi|| \leq 2 ||B_{\al}\xi|| \to 0$.
+Next we look at 
+\[ \ub{2(1+S_{\al}^{2})^{-1}S_{\al}}_{f(S_{\al})}\ub{(S_{\al}-S)S(1+S^2)^{-1}}_{C_{\al}} \] 
+Again, we have $||C_{\al}\xi||\to 0$ since $S_{\al}\to S$, so 
+$||f(S_{\al})C_{\al}\xi||\leq ||f(S_{\al})|| ||C_{\al}\xi|| \leq ||C_{\al}\xi||\to 0$
+where we used that $||f(S_{\al})||\leq 1$ since $||f||_{\infty}\leq 1$.
+This gives that 
+\begin{align*}
+    ||(f(S) - f(S_{\al}))\xi|| = ||A_{\al}B_{\al}\xi -f(S_{\al})C_{\al}\xi||
+\leq ||A_{\al}B_{\al}\xi||+||f(S_{\al})C_{\al}\xi|| \to 0
+\end{align*}
+as desiered. 
 \end{proof}
+
 
 
 
