@@ -870,6 +870,132 @@ since
 for all $A \in \As$. Hence $(U\xivp - \xi') \perp(\ol{\pi'(\As)\xi'}^{||\cdot||})^{\perp} = 
 (U\xivp - \xi') \perp (H')^{\perp} = \{0\}$. 
 
+\section*{Ex 24}
+\subsection*{a)}
+Let $\vphi$ be a linear functional on $\Bs(H)$. Then the following are
+equivalent. 
+\begin{enumerate}[(1)]
+    \item There exits $\xi_1,\ldots,\xi_n,\eta_1,\ldots,\eta_n \in H$
+such that $\vphi(T) = \sum_{j=1}^{n} \ind{T\xi_j,\eta_j}$ for all $T \in \Bs(H)$.
+\item $\vphi$ is WOT-continuous. 
+\item $\vphi$ is SOT-continuous.
+\end{enumerate}
+
+\begin{proof}
+    $(1) \implies (2)$ and $(2)\implies (3)$ are obvious. 
+Consider $(3)\implies (1)$. Assume $\vphi$ is SOT-continuous. Then there exists 
+an open neighborhood $U$ around $0$ in the SOT such that $\vphi(U)\subseteq 
+\{\la\in \C : |\la| < 1\}$. We can then find $\eps > 0$ and $\xi_1',\ldots, \xi_n'\in H$
+such that 
+\[V \coloneqq\{S \in B(H) : || S\xi_j' ||<\eps \text{ for } j = 1,\ldots, n\}
+\subseteq U\]
+We have that if $S \in \Bs(H)$ and $\max_{j\in \{1,\ldots,n\}} ||S\xi_j'|| < \eps\implies 
+|\vphi(S)|< 1$. This implies that with $\xi_j \coloneqq \tfrac{2}{\eps}\xi_j'$ 
+for $j=1,\ldots,n$ we have 
+$P(S)\coloneqq \max_{j\in \{1,\ldots,n\}}||S\xi_j|| \leq 1 \implies |\vphi(S)| < 1$
+(because $||S\xi_j|| \leq 1 \implies ||S\xi_j'|| \leq \tfrac{\eps}{2} < \eps$).
+
+We now have that 
+\[ |\vphi(T)| \leq P(T) \leq \(\sum_{j=1}^{n} ||T\xi_j||^2\)^{1/2} \quad
+\text{ for all }T \in \Bs(H) \]
+Indeed, if $P(T) = 0$, then $P(\la T) = \la P(T) = 0$ for all $\la \in \R^+$,
+so $|\vphi(\la T)| < 1$ for all $\la \in \R^+$,
+which gives that $|\vphi(T)| = 0$.
+So the first inequality is ok in this case. 
+Assume $P(T) > 0$. Then $P(\tfrac{1}{P(T)} T)= 1$, so
+$|\vphi(\tfrac{1}{P(T)}T)| < 1 \implies |\vphi(T)| <  P(T)$. The second
+inequality is obvious. 
+
+Now consider $H^n = H\oplus \cdots \oplus H$ ($n$-times). Set 
+$M_0 = \{(T\xi_1, \ldots, T\xi_n) : T \in \Bs(H)\}\subseteq H^n$.
+Then $M_0$ is a subspace of $H^n$, so $M = \ol{M_0}^{||\cdot||}$ is 
+a closed subspace of $H^n$. Hence a Hilbert space, with 
+respect to the inner product it heritages from $H^n$.
+
+Define $\psi\colon M_0 \to \C$ by $\psi((T\xi_1,\ldots, T\xi_n)) = \vphi(T)$
+for $T \in \Bs(H)$. Observe that $\psi$ is well-defined:
+If $(T'\xi_1,\ldots, T'\xi_n) = (T\xi_1,\ldots, T\xi_n)$, then
+$P(T-T') = \max_{j\in \{1,\ldots, n\}}||(T-T')\xi_j|| = 0$, 
+so $\vphi(T-T') = 0$ (using the previous oberservation).
+Clearly $\psi$ is linear (since $\vphi$ is linear), moreover 
+$\psi$ is continuous:
+For $T \in \Bs(H)$, we have 
+\[ |\psi((T\xi_1,\ldots, T\xi_n))| \leq 
+\( \sum_{j=1}^{n} ||T\xi_j||^2 \)^{1/2} = ||(T\xi_1,\ldots, T\xi_n)|| \text{
+(norm in $H^n$).} \] so we can extend $\psi$ to $\tilde{\psi}\in M^*$ (by Hahn
+Banach). 
+By Riesz representation theorem, there exits $\eta\in M$, such that 
+$\tilde{\psi}(\xi_1) = \ind{\xi,\eta} $ for all $\xi \in M$ (here $\ind{\cdot,\cdot}$ is the i.p.
+in $H^n$).
+This gives that for any $T \in \Bs(H)$ we have 
+\[ \vphi(T) = \tilde{\psi}((T\xi_1,\ldots, T\xi_n)) = \indi{(T\xi_1,\ldots, T\xi_n), \ob{(\eta_1,\ldots, \eta_n)}^{\eta}} = \sum_{j=1}^{n} \ind{T\xi_j,\eta_j}\]
+as desired.
+
+\end{proof}
+
+\subsection*{b)}
+We will need the following observation:
+
+Let $\Cs$ be a (non-empty) convex subset of a locally convex topological 
+vector space $(X,\tau)$ .
+Then $x \in \ol{\Cs}^{\tau} $ $\iff$ There exits a net $\{x_{\al}\}$
+in $\Cs$ such that $\vphi(x) = \lim_{\al}\vphi(x_{\al})$ for all $\vphi \in (X,\tau)^*$.
+
+\begin{proof}
+    $\implies $ is obvious. 
+
+$\impliedby$ Suppose $x \in X\setminus \ol{\Cs}^{\tau}$. Choose an open \ul{convex}
+$U$ such that $x \in  U$ and $U\cap \ol{\Cs}^{\tau} = \emptyset$. Since 
+$\ol{\Cs}^{\tau}$ is convex, we can apply H.B. separation theorem, to find 
+$\vphi \in (X,\tau)^*$ and $t \in \R$, such that 
+$\Re\vphi(u)< t \leq \Re\vphi(b)$ for all $u \in U$ and $b \in \ol{\Cs}^{\tau}$.
+For any net $\{x_{\al}\}$ in $\Cs$ we will then have $\Re\vphi(x) < t \leq \Re\vphi(x_{\al})$
+for all $\al$. So we can not have $\vphi(x_{\al})\to\vphi(x)$. This shows that 
+the RHS does not hold. 
+
+\begin{corollary}
+    Let $\Cs$ be a (non-empty) convex subset of $\Bs(H)$. 
+Then $\ol{\Cs}^{WOT} = \ol{\Cs}^{SOT}$.
+\end{corollary}
+\begin{proof}
+    Use the observation pluss the fact that 
+$(\Bs(H), SOT)^* = (\Bs(H), WOT)^*$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

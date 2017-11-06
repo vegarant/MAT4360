@@ -85,6 +85,8 @@
 \DeclareMathOperator{\Id}{Id}
 \DeclareMathOperator{\Sp}{sp}
 \DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\vN}{v.N}
 \def\vphi{\varphi}
 \def\top{\tilde{\oplus}}
 %%% Colours %%%
@@ -2288,7 +2290,7 @@ Indeed, assume $\Ss' \ni T_{\al}\overset{\text{WOT}}{\longrightarrow} T \in \Bs(
 Let $S \in \Ss$. Then 
 \[TS = \text{WOT-}\lim_{\al} T_{\al}S = \text{WOT-}\lim_{\al}ST_{\al} = ST \]
 where we used that 
-$\indi{T_{\al}\ub{S\xi}^{\in H},\eta} \to \ind{TS\xi,\eta}$
+$\indi{T_{\al}\ob{S\xi}^{\in H},\eta} \to \ind{TS\xi,\eta}$
 for all $\xi,\eta \in H$ and 
 similarly $\ind{ST_{\al}\xi,\eta} = \ind{T_{\al}\xi,S^*\eta} \to
 \ind{T\xi,S^*\eta} = \ind{ST\xi,\eta}$.
@@ -2305,8 +2307,8 @@ $T^*S = (\ub{S^*}_{\in \Ss}\ub{T}_{\in \Ss'})^* = (TS^*)^* = ST^*$.
 
 \begin{note}
 We set $\Ss'' = (\Ss')'$ for $\Ss \subset \Bs(H)$.
-Then $\Ss = \Ss''$.
-Indeed, of $S \in \Ss$, then for all $T \in \Ss'$, we have $ST = TS$.
+Then $\Ss \subseteq \Ss''$.
+Indeed, if $S \in \Ss$, then for all $T \in \Ss'$, we have $ST = TS$.
 \end{note}
 
 \begin{note}
@@ -2319,6 +2321,309 @@ It follows from these two observations that
 $((\Ss')')'\subseteq \Ss'$ since $\Ss \subseteq \Ss''$ 
 and $\Ss' \subseteq (\Ss')'' = ((\Ss')')'$, so we see that 
 $((\Ss')')' = \Ss'$ and the game stops here.
+
+
+\begin{definition}
+    Let $H$ be a Hilbert space and let 
+    $\Ms$ be a $*$-subalgebra of $\Bs(H)$ containing $I_H$. Then $\Ms$ is called 
+a \emph{von Neumann algebra} (on $H$) if $\Ms$ is WOT-closed (equivalently, if 
+$\Ms$ is SOT-closed).
+\end{definition}
+Note: Some authors (like Murphy) don't require that $\Ms$ contains $I_H$.
+
+Note that $\Ms$ is a $C^*$-algebra of $\Bs(H)$.
+
+\begin{example}\leavevmode
+    \begin{enumerate}[(1)]
+        \item $\Bs(H)$ is a von Neumann algebra.
+        \item $\C \cdot I_H$ is a von Neumann algebra.
+        \item If $\Ss \subseteq \Bs(H)$ is self-adjoint, then $\Ss'$
+    is a von Neumann algebra and $\Ss''$ is also a von Neumann algebra.
+        \item Let $(X, \Bs, \mu)$ be  finite (or $\sigma$-finite) measure space.
+Then we can let $M:\colon L^{\infty}(X,\Bs, \mu)\to \Bs(H)$ where $H = L^2(X,\Bs, \mu)$
+be defined by multiplication operators. Exercise: 
+Then $\Ms \coloneqq \{M(f) : f \in L^{\infty}(X,\Bs, \mu)\}$ is a von Neumann 
+algebra. In fact $\Ms' = \Ms$.    
+\end{enumerate}
+\end{example}
+
+
+\begin{definition}
+    Let $\As$ be a  $*$-subalgebra of $\Bs(H)$. Set 
+\[ \Ns(\As) \coloneqq \{\xi \in H: T\xi = 0\text{ for all }T \in \As\} =
+\bigcap_{T \in \As} \ker T \]
+\end{definition}
+Note $\Ns(\As) = [\As H]^{\perp}$ (easy exercise)
+
+\begin{definition}
+    Let $\As$ be as above. We say that $\As$ in \emph{non-degenerate}
+if $[\As H] = H$ i.e. $\Ns(\As) = \{0\}$. 
+\end{definition}
+
+\begin{theorem}[von Neumanns double commutant theorem]
+    Assume $\As$ is a non-degenerate $*$-subalgebra of $\Bs(H)$. 
+Then $\ol{\As}^{SOT} = \ol{\As}^{WOT} = \As''$ 
+\end{theorem}
+We immediately get:
+\begin{corollary}
+    If $\As$ is a $*$-subalgebra of $\Bs(H)$. Then $\As$ is a von
+Neumann algebra $\iff$ $\As = \As''$.
+\end{corollary}
+\begin{proof}[Proof of v.N. double commutant theorem]
+    Since $\ol{\As}^{SOT} = \ol{\As}^{WOT} \subseteq \As''$, we 
+only have to show that $\As'' \subseteq \ol{\As}^{SOT}$.
+Let $T \in \As''$. Let $U$ be any SOT-open neighborhood of $T$. We have 
+to show that there exits $S \in \As$ such that $S \in U$. Pick 
+$\eps > 0$ and $\xi_1,\ldots, \xi_n \in H$ such that 
+\[ V\coloneqq \{ T' \in \Bs(H) : ||T\xi_j - T'\xi_j|| < \eps \text{ for }j
+=1,\ldots,n \} \subseteq U\]
+It suffices to show that $\exists S \in \As$ such that 
+$\sum_{j=1}^{n} ||T\xi_j - S\xi_j||^2 < \eps^2$.
+(because we will then have $||T\xi_j - S\xi_j || < \eps$ for $j=1,\ldots, n$
+so $S \in V$).
+
+Assume $n=1$. Let $P$ denote the orthogonal projection from $H$ onto
+$[\As\xi_1] \coloneqq K$. Then $K$ is invariant under $A$ for all $A \in \As$.
+Since $\As$ is self-adjoint, $K^{\perp}$ is also invariant under $A$ for all $A
+\in \As$. So $PA = AP$ for all $A \in \As$ i.e. $P\in \As'$.
+Since $T \in \As''$, we get $TP=PT$. 
+
+Moreover $\xi_1 \in K$:
+Indeed, for any $A \in \As$, we have $A(I_H - P)\xi_1 \underset{P\in \As'}{=}
+(I_H-P)\ub{A\xi_1}_{\in
+K} = 0$, i.e $(I_H -P)\xi_1 \in \Ns(\As) = \{0\}$, where the last equality
+follows by assumption. So $(I_H - P)\xi_1 = 0$ i.e. $\xi_1 = P\xi_1 \in K$.
+Hence $T\xi_1 = TP\xi_1 = PT\xi_1 \in K = \ol{\As\xi_1}^{||\cdot||}$,
+($\As\xi_1$ is a subspace), 
+so $\exists S \in \As $ such that $||T\xi_1 - S\xi_1|| < \eps$ as wanted in this case.
+
+Now assume $n \geq 2$.
+Set $\xi = (\xi_1,\ldots,\xi_n) \in H^n$.
+consider 
+\[\As_n = \left\{
+\begin{bmatrix} A & 0 &\cdots & 0 \\
+0 & A &\cdots & 0 \\
+\vdots & &\ddots & \vdots \\
+0 &\cdots &\cdots  & A 
+ \end{bmatrix}
+: A \in \As
+\right\} \subseteq \Bs(H^n)\]
+and 
+\[T_n \coloneqq \begin{bmatrix} T &\cdots & 0 \\ \vdots & \ddots &\vdots \\
+0 &\cdots & T \end{bmatrix} \in \Bs(H^n), \quad \text{for }T\in \Bs(H)\]
+Note that 
+\begin{align*}
+\Ns(\As) &= \{(\eta_1,\ldots, \eta_n) \in H^n :
+(A\eta_1,\ldots, A\eta_n) = (0,\ldots,0) \text{ for all }A \in \As\} \\
+&= \{ (\eta_1,\ldots, \eta_n) \in H^n : A\eta_j = 0 \text{ for all}A\in \As, j=1,\ldots,n\}\\
+&= \{(0,\ldots,0)\}
+\end{align*}
+since $\Ns(\As) = 0$, so $\As_n$ is non-degenerate. 
+Moreover $(\As_n)' = \{ [B_{ij}] : B_{ij} \in \As', i,j =1,\ldots,n \}$
+and 
+\[(\As_n)'' = \left\{ \begin{bmatrix} C &\cdots & 0 \\ \vdots &\ddots &\vdots \\ 0 &\cdots & C \end{bmatrix} : C \in \As'' \right\}\]
+In particular $T_n \in (\As_n)''$. 
+By applying the first part of the proof to the situation, we can find $S_n \in \As_n$
+such that $||T_{n} \xi - S_n\xi|| <\eps$  (norm in $H^n$) i.e. 
+such that 
+\[ ||(T\xi_1,\ldots,T\xi_n) - (S\xi_1,\ldots,S\xi_n) || \underset{\text{by def.}}{=} \(\sum_{j=1}^{n} ||T\xi_j - S\xi_j||^2\)^{1/2}< \eps \]
+as we wanted
+\end{proof}
+
+\begin{lemma}[used in the proof above]
+    $(\As_n)' = \{[B_{ij}], B_{ij} \in \As', \forall i,j = 1,\ldots,n\}$
+\end{lemma}
+\begin{proof}
+    Consider $[B_{ij}] \in \Bs(H^n)$. 
+Then $[B_{ij}] \in (\As_n)'$ implies that 
+\begin{align*}
+    [B_{ij}]
+\begin{bmatrix} A &\cdots & 0 \\ \vdots &\ddots &\vdots\\ 0 &\cdots &A \end{bmatrix}
+&= 
+\begin{bmatrix} A &\cdots & 0 \\ \vdots &\ddots &\vdots\\ 0 &\cdots &A \end{bmatrix}
+[B_{ij}] \\
+\begin{bmatrix} B_{11}A &\cdots & B_{1n}A \\ \vdots &\ddots &\vdots\\ B_{n1}A &\cdots &B_{nn}A \end{bmatrix}
+&= 
+\begin{bmatrix} AB_{11} &\cdots & AB_{1n} \\ \vdots &\ddots &\vdots\\ AB_{n1} &\cdots &AB_{nn} \end{bmatrix}
+\end{align*}
+which implies that 
+$B_{ij}A = AB_{ij}$ for all $i,j$ and for all $A \in \As$. Hence
+$B_{ij} \in \As'$ for all $i,j$ as desiered. 
+\end{proof}
+
+\begin{lemma}
+    \[(\As)'' = \left\{\diag((C,\ldots, C)), C \in \As''\right\} \coloneqq (\As'')_n\]
+\end{lemma}
+We start to consider $(\As'')_n\subseteq (\As_n)''$: If $C \in \As''$. Then for all 
+$[B_{ij}] \in (\As_n)'$, we have 
+\begin{align*}
+    \diag((C,\ldots, C))[B_{ij}] = [CB_{ij}] = [B_{ij}C] = [B_{ij}]\diag((C,\ldots,C))
+\end{align*}
+where we used that $B_{ij}\in \As'$ and $C\in \As''$ pluss the previous lemma.
+This shows that 
+$\diag((C,\ldots, C)) \in (\As_n)''$.
+
+Now consider $(\As_n)'' \subseteq (\As'')_n$:
+Let $[T_{ij}] \in (\As_n)''$. We then have 
+$[T_{ij}] \in (\As_n)'' \underset{\text{prev. lem.}}{=} (M_n(\As'))'$, for 
+each $k,l \in \{1,\ldots,n\}$. 
+We set 
+\[(E^{kl})_{ij} = \begin{cases} 
+I_H &  \text{if } i =k \text{ and } l=j \\
+ 0 &\text{otherwise} \end{cases}\] 
+where $E^{kl} \in M_{n}(\As')$. Then 
+\begin{align*}
+    [T_{ij}]E^{kl} &= E^{kl}[T_{ij}] \\
+    \begin{bmatrix} 
+       0 &\cdots & T_{1k} &\cdots & 0 \\
+       \vdots &\cdots & \vdots &\cdots &\vdots \\
+       0 &\cdots & T_{nk} & \cdots & 0
+    \end{bmatrix}
+&=
+    \begin{bmatrix} 
+       0   &\cdots & 0 \\
+       \vdots &\ddots &\vdots \\
+       T_{l1} &  \cdots & T_{ln} \\
+       \vdots  &\ddots &\vdots \\
+       0   &\cdots & 0 \\
+    \end{bmatrix}
+\quad\forall k,l
+\end{align*}
+This implies that $T_{kk} = T_{ll}$ for all $k,l$
+and that $T_{kl} = 0$ for $k\neq l$.
+So $[T_{ij}] = \diag((C,\ldots,C))$
+for some $C \in \Bs(H)$. Assume $B \in \As'$. Then $\diag((B,\ldots,B))\in M_n(\As')$
+since $[T_{ij}] \in (M_n(\As'))'$ we get 
+\begin{align*}
+    \diag((C,\ldots, C))\diag((B,\ldots, B))
+&= \diag((B,\ldots, B))\diag((C,\ldots, C))  \\
+\diag((CB,\ldots, CB)) &= \diag((BC,\ldots, BC)) 
+\end{align*}
+\section{A couple of applications}
+Consider $T \in \Bs(H)$ and its polar decomposition $T = U|T|$. So 
+$|T| = (T^*T)^{1/2}$ while $U\colon H\to H$ is the partial isometry 
+with \emph{initial space} $[|T|H]$ and \emph{final space} $[TH]$, determined
+by $U(|T|\xi) = T\xi$ for all $\xi \in H$.
+Let $\vN(T)$ denote the von Neumann algebra generated by $T$, 
+that is the least von Neumann algebra containing $I_H, T$ and $T^*$,
+so 
+\begin{align*}
+ \vN(T) &= \ol{\{P(T,T^*): P \text{ complex polynomial in two variables}\}}^{SOT} 
+\underset{\text{v.N D.C.T}}{=} \{T,T^*\}''  \\
+&\supseteq C^*(T),\quad \text{ ($C^*$-alg generated by $T$)}
+\end{align*}
+Then we have $|T| \in C^*(T)\subseteq \vN(T)$ 
+and we have $U \in \vN(T)$:
+\begin{proof}
+    Let $S \in \{T,T^*\}'$. It suffices to show that $US=SU$.
+Note first that $S$ commutes with $T$ and $T^*$ i.e. also with 
+$|T| = (T^*T)^{1/2}$ (which is self adjoint).
+So $|T|H$ and $(|T|H)^{\perp}$ are both invariant 
+under $S$. So for $\eta \in (|T|H)^{\perp}=$ the null space of $U$.
+We get $U\ub{S\eta}_{\in(|T|H)^{\perp}} = 0$ and 
+$SU\eta = S0 = 0$, so $US\eta = SU\eta$ for $\eta \in (|T|H)^{\perp}$.
+On the other hand, for any $\xi \in H$, we have 
+\begin{align*}
+&US|T|\xi = U|T|S\xi = TS\xi \\
+\text{and }&     
+SU|T|\xi = S|T|\xi = TS\xi 
+\end{align*}
+so $US=SU$ on $[|T|H]$ (by continuity). 
+Since $H = [|T|H] \oplus (|T|H)^{\perp}$, we get that 
+$US=SU$ on $H$.
+
+\ul{Why $\vN(T)\subseteq \{T,T^*\}''$ is obvious}: Since
+$\{T,T^*\}''$ is a v.N. algebra containing $I_H, T$ and $T^*$)
+Conversely, we have
+\begin{align*}
+\{T,T^*\}'' &\subseteq \{ P(T,T^*) : P\text{ comp. ploy $\ldots$}\}'' \\
+&\underset{\text{v.N. D.C.T}}{=}  
+\ol{\{P(T,T^*): p \text{ complex polynomial in two variables}\}}^{SOT} \\
+&= \vN(T)
+\end{align*}
+\end{proof}
+
+Note that if $\Ms$ is a v.N. algebra on $H$ and $T \in \Ms$, then 
+$\vN(T) = \{T,T^*\}'' \subseteq \Ms$, so $|T|$ and $U \in \Ms$. 
+
+\subsubsection*{Another application}
+Let $T \in \Bs(H)$ be normal and let $f \in B_{b}(\Sp(T))$, where 
+$B_{b}$ are all Borel bounded complex functions. Then 
+$f(T) \in \vN(T)$, so if $T \in \Ms$, where $\Ms$ is a v.N. algebra, and 
+$T$ is normal, then $f(T) \in \Ms$. 
+\begin{proof}
+    For $\xi,\eta \in H$, let $\mu_{\xi,\eta} \in M(\Sp(T))$ be the associated 
+spectral measure of $T$. 
+So 
+\[ \int_{\Sp(T)} f \d\mu_{\xi,\eta} = \ind{f(T)\xi,\eta} \quad\forall f \in B_{b}(\Sp(T)) \]
+Let $S \in\{T, T^*\}''$. We then have 
+$Sg(T) = g(T)S$ for all $g \in C(\Sp(T))$. 
+Let $\xi,\eta \in H$. Then for all $g \in C(\Sp(T))$ we get 
+\begin{align*}
+    \int_{\Sp(T)} g \d\mu_{S\xi,\eta} &= \ind{g(T)S\xi,\eta} \\
+    &= \ind{Sg(T)\xi,\eta} \\
+    &= \ind{g(T)\xi,S^*\eta} \\
+    &= \int_{\Sp(T)} g \d \mu_{\xi,S^*\eta}
+\end{align*}
+so by the uniqueness part of the riesz representation theorem for 
+$C(\Sp(T))^* = M(\Sp(T))$ we get that 
+$\mu_{S\xi,\eta} = \mu_{\xi,S^*\eta}$.
+This gives that 
+\begin{align*}
+    \ind{f(T)S\xi,\eta} 
+&= \int_{\Sp(T)} f\d\mu_{S\xi,\eta} 
+= \int_{\Sp(T)} f\d\mu_{\xi,S^*\eta} \\
+&= \ind{f(T)\xi, S^*\eta} 
+= \ind{Sf(T)\xi,\eta} \quad \forall \xi,\eta \in H
+\end{align*}
+so $f(T)S = Sf(T)$. Hence $f(T) \in \{T,T^*\}'' = \vN(T)$.
+\end{proof}
+Note that if $\Ms$ is a v.N. algebra and $T \in \Ms$ is normal, we get that all
+spectra projections of $T$ (that is of the form $\chi_F(T)$ where $F$ is a Borel
+subset of $\Sp(T)$) belong to $\Ms$.
+Arguing as in the case where $\Ms = \Bs(H)$ (c.f. MAT 4450) we get that 
+$\Ms = \ol{\Span{P\in \Ms: P^* = P = P^2}}^{||\cdot||}$.
+(Borel functions can be approximated in $||\cdot||$ by simple functions). 
+
+
+\section{More on the SOT (and the WOT) the Kaplantsy density theorem}
+We first need some observations:
+For $\Ss \subset \Bs(H)$, we set 
+\begin{align*}
+    \Ss_1 &= \{S \in \Ss: ||S|| \leq 1\} \\
+    \Ss_{\sa} &= \{S \in \Ss: S = S^*\} \\
+    \Ss_{1,\sa} &=\Ss_1 \cap \Ss_{\sa}
+\end{align*}
+\begin{observation}
+    The $*$-operation on $B(H)$ is WOT-WOT continuous
+\end{observation}
+\begin{proof}
+    Indeed, assume $T_{\al} \to T$ in WOT. Then for all 
+$\xi,\eta \in H$ we have 
+\begin{align*}
+    \ind{T_{\al}^{*}\xi,\eta} = \ind{\xi,T_{\al}\eta} \underset{\al}{\longrightarrow}
+\ind{\xi, T\eta} = \ind{T^*\xi,\eta} 
+\end{align*}
+\end{proof}
+It follows that $\Bs(H)_{\sa}$ is WOT-closed
+(for i f$T_{\al}\to T$ (WOT), $T_{\al}^* = T_{\al}$ for all $\al$,
+then $T_{\al}= T^{*}_{\al}\to T^*$ (WOT is Hausdorff top.) so $T=T^*$).
+Since $\Bs(H)_{\sa}$ is convex, we get that 
+$\Bs(H)_{\sa}$ is also SOT-closed.
+
+More generally: Assume $B \in \Bs(H)$ is SOT-closed. Then since 
+$B_{\sa} = B\cap \Bs(H)_{\sa}$, we get that $B_{\sa}$ is also SOT-closed.
+
+
+
+
+
+
+
+
+
+
+
 
 
 
