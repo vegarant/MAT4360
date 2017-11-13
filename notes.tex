@@ -39,6 +39,7 @@
 \newtheorem*{example}{Example}
 \newtheorem*{exercise}{Exercise}
 \newtheorem*{note}{Note}
+\newtheorem*{notation}{Notation}
 \newtheorem*{remark}{Remark}
 
 \let\emph\relax % there's no \RedeclareTextFontCommand
@@ -2267,7 +2268,7 @@ S_{\al} \overset{\text{SOT}}{\longrightarrow} S
 S_{\al} \overset{\text{WOT}}{\longrightarrow} S
 \]
 and
-\[ \Ss \subset \ol{\Ss}^{||\cdot||} \subseteq \ol{\Ss}^{SOT} \subset \ol{\Ss}^{WOT} \]
+\[ \Ss \subseteq \ol{\Ss}^{||\cdot||} \subseteq \ol{\Ss}^{SOT} \subseteq \ol{\Ss}^{WOT} \]
 Hence if $\Ss$ is WOT-closed, then $\Ss$ is SOT-closed which implies that 
 $\Ss$ is normed closed.
 
@@ -2605,14 +2606,402 @@ $\xi,\eta \in H$ we have
 \ind{\xi, T\eta} = \ind{T^*\xi,\eta} 
 \end{align*}
 \end{proof}
-It follows that $\Bs(H)_{\sa}$ is WOT-closed
-(for i f$T_{\al}\to T$ (WOT), $T_{\al}^* = T_{\al}$ for all $\al$,
+It follows that \ul{$\Bs(H)_{\sa}$ is WOT-closed}
+(for if $T_{\al}\to T$ (WOT), $T_{\al}^* = T_{\al}$ for all $\al$,
 then $T_{\al}= T^{*}_{\al}\to T^*$ (WOT is Hausdorff top.) so $T=T^*$).
 Since $\Bs(H)_{\sa}$ is convex, we get that 
 $\Bs(H)_{\sa}$ is also SOT-closed.
 
 More generally: Assume $B \in \Bs(H)$ is SOT-closed. Then since 
 $B_{\sa} = B\cap \Bs(H)_{\sa}$, we get that $B_{\sa}$ is also SOT-closed.
+
+
+
+\section{Kaplanskys density theorem}
+\begin{theorem}
+    Let $\As$ be a $*$-subalgebra of $\Bs(H)$. Then we have 
+\begin{enumerate}[(1)]
+    \item $\ol{\Assa}^{SOT} = \(\ol{\As}^{SOT}\)_{\sa} $ 
+    \item $\ol{\As_{1,\sa}}^{SOT} = \(\ol{\As}^{SOT}\)_{1,\sa} $ 
+    \item $\ol{\As_1}^{SOT} = \(\ol{\As}^{SOT}\)_{1} $
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+Note: We can replace SOT with WOT since all sets are convex.
+We set $\Bs = \ol{\As}^{SOT}$. 
+
+\begin{enumerate}[(1)]
+    \item $\ol{\Assa}^{SOT} = \Bs_{\sa}$:
+By the second observation last week, we know that $\Bs_{\sa}$ is SOT-closed. 
+Since $\Assa \subseteq \Bs_{\sa}$, we get that $\ol{\Assa}^{SOT} \subseteq \Bs_{\sa}$.
+
+Conversely, let $B \in \Bs_{\sa}$. Choose, $\{A_{\al}\}\subseteq \As$ such that 
+$A_{\al} \to B $ (SOT). Then 
+\[
+\frac{A_{\al}+A_{\al}^*}{2} \to \frac{B+B^*}{2} = B \quad(WOT)
+\]
+so $B \in \ol{\Assa}^{WOT} = \ol{\Assa}^{SOT}$. Hence
+$\Bs_{\sa} \subseteq \ol{\Assa}^{SOT}$.
+
+\item $\ol{\As_{1,\sa}}^{SOT} = \Bs_{1,\sa}$:
+
+We will first assume that $\As$ is normed closed i.e. 
+$\As$ is a $C^*$-subalgebra of $\Bs(H)$. 
+Note that $\As_{1,\sa}\subseteq\Bs_{1,\sa}$ where $\Bs_{1,\sa}$ is SOT-closed,
+so $\ol{\As_{1,\sa}}^{SOT}\subseteq\Bs_{1,\sa}$. 
+
+Conversely, consider $T \in \Bs_{1,\sa}$ so $T=T^* \in \Bs$, $||T||\leq 1$.
+Let $g \colon [-1,1]\to [-1,1]$ be given by 
+\[ g(t) = \frac{t}{1+\sqrt{1+t^2}} \]
+so $(f\circ g)(t) = t$ for all $t \in [-1,1]$, where $f$ is the function defined in 
+exercise 28. 
+Set $S = g(T) \in \Bs_{\sa}$ (since $g(0)=0$, $\Bs$ contains $\Id$ and $g$ is real valued).
+
+By $(1)$ we can choose $\{S_{\al}\} \subseteq \Assa$ such that $S_{\al} \to S$ (SOT).
+Ex 28 gives that $f(S_{\al})\to f(S)$ (SOT). Since $||f||_{\infty} \leq 1$
+we have that $\{f(S_{\al})\}\subseteq \As_{1,\sa}$.
+We also have $f(S) = f(g(T)) = (f\circ g)(T) = \Id(T) = T$.
+We get that $\ub{f(S_{\al})}_{\As_{1,\sa}} \to f(S) = T$ (SOT),
+so $T \in \ol{\As_{1,\sa}}^{SOT}$. Hence $\Bs_{1,\sa}\subseteq
+\ol{\As_{1,\sa}}^{SOT}$.
+
+We want to show $\ol{\As_{1,\sa}}^{SOT} = \Bs_{1,\sa}$. Now we consider 
+the case where $\As$ is not necessarily normed-closed. We can then apply 
+$(2)$ on the $C^*$-subalgebra $\Cs$ of $\Bs(H)$ given by $\Cs = \ol{\As}^{||\cdot||}$ and 
+get that $\ol{\Cs_{1,\sa}}^{SOT} = (\ol{\Cs}^{SOT})_{1,\sa}$.
+Now we have $\As \subseteq \Cs \subseteq \Bs = \ol{\As}^{SOT}$ so $\ol{\Cs}^{SOT} = \Bs$.
+
+Moreover $\As_{1,\sa} \subseteq \Cs_{1,\sa}$ so $\ol{\As_{1,\sa}}^{SOT}  \subseteq
+\ol{\Cs_{1,\sa}}^{SOT}$. Further we have $\Cs_{1,\sa} \subseteq \ol{\As_{1,\sa}}^{||\cdot||}$:
+Indeed, let $S \in \Cs$, $S = S^*$, $||S||\leq 1$. Choose $\{A_n\}\subseteq \As$
+$A_n\to S $ in norm. Then $\tfrac{A_n + A_{n}^{*}}{2} \to S$ in norm. ($*$ op norm continuous).
+So we may assume $\{A_n\}\subseteq\As_{\sa}$.
+
+We then have $||A_n|| \to ||S||\leq 1$. If $||S||< 1$, we can choose $N \in \N$
+such that $||A_n|| < 1$ for all $n\geq N$. If $||S||=1$, we can choose $N\in \N$
+such that $||A_n|| \geq \tfrac{1}{2}$ for all $n\geq N$.
+Then the sequence 
+\[ \left\{ \frac{1}{||A_n||}A_n \right\} \subset \As_{1,\sa}\quad \text{ for
+all } n \geq N\] 
+It follows that 
+$\Cs_{1,\sa} \subseteq \ol{\As_{1,\sa}}^{SOT}$ so $\ol{\Cs_{1,\sa}}^{SOT} \subseteq
+\ol{\As_{1,\sa}}^{SOT}$. Thus we get 
+$\ol{\As_{1,\sa}}^{SOT} = \ol{\Cs_{1,\sa}}^{SOT} = \(\ol{\Cs}^{SOT}\)_{1,\sa} =
+\Bs_{1,\sa}$
+
+\item $\ol{\As_1}^{SOT} = \Bs_1:$
+Since $\As_1 \subseteq \Bs$ (which is SOT-closed), we have $\ol{\As_1}^{SOT} \subseteq\Bs_1$.
+
+Conversely, consider $T \in \Bs_1$.
+Set 
+\[ X = \begin{bmatrix} 0 & T \\ T^* &0 \end{bmatrix} \in M_2(\Bs)_{\sa} \subseteq
+\Bs_{H\oplus H} \] 
+Note that $||X||\leq 1$:
+Let $\xi = (\xi_1,\xi_2) \in H\oplus H$. Then 
+\begin{align*}
+    ||X\xi||^2 = ||(T\xi_2, T^*\xi_1)||^2 = ||T\xi_2||^2 + ||T^*\xi_1||^2
+\leq ||\xi_1||^2 + ||\xi_2||^2 = ||\xi||^2 
+\end{align*}
+where we used that $||T^*|| = ||T|| \leq 1$.
+So $X \in M_{2}(\Bs)_{1,\sa}$.
+Next one easily checks that $M_2(\Bs) = \ol{M_2(\As)}^{SOT}$.
+We only need $\subseteq$:
+Assume $Y \in M_2(\Bs)$, i.e. $Y = [B_{ij}]$ for $B_{ij} \in \Bs$, $i,j=1,2$.
+Pick $A_{ij}^{\al}\underset{\al}{\to} B_{ij}$ (SOT) for all $ij$.
+Then $Y^{\al} = [A_{ij}^{\al}] \in M_2(\As)$ converges to $Y$ (SOT).
+
+Indeed, for $\xi = (\xi_1,\xi_2)$ we get 
+\[ [A_{ij}^{\al} - B_{ij}]\xi = \begin{bmatrix}(A_{11}^{\al} - B_{11})\xi_1 + (A_{12}^{\al}-B_{12}
+)\xi_2 \\  (A_{21}^{\al} - B_{21})\xi_1 + (A_{22}^{\al}-B_{22}
+)\xi_2  \end{bmatrix} \]
+so 
+\[ [A_{ij}^{\al}- B_{ij}] \leq ||(A_{11}^{\al}-B_{11})\xi_1||^2 + 
+||(A_{12}^{\al}-B_{12})\xi_2||^2
++ ||(A_{21}^{\al}-B_{21})\xi_1||^2
++ ||(A_{22}^{\al}-B_{22})\xi_2||^2 \to 0
+\]
+Using $(2)$ we get that $\ol{(M_{2}(\As)}^{SOT})_{1,\sa}
+\ol{(M_2(\As)_{1,\sa})^{SOT}}$
+Thus we get $X \in (M_2(\Bs))_{1,\sa}\subseteq (\ol{M_2(\As)}^{SOT})_{1,\sa}
+= \ol{(M_2(\As))_{1,\sa}}^{SOT}$
+Hence we can find $\{X_{\al}\} \subseteq M_2(\As)_{1,\sa}$ such that 
+$X_{\al}\to X$ (SOT).
+Write 
+\[ X_{\al} = \begin{bmatrix} A_{\al} & C_{\al} \\ C_{\al}^{*} &A_{\al} \end{bmatrix} \]
+where $A_{\al} \in \As_{\sa}$ and $C_{\al} \in \As$. 
+Then $||C_{\al}|| \leq ||X_{\al}|| \leq 1$. So $C_{\al}\in \As_{1}$.
+
+Moreover $C_{\al}\to T$ (SOT):
+Indeed, let $\eta\in H$.
+Then 
+\[ \begin{bmatrix} A_{\al} & C_{\al} -T \\ C_{\al}-T & A_{\al} \end{bmatrix} 
+\begin{bmatrix} 0 \\ \eta \end{bmatrix}
+= \begin{bmatrix} (C_{\al}-T)\eta \\ A_{\al}\eta \end{bmatrix}
+\to 0 \text{ in norm}\]
+so $||(C_{\al}-T)\eta|| \leq ||[(C_{\al}-T)\eta, A_{\al}\eta ]|| \to 0$.
+Hence $T \in \ol{\As_1}^{SOT}$ as desired. 
+
+\end{enumerate}
+
+\end{proof}
+
+\section{About irreducibility}
+\begin{proposition}
+    Let $\Bs\neq \{0\}$ be a $*$-subalgebra of $\Bs(H)$.
+The following condition are equivalent. 
+\begin{enumerate}[(1)]
+    \item $\Bs$ is irreducible (i.e. the only closed subspaces of $H$ which are invariant under 
+$B$ for all $B\in \Bs$ are $\{0\}$ and $H$).
+
+\item Every $\xi \in H\setminus \{0\}$ is cyclic for $\Bs$ (i.e. $[\Bs\xi] = H$ for all $\xi \in H\setminus \{0\}$).
+
+\item $0$ and $I_H$ are the only orthonormal projections in $\Bs'$.
+
+\item $\Bs' = \C I_H$.
+\item $\Bs'' = \Bs(H)$.
+\end{enumerate}
+
+\end{proposition}
+\begin{proof}
+    We recall that if $K$ is a closed subspace of $H$ and $P_K$ denotes the orthogonal 
+projection from $H$ onto $K$, then 
+$K$ is invariant under all $B \in \Bs$(recall $\Bs$ self adj.) $\iff P_K \in \Bs'$.
+
+\begin{itemize}
+    \item[$(1)\implies (2)$] 
+Assume $\Bs$ is irreducible. $\xi \in H\setminus\{0\}$. 
+Then $[\Bs\xi]$ is $\Bs$-invariant and different from $0$, so $[\Bs\xi]=H$
+(since $\Bs\neq 0$).
+
+
+\item[$(2)\implies (1)$] 
+Assume $(2)$ holds. Consider $K\subseteq H$, closed subspace of $H$, which is different 
+from $\{0\}$ and $\Bs$-invariant. Pick $\xi \in K\setminus \{0\}$. 
+Then $H = [\ub{\Bs\xi}_{\in K}] \subseteq K \subseteq H$, so $K=H$.
+
+\item[$(1)\implies (3)$]
+Assume $(1)$ holds. Let $P$ be an orthonormal projection in $\Bs'$. Write $P=P_K$
+where $K \coloneqq P(H)$ (range of proj. always closed). Then we get that $K$
+is $\Bs$-invariant (and closed) since $\Bs$ is irreducible, then $K=\{0\}$ or
+$H$ i.e.$P=0$ or $P = I_H$.
+
+\item[$(3)\implies (1)$] Along the same lines.
+\item[$(3)\implies (4)$] When $(3)$ holds then the set $\Ps$ of all orthonormal 
+projections in $\Bs'$ consists of $\{0, I_H\}$, so we get 
+$\Bs' = \ol{\Span{\Ps}}^{||\cdot||} = \ol{\C I_H}^{||\cdot||} = \Cs I_H$.
+where we used that $\Bs'$ is a v.N. algebra on $H$ and $\C I_H$ is closed 
+since it is finite dimensional.
+ 
+\item[$(4)\implies (3)$] Trivial. 
+\item[$(4)\implies (5)$] Trivial.
+\item[$(5)\implies (4)$] If $(5)$ holds, we get $\Bs''' = \Bs(H)' = \C I_H$ 
+(follow from the next example).
+\end{itemize}
+\end{proof}
+
+
+\begin{example}
+    Assume $H\neq \{0\}$ and let $\Bs = \Fs(H)$ (finite rank operators). 
+Then $\Bs$ is irreducible (This implies that $\Ks(H)$ and $\Bs(H)$ are also
+irreducible). In particular, since $(1)\implies (4)$ we get $\Bs(H)' = \C I_H$.
+
+\begin{proof}
+    Since $(1)\implies (2)$ we have to show that any $\xi \in H\setminus \{0\}$
+is cyclic for $\Bs$. Consider $\xi \in H\setminus \{0\}$.
+Let $\eta \in H$. Define $F \colon H \to H$ by $F(\eta') = \ind{\eta',\xi}\eta$
+for all $\eta' \in H$. Then $F$ is a rank 1 operator and 
+\[ \Bigg(\ub{\frac{1}{||\xi||^2}F}_{\in \Bs}\Bigg)(\xi) = \frac{1}{||\xi||^2}
+\ind{\xi,\xi}\eta = \eta  \]
+so we have $\eta \in \Bs\xi$ for all $\eta \in H$. Hence $H = \Bs\xi$, so 
+$H = [\Bs\xi]$.
+\end{proof}
+
+\end{example}
+
+\begin{corollary}
+    Let $\As$ be a $C^*$-algebra and let $\pi \in \Rep(\As,H)$ for some 
+Hilbert space $H$. Assume $\pi(\As)\neq \{0\}$.
+Then
+\begin{align*}
+    &\text{$\pi$ is irreducible (i.e. $\pi(\As)$ is irreducible )}\\
+\iff&\text{any $\xi \in H\setminus\{0\}$ is cyclic for $\pi$} \\
+& \text{i.e. $[\pi(\As)\xi] =H$ for all $\xi\in H\setminus \{0\}$} \\
+\iff& \text{The only orthogonal projection in $\pi(\As)'$ are $0$ and $I_H$} \\
+\iff& \pi(\As)' = \C I_H \\
+\iff& \pi(\As)'' = \Bs(H).
+\end{align*}
+\end{corollary}
+
+
+Also note that $\Bs(H)' = (\C I_H)'' = \C I_H$  since $\C I_H$ is a v. N. algebra. 
+
+\begin{proposition} Let $\As$ be a $C^*$-algebra.
+    Assume $\pi \in \Rep(\As,H)$, $\pi\neq 0$. Then $\pi$ is irreducible 
+$\iff$ $\ol{\pi(\As)}^{SOT} = \Bs(H)$.
+\end{proposition}
+Note that this is obvious we know that $I_H \in \pi(\As)$.
+\begin{proof}
+    Set $\Bs = \pi(\As)$, which is a non-zero $C^*$-subalgebra of $\Bs(H)$.
+We have to prove that $\Bs$ is irreducible $\iff$ $\ol{\Bs}^{SOT} = \Bs(H)$.
+\begin{itemize}
+    \item[$\impliedby$] Assuem $\ol{\Bs}^{SOT} = \Bs(H)$. Then we get 
+$\Bs(H) \subseteq \ol{\Bs}^{SOT}\subseteq \Bs''\subseteq \Bs(H)$. So
+$\Bs(H)= \Bs''$ (i.e. (5) in the above prop holds) so $\Bs$ is irreducible.
+\item[$\implies$] Assume $\Bs$ is irreducible. Then by 5, $\Bs'' = \Bs(H)$, 
+so $(\Bs+\C I_H)'' \underset{v.N. D.C.T.}{=} \ol{(\Bs + \C I_H)}^{SOT} = \Bs(H)$ 
+Now observe that $[\Bs H] = H$ (since $2$ holds). It follows that if 
+$\{ e_{\al}\}$ is an approximate unit for $\Bs$ we get $I_H = SOT-\lim_{\al}e_{\al} \in \Bs$.
+Hence $I_{H} \in \ol{\Bs}^{SOT}$. It readily follows that 
+$\ol{\Bs}^{SOT} = \ol{(\Bs + \C I_H)}^{SOT}$ so we get $\ol{\Bs}^{SOT} = \Bs(H)$.
+\end{itemize}
+\end{proof}
+
+
+\section{Irreducible representation and pure states}
+\subsection*{A motivating example}
+\begin{example}
+We look at $\As = C(\Om)$, where $\Om$ is a compact Hausdorff space. 
+We know that $\Ss(\As)$ may be identified with 
+\[ \{ \mu \in M(\Om) : \mu \geq 0, \mu(\Om) =1\} \] 
+which extreme points are the point measure (dirac) 
+$\{\delta_{\om}: \om \in \Om\}$ (ex in MAT4450), and these coincides with 
+the elements $\{ \vphi_{\om} \in \Ss(\As), \om \in \Om \}$
+where $\vphi_{\om}(f) = f(\om)$ for all $f \in \As$.
+That is, with the characters of $\As$. In other words
+$\ex \{\Ss(\As)\} = \widehat{\As}$.
+
+Now every $\vphi_{\om} \in \whAs$ is a $*$-homomorphism from $\As$ into 
+$\C$. One may think of such maps as a representation $\pi^{\om}$ of $\As$
+on $H=\C$, by identifying $\C$ with $\Bs(\C)$ in the canonical way. 
+We will then have 
+\[ \pi^{\om}(f)z = f(\om)z\qquad f \in \As, z\in \C \]
+which is irreducible (since $\C$ has no other subspace than $\{0\}$ and itself).
+It is not difficult to check that $\pi_{\vphi_{\om}}$ (GNS) is unitary equivalent 
+to $\pi^{\om}$ for each $\om \in \Om$.
+
+Summarizing, whenever $\phi \in \whAs = \ex(\Ss(\As))$ (recall $\As =
+C(\Om)$)we get that $\pi_{\phi}$ is irreducible.
+
+On the other hand, let us start with $\pi \in \Rep(\As,H)$,$\pi\neq 0$.
+Then $\pi$ is irreducible: 
+We have 
+\[\pi(\ub{\As}_{\text{abelian}})''=\ub{\ol{\pi(\As)}^{SOT}}_{\text{abelian}} = \Bs(H)\]
+so we must have $\dim H = 1$ ($\pi\neq 0$). Hence $H = \C \xi$ where $\xi \in
+H$, $||\xi||=1$.
+Then for $f \in \As$, we have $\pi(f)\xi \in \C\xi$. That is $\pi(f)\xi = \phi(f)\xi$
+for some (unique) $\phi(f) \in \C$.
+
+One readily checks that $\phi$ is a character on $\As$, and that $\pi\simeq \pi_{\phi}$.
+In conclusion, we get that $\phi \to [\pi_{\phi}]$ is a bijection from $\whAs = \ex(\Ss(\As))$
+onto the equivalence classes of irreducible representations of $\As$. 
+\end{example}
+
+\paragraph{We are going 
+to generalize this to the non-abelian case.}
+
+We let $\As$ denote a $C^*$-algebra. Recall that 
+$\Ks(\As) = \{\vphi \in \As^* : \vphi\geq 0, ||\vphi||\leq 1\}$ 
+is weak$^*$-compact, convex and contains $\Ss(\As)$ as a convex subset. 
+We note that \ul{$\Ss(\As)$ is a face of $\Ks(\As)$}:
+
+Indeed, assume $\vphi \in \Ss(\As)$, $\vphi = t\psi_1 + (1-t)\psi_2$ for $t \in (0,1)$.
+$\psi_1,\psi_2 \in \Ks(\As)$. We have to show that this implies that $\psi_i\in \Ss(\As)$
+for $i=1,2$. Since $1 =t+(1-t)$ and $t\psi_1$ and $(1-t)\psi_2$ are positive linear 
+functionals $1=||\vphi|| = ||t\psi_1|| + ||(1-t)\psi_2|| = t||\psi_1|| + (1-t)||\psi_2||$,
+so we get $t\ub{(1-||\psi_1||)}_{\geq 0} + (1-t)\ub{(1-||\psi_2||)}_{\geq 0} =0$
+$\implies ||\psi_i|| = 1$ for $i=1,2$ as desired. 
+
+\begin{notation}
+If $\vphi$,$\psi$ are positive linear functionals on $\As$ we write $\psi\leq \vphi$ when 
+$\vphi - \psi \geq 0$.
+\end{notation}
+
+\begin{definition}
+    Let $\vphi \in \Ss(\As)$, set $K_{\vphi}\coloneqq \{\psi \in \As^*: 0\leq \psi\leq\vphi\}$.
+Clearly, $\{ t\vphi : 0\leq t \leq 1 \} \subseteq K_{\vphi}$. 
+We say that $\vphi$ is \emph{pure} when $K_{\vphi} = \{t\vphi : 0\leq t\leq 1\}$.
+We set $\Ps(\As) = \{ \vphi \in \Ss(\As) : \vphi \text{ is pure} \}$ as the 
+\emph{pure state space} of $\As$. 
+\end{definition}
+
+\begin{proposition}
+    \leavevmode
+\begin{enumerate}[(1)]
+    \item $\ex(\Ks(\As)) = \{0\}\cup \Ps(\As)$.
+    \item $\ex(\Ss(\As)) = \Ps(\As)$.
+    \item $\Ks(\As) = \ol{\{0\}\cup \Ps(\As)}^{SOT}$.
+    \item If $\As$ is unital, then $\Ss(\As) = \ol{\Ps(\As)}^{\text{weak}^*}$.
+\end{enumerate}
+\end{proposition}
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[scale=0.55]
+        \filldraw[gray!50,very thick] (0,3) ellipse (2 and 0.5);
+        \draw[very thick] (0,3) ellipse (2 and 0.5);
+        \draw (0,0) node[below] {$0$} --(-2,3);
+        \draw (0,0) --(2,3);
+        \draw (0,0) --(-0.5,2.5);
+        \draw (0,0) --(0.5,3.5);
+        \draw (1,3) .. controls (1,4) and (2,4) .. (2.5,4) node[right]{$\Ss(\As)$};
+        \draw (2,3) .. controls (2,3.5) and (3,3.5) .. (3,3.3) node[right]{$\Ps(\As)$};
+        \draw (1,2) .. controls (1,2.5) and (2,2.5) .. (2,2.5) node[right]{$\Ks(\As)$};
+    \end{tikzpicture}
+    \caption{ Sketch of the sets in the proposition.} 
+    %\label{}
+\end{figure}
+\begin{proof}\leavevmode
+    \begin{enumerate}[(1)]
+        \item We set $E = \ex(\Ks(\As))$. 
+        
+    \ul{$0\in E$}. Assume $\psi_{1},\psi_2 \in \Ks(\As)$. $0 < t<1$. 
+$0 = t\psi_1 + (1-t)\psi_2$. For $A \in \As$ we have 
+$0\leq t \psi_1(A^*A) = \ub{(t-1)}_{< 0}\psi_{2}(A^*A) < 0$.
+So we get that $\psi_1 (A^*A) =0$ for all $A \in \As$. It follows that $\psi_1 =0$,
+which implies that $\psi_2 =0$.
+
+\ul{$\Ps(\As)\subseteq E$}. 
+Assume $\vphi \in \Ps(\As)$, $\vphi = t\psi_1 + (1-t)\psi_2$, $t \in (0,1)$,
+$\psi_i \in \Ks(\As)$ for $i=1,2$.
+Then $0\leq t\psi_1 \leq \vphi$ so $t\psi_1 \in K_{\vphi}$ since $\vphi$
+is pure, we must have $t \psi_1 = t'\vphi$ for some $t'\in [0,1]$.
+Now since $\vphi \in \Ss(\As)$, which is a face of $\Ks(\As)$, we have 
+$\psi_1 \in \Ss(\As)$ for $i=1,2$.
+Hence we get $t= t \ub{||\psi_1||}_{=1} = ||t\psi_1|| = ||t'\vphi|| = t'$,
+which implies that $\psi_1 =\vphi$ ($t\neq 0$), which in turn implies that 
+$\psi_2 = \vphi$. Hence $\vphi \in E$.
+
+\ul{$E \subseteq \{0\}\cup \Ps(\As)$}: Consider $\vphi \in E$, $\vphi \neq 0$.
+Have to show that $\vphi \in \Ps(\As)$. Then we have $\vphi = t
+\ub{\(\tfrac{1}{t}\vphi\)}_{\in \Ks(\As)} + (1-t)\ub{0}_{\in\Ks(\As)}$.
+which contradicts that $\vphi\in E$.
+
+So 
+$\vphi\in \Ss(\As)$ and moreover $\vphi$ is pure:
+Indeed, let $\psi \in K_{\vphi}$, $0\neq \psi$, $\psi\neq \vphi$.
+We can then write $\vphi = \psi +\ub{(\vphi -\psi)}_{\coloneqq \psi'}$
+where $\psi, \psi'\geq 0$.
+Set $t = ||\psi|| \in (0,1)$. We then get $1 =||\vphi|| = ||\psi|| + ||\psi'||=t +||\psi'||$,
+so $||\psi'||=1-t$. So 
+\[\vphi = t\ub{\(\tfrac{1}{t}\psi\)}_{\in\Ks(\As)} +
+(1-t)\ub{\(\tfrac{1}{1-t}\psi'\)}_{\in\Ks(\As)}\]
+Since $\vphi\in E$ we must have $\tfrac{1}{t}\psi = \vphi$. So $\psi = t\vphi$.
+This shows that $K_{\vphi} = \{\la\vphi : 0\leq \la \leq 1\}$ as desired. 
+
+\item Follows from $(1)$ since $\Ss(\As)$ is a face of $\Ks(\As)$ and $\Ps(\As)$
+is a subset of $\Ss(\As)$.
+\item[$(4)$ and $(3)$] Are consequences of Krein-Milman's theorem combined 
+with $(1)$ and $(2)$.
+
+\end{enumerate}
+\end{proof}
+
+
+
+
+
+
+
+
 
 
 
@@ -2637,5 +3026,7 @@ $B_{\sa} = B\cap \Bs(H)_{\sa}$, we get that $B_{\sa}$ is also SOT-closed.
 
 
 \end{document}
+
+
 
 
