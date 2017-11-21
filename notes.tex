@@ -83,6 +83,7 @@
 
 \def\piess{\pi^{\text{ess}}}
 \DeclareMathOperator{\Rep}{Rep}
+\DeclareMathOperator{\Proj}{Proj}
 \DeclareMathOperator{\Id}{Id}
 \DeclareMathOperator{\Sp}{sp}
 \DeclareMathOperator{\Tr}{Tr}
@@ -90,6 +91,7 @@
 \DeclareMathOperator{\vN}{v.N}
 \def\vphi{\varphi}
 \def\top{\tilde{\oplus}}
+
 %%% Colours %%%
 \newcommand*{\BLUE}[1]{{\color{blue}#1}}
 \newcommand*{\RED}[1]{{\color{red}#1}}
@@ -2996,18 +2998,358 @@ with $(1)$ and $(2)$.
 \end{proof}
 
 
+\begin{proposition}
+    Let $\vphi \in \Ss(\As)$, with GNS-triple $(\pivp, \Hvp, \xivp)$.
+Set 
+\[R_{\vphi} = \{ T \in \pivp(\As)' : ||T||\leq 1, T \geq 0 \}.\] 
+Then there is a bijection $T \mapsto \psi_{T}$ from $R_{\vphi}$ onto
+$K_{\vphi} = \{\psi \in \Ks(\As) : 0\leq \psi\leq \vphi\}$
+(respecting convex combinations (affine map)) given by
+\[ \psi_{T}(A) = \ind{\pivp(A)\xivp, T\xivp}\qquad\text{for all } A \in \As \]
+and for each $T \in R_{\vphi}$.
+\end{proposition}
+\begin{proof}
+    Let $T \in R_{\vphi}$ and define $\psi_T$ as above. Clearly $\psi_{T}$
+is a linear functional on $\As$. $\psi_T \in K_{\vphi}$. 
+Set $S = T^{1/2} \in R_{\vphi}$ (Argue for this, use $\As$ is $C^*$-algebra).
+For each $A \in \As$, we have 
+\begin{align*}
+\psi_T(A^*A) &= \ind{\pivp(A^*A)\xivp, T\xivp} \\
+    &= \ind{\pivp(A)\xivp, \pivp(A)T\xivp} \\
+&\underset{T\in\text{commutant}}{=} \ind{\pivp(A)\xivp, T\pivp(A)\xivp}\\
+&= \ind{S\pivp(A)\xivp, S\pivp(A)\xivp} \geq 0
+\end{align*}
+so $\psi_T \geq 0$.
+We also get 
+\begin{align*}
+    \psi_T(A^*A) &\underset{C.S.}{\leq} ||\pivp(A)\xivp|| \,||T\pivp(A)\xivp|| \\
+&\leq ||\pivp(A)\xivp|| \,||T|| \,||\pivp(A)\xivp|| \\
+&\leq \ub{||T||}_{\leq 1} \,||\pivp(A)\xivp||^2 \leq \vphi(A^*A)\quad\text{for all }A\in\As.
+\end{align*}
+Hence $\psi_T\leq \vphi$.
+
+\ul{The map $T\mapsto \psi_T$ is injective:}
+Assume $\psi_{T_1} = \psi_{T_2}$ for $T_1,T_2 \in R_{\vphi}$. Then 
+\[ \ind{\pivp(A)\xivp, T_1\xivp-T_2\xivp} = 0 \quad \forall A\in \As\]
+i.e. $(T_1\xivp - T_2\xivp) \in (\pi(\As)\xivp)^{\perp} = [\pi(\As)]^{\perp} =
+\Hvp^{\perp}=\{0\}$.
+Hence $T_1\xivp = T_{2}\xivp$. 
+Thus 
+\begin{align*}
+    T_1\pivp(\As)\xivp = \pivp(\As)T_1\xivp = \pivp (\As)T_2 \xivp = T_2\pivp(\As)\xivp
+\end{align*}
+By density of $\pivp(\As)\xivp$, we get that $T_1 = T_2$ on $H_{\vphi}$.
+
+\ul{The map $T\mapsto \psi_{T}$ is surjective:}
+Let $\psi \in K_{\vphi}$. Observe that $A,B \in \As$, we have 
+\begin{align*}
+    |\vphi(B^*A)|^2 \underset{C.S}{\leq} \psi(A^*A)\psi(B^*B)\leq \vphi(A^*A)\vphi(B^*B) 
+= ||\pivp(A)\xivp||^2 ||\pivp(B)\xivp||^2 \quad (*)
+\end{align*}
+Set $H_0 = \pivp(\As)\xivp$. We can now define a bounded sesquilinear form 
+$\ind{\cdot,\cdot}_{\psi} \colon H_0\times H_0 \to \C$ by 
+$\ind{\pivp(A)\xivp, \pivp(B)\xivp}_{\psi}\coloneqq \psi(B^*A)$
+ for $A,B \in \As$.
+(Using $(*)$, it is an easy exercise to check that form is well-defined. Assume
+$\pivp(A)\xivp = \pivp(A')\xivp$, then $\psi(B^*(A-A'))\leq
+||\pivp(A-A')\xivp||^2||\cdots||^2\leq 0$).
+
+The boundedness follows from $(*)$ since it says that 
+$|\ind{\pivp(A)\xivp, \pivp(B)\xivp}_{\psi}|\leq ||\pivp(A)\xivp||\, ||\pivp(B)\xivp||$,
+so its norm $\leq 1$.
+
+By density of $H_0$ in $\Hvp$, we can extend this form to a sesquilinear form 
+$\ind{\cdot,\cdot}_{\psi}$ on $\Hvp$ with norm $\leq 1$. 
+By the Riesz-representation theorem for such forms (see notes last course),
+we get that there exits a unique $T\in \Bs(H_{\vphi})$ with $||T||\leq 1$ 
+such that $\ind{\eta,\eta'}_{\psi} = \ind{T\eta,\eta'}$ for all $\eta,\eta' \in
+\Hvp$.
+
+Since $\ind{T\eta,\eta}= \ind{\eta,\eta}_{\psi} \geq 0$ for all $\eta \in \Hvp$
+we have $T\geq 0$.
+
+\ul{It remains to check that $T \in \pivp(\As)'$:}
+We first note that 
+\begin{align*}
+\psi(B^*A) & = \ind{\pivp(A)\xivp, \pivp(B)\xivp} = 
+\ind{T\pivp(A)\xivp, \pivp(B)\xivp} \\
+&\underset{T\geq 0}{=} \ind{\pivp(A)\xivp, T\pivp(B)\xivp}\quad \forall A,B\in \As.
+\end{align*}
+Let now $A,B,C \in \As$,
+then 
+\begin{align*}
+    \ind{\pivp(A)\xivp, T\pivp(B)\pivp(C)\xivp} &= \ind{\pivp(A)\xivp, T\pivp(BC)\xivp}\\
+&= \psi((BC)^*A) = \psi(C^*B^*A) \\
+&= \ind{\pivp(B^*A)\xivp, T\pivp(C)\xivp}\\ 
+&= \ind{\pivp(A)\xivp, \pivp(B)T\pivp(C)\xivp} 
+\end{align*}
+By density and continuity we get that 
+\[ \ind{\eta, T\pivp(B)\eta'} = \ind{\eta,\pivp(B)T\eta'}\quad\forall \eta,\eta' \in \Hvp \]
+This implies that $T \in \pivp(\As)'$.
+All together we have shown that $T \in R_{\vphi}$.
+
+Finally, let $\{e_{\al}\}$ be an approximate unit for $\As$. 
+Then we get 
+\begin{align*}
+\psi(A) &= \lim_{\al} \psi(\ub{e_{\al}}_{=e_{\al}^{*}}A)
+= \lim_{\al}\ind{T\pivp(A)\xivp, \pivp(e_{\al})\xivp} \\
+&\underset{(**)}{=}
+\ind{T\pivp(A)\xivp, \xivp} = \ind{\pivp(A)\xivp, T\xivp} = \psi_{T}(A)
+\end{align*}
+(where $(**)$ follows since $\pivp(e_{\al})\xivp \to \xivp$ since $\pivp$ is non-degenerate)
+for all $A\in \As$. So $\psi=\psi_T$ as desiered.  
+
+\end{proof}
+
+\begin{theorem}
+    Let $\vphi \in \Ss(\As)$. Then $\pivp$ is irreducible 
+$\iff$ $\vphi \in \Ps(\As)$.
+\end{theorem}
+\begin{proof}
+    We have $\pivp$ irreducible 
+\begin{align*}
+    &\iff \pivp(\As)' = \C I_H \\
+    &\iff R_{\vphi}= \{ tI_H : 0\leq t\leq 1 \}\\
+    &\underset{\text{prev. prop.}}{\iff} K_{\vphi}=\{t\vphi : 0 \leq t \leq 1\}\\
+&\iff \vphi \in \Ps(\As)
+\end{align*}
+\end{proof}
+
+\begin{corollary}
+$\pi \in \Rep(\As,H)$ be non-zero and cyclic with unit cyclic vector $\xi$. 
+Let $\vphi \in \Ss(\As)$ be given by $\vphi(A) = \ind{\pi(A)\xi,\xi}$ for all 
+$A\in\As$. Then $\pi$ is irreducible $\iff$ $\vphi \in \Ps(\As)$.    
+\end{corollary}
+\begin{proof}
+    We have seen previously that $\pi\sim \pivp$, so it follows from the theorem. 
+\end{proof}
+
+\begin{theorem}[Hahn-Banach for pure states]
+    Let $\Bs$ be a non-zero $C^*$-subalgebra of $\As$
+and let $\rho \in \Ps(\Bs)$. Then there exists some $\vphi \in \Ps(\As)$
+which extends $\rho$.
+\end{theorem}
+\begin{proof}
+    Set $F = \{\psi \in \Ks(\As) : \psi\lvert_{\Bs} = \rho\}$. 
+By the HB-result for states we know that $F\neq \emptyset$.
+Moreover $F$ is weak$^*$-closed (agree in the limit) in $\ub{\Ks(\As)}_{\text{weak$^*$ comp.}}$
+so $F$ is weak$^*$-compact. 
+
+\ul{$F$ is a face of $\Ks(\As)$}:
+Assume $\psi \in F$, $\psi = t \psi_1 + (1-t)\psi_2$, with $\psi_1,\psi_2\in \Ks(\As)$
+and $t\in (0,1)$. 
+Set $\rho_{i} = \psi_{i}\lvert_{\Bs}$ for $i=1,2$.
+Then we have 
+\[ \ub{\rho}_{\in \Ps(\Bs)} = t\ub{\rho_1}_{\in \Ks(\Bs)} + (1-t)\ub{\rho_{2}}_{\in \Ks(\Bs)} \]
+since $\rho \in \ex(\Ks(\Bs))$ we get $\psi_{i}\lvert_{\Bs}=\rho_i = \rho$ for $i=1,2$,
+i.e. $\psi_i \in F$ $i=1,2$ as desiered.
+
+By Krein-Milmans's theorem we get that $F$ has at least one extreme point, say
+$\vphi\in F$. Then $\vphi$ is an extreme point of $\Ks(\As)$ i.e. by previous
+proposition $\vphi\in \Ps(\As)$, since $\vphi\neq 0$ as desiered.
+\end{proof}
+
+Before we write the next lemma, we recall the convention that if $\As$ is a $C^*$-algebra,
+then 
+\[\tAs = \begin{cases} \text{the unitization $\tAs$ of $\As$} &\text{if $\As$ is non-unital}\\
+\As &\text{if $\As$ is unital} \end{cases} \]
+\begin{lemma}
+    Let $A \in \As$ be normal, $\la \in \Sp(A) = \Sp_{\tAs}(A)$. 
+Then there exists $\tvphi \in \Ps(\tAs)$ such that $\tvphi (A) = \la$.
+\end{lemma}
+\begin{proof}
+    Set $\Bs = C^*(A,I)$ (which is abelian). By Gelfand theory we can find
+$\rho \in \widehat{\Bs}$ such that $\rho(A)= \la$.
+But $\rho \in \Ps(\Bs)$, so we can extend it to $\Ps(\tAs)$ by the HB-theorem above. 
+\end{proof}
+
+\begin{theorem}[Gelfand-Raikow]
+    Let $A\in \As$. Then there exits an \ul{irreducible} representation 
+$\pi$ of $\As$ such that $||\pi(A)|| = ||A||$.
+In particular if $A\neq B$, $A,B\in \As$, then we can find an 
+irreducible representation $\pi$ such that $\pi(A)\neq \pi(B)$. 
+\end{theorem}
+\begin{proof}
+    Apply the lemma to $A^*A$ (normal) and $\la \in \Sp(A^*A)$
+satisfying $|\la|= ||A^*A||$, we get that there exits $\tvphi \in \Ps(\tAs)$
+such that $|\tvphi(A^*A)| = |\la| = ||A||^2$. Note that $\pi_{\tvphi}$
+is an irreducible representation of $\tAs$. Set 
+$\pi \coloneqq \pi_{\tvphi}\lvert_{\As} \in \Rep(\As,H_{\tvphi})$.
+
+$\pi$ is irreducible because 
+$\pi(\As)' = (\pi(\As) + \C I)' = \pi_{\tvphi}(\tAs)' = \C I_{H_{\tvphi}}$
+Finally 
+\[ ||A||^2 = ||\tvphi(A^*A)|| = ||\pi_{\tvphi}(A)\xivp||^2 \leq ||\pi(A)||^2 \leq ||A||^2 \]
+so $||\pi(A)|| = ||A||$.
+\end{proof}
+
+\section{On irreducible representations and compact operators}
+
+We let $H$ be a non-zero Hilbert space.
+
+\begin{lemma}
+    Let $\xi \in H$, $||\xi||=1$. We denote $P_{\xi}$ the orthogonal projection from 
+$H$ onto $\Span{\xi}$. Then 
+$P_{\xi}TP_{\xi} = \ind{T\xi,\xi}P_{\xi}$ for all $T \in \Bs(H)$. Operators of the form $P_{\xi}TP_{\xi}$ are usually called \emph{compressions}.
+\end{lemma}
+\begin{proof}
+    Let $T \in \Bs(H)$ and $\eta \in H$. 
+\begin{align*}
+    (P_{\xi}TP_{\xi})(\eta) &= P_{\xi}T(\ind{\eta,\xi}\xi) = \ind{\eta,\xi}\ind{T\xi,\xi}\xi
+= \ind{T\xi,\xi}P_{\xi}(\eta)
+\end{align*}
+\end{proof}
+We have seen that $\Ks(H)$ is irreducible, in other words, the identity representation 
+on $\Ks(H)$ on $H$ given by $\Id(T) = T$ for $T \in \Ks(H)$ is irreducible. In fact we have:
+
+\begin{theorem}
+    Assume $\pi$ is a non-zero irreducible representation of $\Ks(H)$ on some
+Hilbert space $K$. Then $\pi$ is unitary equivalent to the $\Id$ representation
+i.e.  there exist $U\colon H\to K$ such that $\pi(T) = UTU^*$ for all $T\in
+\Ks(H)$.
+\end{theorem}
+\begin{proof}
+    Since $\pi\neq 0$, so we can find $T\in \Ks(H)$, $T$ self-adjoint and such that 
+$\pi(T)\neq 0$.
+
+By the spectral theorem for compact self-adjoint operators, $T$ is diagonalizable 
+with respect to some o.n.b $\{\xi_j\}_{j\in J}$ for $H$. Letting
+$\{\la_{j}\}_{j\in J}$ denote the corresponding eigenvalues of $T$, we have seen that 
+$\{\la_j\}_{j\in J} \subseteq C_{0}(J)$, and that $T = \sum_{j\in J}\la_j P_{\xi_j}$
+(norm-convergent). Since $0\neq\pi(A) = \sum_{j\in J}\la_j \pi(P_{\xi_j})$
+so we must have that there exits (at least one) $\xi \in H$, with $||\xi||=1$
+such that $\pi(P_{\xi})\neq 0$. 
+
+Choose now $\eta \in \pi(P_{\xi})(K)$, $||\eta||=1$. Consider $A \in \Ks(H)$. 
+Then we have 
+\begin{align*}
+||\pi(A)\eta||^2 &= ||\pi(A)\pi(P_{\xi})\eta||^2    
+=||\pi(AP_{\xi}\eta||^2 = \ind{\pi(AP_{\xi})\eta, \pi(AP_{\xi})\eta} \\
+&= \ind{\pi(P_{\xi}A^*AP_{\xi})\eta, \eta}
+\underset{\text{lemma}}{=} \ind{\ind{A^*A\xi,\xi}\pi(P_{\xi})\eta,\eta} \\
+&= \ind{A^*A,\xi,\xi}\ind{\pi(P_{\xi})\eta,\eta} =\ind{A^*A,\xi,\xi}\ind{\eta,\eta}
+= ||A\xi||^2   
+\end{align*}
+It follows that the map $U_0\colon \Ks(H)\xi \to \pi(\Ks(H))\eta$, $A\xi\mapsto \pi(A)\eta$
+is well-defined and linear. Since $[\Ks(H)\xi] = H$ and $[\pi(\Ks(H))\eta] = K$ (since $\pi$ is irreducible), we can extend $U_0$ to a unitary $U\colon H\to K$. We then have $UA\xi = \pi(A)\eta$
+for all $A \in \Ks(H)$. So for any $T \in \Ks(H)$ we set 
+\[ [\pi(T)U](A\xi) = \pi(T)\pi(A)\eta = \pi(TA)\eta = UTA\xi \]
+for all $A \in \Ks(H)$.
+By density/continuity we get $\pi(T)U = UT$ i.e. 
+$\pi(T) = UTU^*$ for all $T \in \Ks(H)$.
+\end{proof}
+
+Note: In particular, we get that $M_n(\C)$ has only one irreducible representation 
+up to unitary equivalence. 
 
 
+\begin{corollary}
+    Let $\varphi \in \Ss(\Ks(H))$. Then $\vphi$ is pure $\iff$ $\vphi$ is a \emph{vector state}
+on $\Ks(H)$ i.e. there exits $\xi \in H$, $||\xi||=1$ such that $\vphi(T) = \ind{T\xi,\xi}$
+for all $T \in \Ks(H)$.
+\end{corollary}
+\begin{proof}
+    Assume $\vphi$ is pure. Then we know that $\pi_{\vphi}$ is irreducible, so the 
+theorem gives that there exits $U\colon H\to \Hvp$ unitary, such that 
+$\pivp (T) = UTU^*$ for all $T \in \Ks(H)$.
+Thus we have 
+\begin{align*}
+    \vphi(T) &= \ind{\pivp(T)\xivp, \xivp} = \ind{TU^*\xivp, U^*\xivp} = 
+\ind{T\xi, \xi}
+\end{align*}
+where $\xi = U^*\xivp$, which is a unit vector in $H$, since $U^*$ is unitary
+for all $T\in \Ks(H)$. 
 
+Conversely, assume the RHS holds. Then we have 
+\[ \vphi(T) = \ind{\Id(T)\xi,\xi}\quad\text{for all } T \in \Ks(H).\]
+and $\xi$ is cyclic for $\Id$, since $\Id$ is irreducible we get from a
+previous result that $\vphi$ is pure.
+\end{proof}
 
+\begin{corollary}
+    Assume $\al\colon \Ks(H)\to \Ks(H')$ is a $*$-isomorphism. Then there exits 
+$U\colon H\to H'$ unitary such that 
+$\al(T) = UTU^*$ for all $T \in \Ks(H)$.
+\end{corollary}
+\begin{proof}
+    $\al$ is a irreducible representation of $\Ks(H)$ on $H'$, the theorem applies. 
+\end{proof}
 
+Note that the same result is true for isomorphism from $\Bs(H)\to \Bs(H')$, 
+but we shall not prove it. 
 
+\begin{definition}
+Let $\As$ be a $C^*$-algebra. Set $\Proj(\As) =\{P\in \As: P=P^*=P^2\}$.
+We say that $P\in \Proj(\As)$ is \emph{minimal} in $\As$ when $P\neq 0$
+and $Q \in \Proj(\As)$ with $0\neq Q \leq P \implies Q = P$.
+\end{definition}
 
+\begin{example}
+    $P\in \Proj(\Bs(H))$ is minimal if $\Bs(H)$ $\iff$ $P$ has rank one.
+\end{example}
+\begin{example}
+    Assume $P\in \Proj(\As)$, $P\neq 0$, $P\As P = \C P$. Then $P$ is minimal 
+in $\As$: For if $Q \in \Proj(\As)$ and $0\neq Q\leq P$ then we have $PQP = Q =\la P$
+for some $\la \in C$, since $Q\leq P \iff QP =Q \iff PQ =Q$ (elementary course exercise).
+But $P$ is a projection $\iff$ $\la = 0$ or $\la =1$, but $Q\neq 0$, so $\la \neq 0$. This gives 
+$Q = P$.
+\end{example}
 
+\begin{proposition}[Prop. 1]
+    Assume $\Bs$ is a $C^*$-subalgebra of $\Ks(H)$, and we have $0\neq P\in \Proj(\Bs)$.
+Then $P$ is minimal in $\Bs$ $\iff$ $PBP = \C P$.
+\end{proposition}
+\begin{proof}
+    We have seen that $\impliedby$ holds in general. 
+Assume $\implies$ holds i.e. that $P$ is minimal in $\Bs$.
+Let $B\in \Bs$ be self-adjoint, $B\neq 0$. It suffices to show that $T\coloneqq PBP \in \C P$.
+Note that $T$ is a compact self-adjoint operator in $\Bs$. Set $\La = \Sp(T)$.
+Then we know that $\emptyset \neq \La \setminus \{0\}$ is isolated eigenvalues
+of $T$. So we have $T = \sum_{\la \in \La\setminus\{0\}} \la P_{\la}$ where
+$P_{\la} = \chi_{\{\la\}}(T) \in \Bs$ (which is continuous since $\{\la\}$ is
+a isolated point). 
 
+Set $M = P(H)$. Clearly $T = 0$ on $M^{\perp}$. Hence if $\eta \in M^{\perp}$, 
+we get $0 = ||T\eta||^2 = \sum_{\la \in \La\setminus\{0\}} |\la|^2 ||P_{\la}\eta||^2$,
+hence $P_{\la}\eta = 0$ for all $\la \in \La\setminus\{0\}$. 
+Thus $P_{\la} (I-P)= 0 $ for all $\la \in \La\setminus\{0\}$
+i.e. $P_{\la} = P_{\la}P$ for all $\la \in \La\setminus\{0\}$,
+which holds if and only if $P_{\la}\leq P$ for all $\la \in \La\setminus\{0\}$.
 
+Since $P$ is minimal in $\Bs$ we get $P_{\la} = P$ for all $\la \in \La\setminus\{0\}$,
+but $P_{\la}\perp P_{\mu}$ for $\la \neq \mu$, so we must have that $\La
+\setminus \{0\} = \{\la_1\}$, i.e. $T = \la_1 P$ as desired. 
+\end{proof}
 
+\begin{proposition}
+    Assume $\Bs$ is a $C^*$-subalgebra of $\Ks(H)$, and $0\neq P\in \Proj(\Bs)$.
+Then $P$ is a finite sum of minimal projections in $\Bs$.
+\end{proposition}
+\begin{proof}
+    Since $Q \in \Proj(\Ks(H)) \implies Q$ has finite rank, it suffices to show that the
+following assertion holds for any $n\in \N$. 
 
+$A(n):$ Any element in $\Proj(\Bs)$ with rank between 1 and $n$ is a finite sum of 
+minimal projections in $\Bs$ (which are orthogonal to each other).
+
+\ul{$n=1$}: Trivial.
+
+Assume $A(n-1)$ holds for some $n\geq 2$.
+Let $E \in \Proj(\Bs)$ with $1\leq \rank(E)\leq n$.
+If $E$ is minimal in $\Bs$ then OK. Otherwise, there exists some $F \in \Proj (\Bs)$
+such that $0\neq F \leq E$, $F\neq E$. We can then write $E = F + \ub{E - F}_{F'}$.
+Then $F' \in \Proj(\Bs)$, $F' \neq 0$ and $F'\leq E \neq F'$ and $FF' = 0$.
+So we have $1\leq \rank(F)\leq n-1$ and $1\leq \rank(F') \leq n-1$.
+Using that $A(n-1)$ holds, we get that $E$ is a sum of minimal projections in $\Bs$,
+which are orthogonal to each other.
+
+\begin{theorem}
+    Assume $\pi \in \Rep(\As,H)$ is non-zero, irreducible and $\pi(\As) \subseteq\Ks(H)$.
+Then $\pi(\As) = \Ks(H)$.
+\end{theorem}
+Note that this can be used to show that if $\pi$ is irreducible and
+$\pi(\As)\cap \Ks(H)\neq \{0\}$, then $\Ks(H)\subseteq \pi(\As)$.
+\end{proof}
 
 
 
