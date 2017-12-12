@@ -9,6 +9,7 @@
 \usepackage{tikz-cd}
 \usepackage{xcolor}
 \input{.config/default}
+\usepackage{marginnote}
 
 %\declaretheorem[style = remark, sibling = lemma, qed = $\maltese$, name = "]{thm}
 
@@ -174,7 +175,7 @@ norm-closed ideal of $\Kf(H)$ which is non-zero then we also get
 $\ol{\Ff(H)}^{||\cdot||} = \Kf(H) \subseteq \Js \subseteq \Kf(H)$, so $\Js =
 \Kf(H)$.
 This means that $\Kf(H)$ is simple. In particular $M_n(\C) \simeq \Kf(\C^n) =
-\Bs(C^n)$ is simple.
+\Bs(\C^n)$ is simple.
 \end{remark}
 
 \begin{theorem}
@@ -232,7 +233,7 @@ To prove this we will need some lemmas:
 \begin{lemma}[1]
     Assume $X$ is a finite dimensional vector space. Then there exists only one 
     topology $\tau$ (up to homeomorphism) such that $(X,\tau)$ is a locally 
-    convex Hausdorff topologic vector space.
+    convex Hausdorff topological vector space.
 \end{lemma}
 
 \begin{proof}
@@ -308,7 +309,7 @@ Hence we get that $H_1 = \underset{\text{cont.}}{\varphi^{-1}}(\underset{\text{w
     in the strong operator topology. 
 \end{lemma}
 \begin{proof}
-   Let $\{e_j\}_{j\in \N}$ be an orthonormal basis for $H$. We have seen that for $x \in H_1$, 
+   Let $\{e_j\}_{j\in J}$ be an orthonormal basis for $H$. We have seen that for $x \in H_1$, 
 we have $x = \sum_{j \in J} \ind{x,e_j}e_j$ means that the net $\{ \sum_{j\in F} \ind{x,e_j}e_j \}_{F\in\Psfin(J)}$ for any $\la \in \Psfin(J)$, we have that the orthognal projection
 $P_{\la}$ from $H$ onto  $\Span{e_j:j\in \la}$ is given by 
 \[ P_{\la}(x) = \sum_{j\in\la} \ind{x,e_j}e_j. \]
@@ -332,7 +333,9 @@ Then we have that $T \in \Kf(H)\iff \{\la_j\}_{j\in J} \in C_{0}(J)$
 \begin{proof}
    Assume $*$ holds. For every nonempty $F \in \Psfin(J)$, we define $T_F \in \Ff(H)$
 by $T_{F}(x) = \sum_{j \in F}\la_j\ind{x,e_j}e_j$. Then $\{T_F\}$ converge to 
-$T$ in operator-norm that shows that $T$ is compact. Let $\eps>0$. For any $F \in \Psfin(J)$
+$T$ in norm: 
+
+Let $\eps>0$. For any $F \in \Psfin(J)$
 such that $K_{\eps} \subset F$ we have 
 \begin{align*}
 ||(T-T_F)x||^2 &= ||\sum_{j\in J\setminus F}\la_j\ind{x,e_j}e_j||^2 
@@ -340,7 +343,7 @@ such that $K_{\eps} \subset F$ we have
 &\leq \sum_{j\in J\setminus K_{\eps}} |\la_j|^2 |\ind{x,e_j}|^2 
 < \eps^2 \sum_{j \in J\setminus K_{\eps}}|\ind{x,e_j}|^2 \underset{\text{Bessel}}{\leq}\eps^2 ||x||^2
 \end{align*}
-Se we get that $||T-T_F|| < \eps$, showing that $T_F \to F$ in op. norm. 
+Se we get that $||T-T_F|| < \eps$, showing that $T_F \to T$ in operator norm. 
 
 Conversely, assume that $(*)$ does not hold i.e. there exists $\eps>0$ such that 
 $J_{\eps}$ is infinite. Then we can pick $\{j_k\}_{k\in \N} \subseteq J_{\eps}$
@@ -356,7 +359,7 @@ every compact normal operator is diagonalizable).
 
 
 \begin{lemma}[4]
-    Let $T \in \Bs(H)$. Then $T \colon (H_1 ,\text{ weak top.}) \to (H, \text{ weak top.})$
+    Let $T \in \Bs(H)$. Then $T \colon (H ,\text{ weak top.}) \to (H, \text{ weak top.})$
 is continuous. Moreover $T(H_1)$ is normed closed.
 \end{lemma}
 \begin{proof}
@@ -369,7 +372,8 @@ is continuous. Moreover $T(H_1)$ is normed closed.
     Thus $T\xi_{\al} \to T\xi$ weakly, which shows the first assertion.
 
     Using lemma 2 we can then get that $H_1$ is compact in the weak topology. 
-    In fact $T(H_1)$ is weakly closed. Hence $T(H_1)$ is normed closed.  
+    In fact $T(H_1)$ is weakly closed. Hence $T(H_1)$ is normed closed. 
+\marginnote{$\ol{S}^{||\cdot||} \subseteq \ol{S}^{WOT}$} 
 \end{proof}
 
 
@@ -446,6 +450,46 @@ So we get a map $L\colon \As \to M(\As)$ sending $A \mapsto L_{A}$.
 \end{example}
 
 \begin{proposition}
+    $M(\As)$ is a closed subalgebra of $\Bs(\As)$, which is a unital $C^*$-algebra 
+with respect to the involution $T \mapsto T^*$ and the operator norm on $\Bs(\As)$
+($M(\As)$ is called the \emph{Multiplier algebra of $\As$})
+\end{proposition}
+\begin{proof}
+$A^*T^*(B) = (T^*(B)^* A)^* = (B^*T(A))^* = T(A)^*B^*$ for all $A,B\in \As$.
+Similarly if $S,T \in M(\As)$, we get that $(S+T)^* = S^* + T^*$ and 
+$(ST)^* = T^*S^*$ and $(\la S)^* = \ol{\la}S^*$ for all $\la \in \C$.
+In other words $M(\As)$ is a $*$-algebra and a subalgebra of $\Bs(\As)$.
+
+\marginnote{Cauchy sequence}
+Let $T \in M(\As)$. Then $T^* \in M(\As)$ and $(T^*)^* = T$, since 
+We now show that $M(\As)$ is  closed in operator norm in $\Bs(\As)$:
+Let $\{T_n\}_{n\in \N} \subseteq M(\As)$ be such that $T_n \to T$ in the operator norm. 
+We have to show that $T$ is adjointable. $\{T_n\}$ is Cauchy in $\Bs(\As)$. We will
+soon see that the $*$-operation is isometric in $M(\As)$, hence we can use 
+that $\{T_{n}^{*}\}$ is also Cauchy in $\Bs(\As)$, which is complete. Thus 
+$T_{n}^* \to S$ for some $S \in \Bs(\As)$. This gives that 
+\marginnote{$*$-operation isometric}
+\[S(A)^*B 
+=\lim_{n\to\infty} T_{n}^{*}(A)^*B 
+=\lim_{n\to\infty} A^*T_{n}(B) 
+= A^*T(B)
+\]
+for all $A,B \in \As$. Hence $T$ is adjointable (with $T^* = S$). 
+It remains to show that the $C^*$-equality holds (and the inverse is
+isometric). Let $T \in \Ms(\As)$. Then 
+\begin{align*}
+||T^*T || = \sup \{ ||(T^*T)(A) || : A \in \As_1\}
+&=  \sup \{ ||T^*(T(A))^* || : A \in \As_1\}  \\
+&\geq \sup\{ ||\ub{T^*(T(A))^*A}_{T(A)^*T(A)} || : A\in \As_1 \} \\
+&= \sup\{ ||T(A)||^2 : A \in \As_1 \} = ||T||^2 
+\end{align*}
+Thus we have $||T||^2 \leq ||T^*T|| \leq ||T^*||\,||T||$.
+Hence $||T|| \leq ||T^*||$. Using this on $T*$ we get $||T^*|| \leq ||(T^*)^*|| = ||T||$.
+Hence $||T|| = ||T^*||$. Trivial that $I_{\As}$ is adjointable. 
+
+\end{proof}
+
+\begin{proposition}
     The map $A \overset{L}{\to} L_A$ is an isometric $*$-homomorphism from 
 $\As$ into $M(\As)$. Moreover $L(\As)$ is a closed ideal in $M(\As)$.
 \end{proposition}
@@ -464,13 +508,13 @@ which implies that $||L_A|| \geq ||A||$.
 
 To show that $L(\As)$ is an ideal in $M(\As)$: Let $T \in M(\As)$, $A \in \As$.
 \[ 
-(L_{A^*}T)(B) = A^*T(B) = T^*(A)^*B = L_{T^*(A)^*} (B) \quad \text{ for all }B \in \As
+(L_{A^*}T)(B) = \ub{A^*T(B)}_{\ind{A,T(B)}} = \ub{T^*(A)^*B}_{\ind{T^*(A), B}} = L_{T^*(A)^*} (B) \quad \text{ for all }B \in \As
 \]
 \[\implies L_A T = L_{(A^*)^*} T = L_{T^*(A^*)^*} \in L(\As)   \]
 i.e. $L(\As)$ is a right ideal. Moreover $(TL_A)^* = L_{A^*}T^* = L_{(T(A))^*}$
 where the last equality follows by what we have just done. 
 Taking the adjoint gives
-\[ TL_A = (L_{T(A)^*})^* = L_{T(A)}  \in M(\As) \]
+\[ TL_A = (L_{T(A)^*})^* = L_{T(A)}  \in L(\As) \]
 so $L(\As)$ is a left ideal. $L(\As)$ is closed in $M(\As)$ because $L$ is isometric 
 (so $L(\As)$ is complete).
 \end{proof}
@@ -478,9 +522,10 @@ so $L(\As)$ is a left ideal. $L(\As)$ is closed in $M(\As)$ because $L$ is isome
 Note that if $\As$ is unital with unit $I$, then $M(\As)= L(\As) \simeq \As$.
 Indeed, let $T \in M(\As)$ and let $A = (T^*(I))^* \in \As$. Then 
 \begin{align*}
-    L_{A}(B) = (T^*(I))^*B = I^* T(B)= T(B) \quad \text{ for all } B \in \As
+    L_{A}(B) = \ub{(T^*(I))^*B}_{\ind{T^*(I), B}} = \ub{I^*
+T(B)}_{\ind{I,T(B)}}= T(B) \quad \text{ for all } B \in \As
 \end{align*}
-so $T \in L_{A} \in L(A)$.
+so $T = L_{A} \in L(\As)$.
 
 \subsection{Adjoining a unit to a non-unital $C^*$-algebra}
 Let $\As$ be a $C^*$-algebra and consider a $*$-algebra $\tilde{\As}$ as 
@@ -527,7 +572,7 @@ Now observe that $\tilde{L}(\tilde{\As}) = L(A) + \C \cdot I_{\As}$ which is clo
 \begin{proof}
     Consider the quotient space $X/M$ with its quotient norm and let $q\colon X
     \to X/M$ denote the quotient map. Then $q(N)$ is finite dimensional subspace of
-    $X/M$. Hence $q(M)$ is closed in $X/M$ c.f. MAT 4400. Thus $q^{-1} (q(N)) = M+N$
+    $X/M$. Hence $q(N)$ is closed in $X/M$ c.f. MAT 4400. Thus $q^{-1} (q(N)) = M+N$
      is closed in $X$, since $q$ is continuous.  $q(x) = x+M$. 
 \end{proof}
 This implies that the norm $||\cdot||$ on $\tilde{\As}$ is complete so we can 
@@ -570,7 +615,7 @@ if $\phi$ is also injective, then $\phi$ is isometric.
     Then $\Bs'$ is a $C^*$-subalgebra of $\Bs$ which is unital with unit $\phi(I_{\As})$.
     (Note: if $\phi(\As)  = \{0\}$ then the first assertion is trivial.) Considering 
     $\phi$ as a $*$-homomorphism from $\As$ into $\Bs'$. We see that we may assume that 
-$\Bs$ is unital and $\phi(1_{\As}) = 1_{\Bs}$. 
+$\Bs$ is unital and $\phi(I_{\As}) = I_{\Bs}$. 
 
 Let $A \in \As$. \ul{Then $\Sp_{\Bs}(\phi(A))\subseteq \Sp_{\As}(A)$}:
 Indeed, if $\la \not\in \Sp_{\As}(A)$, then $\la I_{\As} - A$ is invertible in 
@@ -578,8 +623,9 @@ $\As$ with inverse $B$ and we set
 \begin{align*}
     (\la I_{\Bs} - \phi(A) )\phi(B) = \phi(\la I_{\As} - A)\phi(B) = I_{\Bs}
 \end{align*}
-and similarly on the left. This implies that $\la \not \in \Sp_{\Bs}(\phi(A))$. 
-From $\Sp_{\Bs}(\phi(A))\subseteq \Sp_{\As}(A)$ we set 
+and similarly on the left. This implies that $\la \not \in \Sp_{\Bs}(\phi(A))$.
+ 
+From $\Sp_{\Bs}(\phi(A))\subseteq \Sp_{\As}(A)$ we see that 
 $r_{\Bs} (\phi(A)) \leq r_{\As}(A)$ for all $A \in \As$. Hence for any $A \in \As$
 we set 
 \begin{align*}
@@ -588,13 +634,13 @@ we set
     &\leq r_{\As}(A^*A) = ||A^*A|| = ||A||^2
 \end{align*}
 
-Next we precede to the injective case. To show that $\phi$ is isometric, it will 
+Next we precede to \ul{the injective case}. To show that $\phi$ is isometric, it will 
 suffice to show that $\Sp_{\Bs}(\phi(A)) = \Sp_{\As}(A)$ for all $A \in \As$, with $A$ self adjoint.
-We will then have $r_{\Bs}(\phi(A)) = r_{\As}(A)$ for all $A \in \As$. Hence 
+We will then have $r_{\Bs}(\phi(A)) = r_{\As}(A)$ for all $A \in \As_{\sa}$. Hence 
 \[||\phi(A)||^2 = ||\phi(A^*A)|| = r_{\Bs}(\phi(A^*A)) = r_{\As}(A^*A) 
 = ||A^*A|| = ||A||^2 \]
 
-Assume for contradiction that there exist a self adjoint $A \in \As$ such that 
+Assume for contradiction that there exist a \ul{self adjoint} $A \in \As$ such that 
 $\Sp_{\Bs}(\phi(A)) \neq \Sp_{\As}(A)$. We have seen that we always have 
 $\Sp_{\Bs}(\phi(A)) \subseteq \Sp_{\As}(A) \subset \R$. 
 We can find a function $f \colon \Sp_{\As}(A) \to \R$, $f$ continuous, $f \neq 0$
@@ -608,7 +654,7 @@ continuous function calculus and the continuity of $\phi$.
 Hence we get $\phi(f(A)) = f(\phi(A)) = 0$, since $f = 0$ on $\Sp_{\Bs}(\phi(A))$. 
 Since $\phi$ is injective, we get $f(A) = 0$. Now, we know that the map $g \mapsto g(A)$
 is a $*$-isomorphism from $C(\Sp_{\As}(A))$ onto the $C^*$-algebra generated 
-by $A$ and $1_{\As}$. So this means that $f=0$ on $\Sp_{As}(A)$, which is a contradiction. 
+by $A$ and $I_{\As}$. So this means that $f=0$ on $\Sp_{\As}(A)$, which is a contradiction. 
 
 Next we consider the case where $\As$ is non-unital. 
 We can then form $\tilde{\As}$ and identify $\As$ with its canonical copy on $\tilde{\As}$.
@@ -881,12 +927,12 @@ so $A^+A^- = 0$, $A^+,A^- \in \As$.
 Define $R = BA^-$. Then we have
 \begin{align*}
     R^*R &= A^-B^*BA^- = A^-(A^+-A^-)A^- \\
-         &= A^- \ub{A^+A^-} - (A^-)^3 = - (A^-)^3
+         &= A^- \ub{A^+A^-}_{0} - (A^-)^3 = - (A^-)^3
 \end{align*}
 since $\Sp((A^-)^3) = \Sp(A^-)^3 \subseteq [0,\infty)$, we have
 $(A^-)^3 \geq 0$. Hence $R^*R \in -\As^+$.
 The lemma gives that $R=0$, which in turn gives that $(A^-)^3 = 0$ 
-(here we use that $A^-$ is not self-adjoint and not nilpotent).  
+(here we use that $A^-$ is self-adjoint and not nilpotent).  
 Thus we get $||A^-|| = r(A^-) = 0$ i.e. $A^{-} = 0$, so $A = A^{+} \in \As^+$
 as desired. 
 \end{proof}
@@ -942,13 +988,13 @@ Since $f_n$'s are continuous on $[0,\infty)$ and $f_n(0)= 0$
 for all $n \in \N$, we can apply (the restriction of $f_n$ on any 
 element $A\in \As^+$, by considering $f_n\lvert_{\Sp(A)}$) and 
 obtain an element in $\As^+$. We will denote this element by $f_n(A)$.
-For any $\al = \{A_1, \ldots, A_n\} \in \Is$  we define
-$e_{\al} = f_n(A_{1}^{2}, \ldots, A_{n}^{2})$. We now check that $(i)$, $(ii)$ and 
+For any $\al = \{A_1, \ldots , A_n\} \in \Is$  we define
+$e_{\al} = f_n(A_{1}^{2}+ \ldots + A_{n}^{2})$. We now check that $(i)$, $(ii)$ and 
  $(iii)$ holds. 
 \begin{enumerate}[(i)]
     \item Let $\al$ be as above. Since $A_{1}^{2} + \cdots + A_{n}^{2} \geq 0$
 we get that $f_n(A_{1}^{2}+ \cdots + A_{n}^{2}) \geq 0$. 
-Moreover $\Sp(e_{\al}) = f_n (A_{1}^{2}+ \cdots + A_{n}^{2}) \subseteq [0,1]$,
+Moreover $\Sp(e_{\al}) = f_n (\Sp(A_{1}^{2}+ \cdots + A_{n}^{2})) \subseteq [0,1)$,
 so $||e_{\al}|| \leq 1$.
 
 \item 
@@ -965,7 +1011,7 @@ it is the enough to show that
 But using the previous proposition this inequality will follow if we can 
 show that 
 \[
-I + n(A_{1}^{2}+ \cdots + A_{n}^{2}) \leq I + m(A_{1}^{2}+ \cdots + A_{n}^{2})
+I + n(A_{1}^{2}+ \cdots + A_{n}^{2}) \leq I + m(A_{1}^{2}+ \cdots + A_{m}^{2})
 \]
 This inequality follows immediately using that $\As^+$ is a cone.  
 
@@ -990,7 +1036,7 @@ since $g_m(t) \leq \frac{1}{4m}$ for all $t \geq 0$ we get that
 Using exercise $7b$ we deduce that 
 $||2\sqrt{m} (A -e_{\beta}A)|| \leq 1$, so $||A-e_{\beta}A|| \leq
 \frac{1}{2\sqrt{m}} \leq \frac{1}{2\sqrt{n}}$.
-so given $\eps > 0$, we can choose $n$ such that $\tfrac{1}{2\sqrt{n}} \leq \epsilon$
+So given $\eps > 0$, we can choose $n$ such that $\tfrac{1}{2\sqrt{n}} \leq \epsilon$
 we then get $||A-e_{\beta}A||< \eps$ for all $\beta \succeq \al$ for $\al$ as 
 chosen before. So $||A-e_{\beta}A || \to 0$. Hence 
 $||A-Ae_{\beta}|| = ||(A - Ae_{\beta})^*|| = ||A-e_{\beta}A|| \to 0$.
@@ -1003,6 +1049,7 @@ $A = S + iT$ where $S,T \in \Assa$ and apply what we have done to $S$ and $T$.
 
 
 \begin{note}
+\leavevmode
 \begin{enumerate}[(1)]
     \item If $\As$ is unital, then $e_{n}  =I$ for all $n \in \N$, satisfies 
 all conditions for an approximate unit in $\As$.
@@ -1024,12 +1071,12 @@ Murphy)
 
 \section{Ideal and quotients}
 \begin{proposition}
-    Let $\Js$ be a norm closed ideal in a $C^*$-algebra $\As$ (nothing else than norm closed make sens). Then $\Js$ is self-adjoint ($B \in \Js \implies B^* \in \Js$). 
+    Let $\Js$ be a norm closed ideal in a $C^*$-algebra $\As$. Then $\Js$ is self-adjoint ($B \in \Js \implies B^* \in \Js$). 
 Hence $\Js$ is a $C^*$-subalgebra. 
 \end{proposition}
 \begin{proof}
     Let $\Js^* = \{B^* : B \in \Js\}$ and $\Ks = \Js\cap \Js^*$. Note that 
-    $\Ks$ is nonempty since $B^*B \in \Ks$,for all $B\in \Js$ (using that $\Js$ is an ideal),
+    $\Ks$ is nonempty since $B^*B \in \Ks$, for all $B\in \Js$ (using that $\Js$ is an ideal),
 so $B^*B \in \Js$, but $B^*B$ is self adjoint so $B^*B \in \Js^*$.
 Moreover one easily verifies that $\Ks$ is a $C^*$-subalgebra of $\As$.
 So we may pick an approximative unit $\{e_{\al}\}$ for $\Ks$. Since 
@@ -1044,7 +1091,7 @@ where $I$ is the unit in the unitization if $\As$ is non-unital and we use that
 $\Sp(I-e_{\al})\subseteq [0,1]$. So $Be_{\al} \to B$.
 Hence
 \begin{align*}
-||B^* - \ub{e_{\al}}_{\in \Js}B^* || = ||(B-e_{\al}B)^* ||   = ||B-Be_{\al}|| \to 0 
+||B^* - \ub{e_{\al}}_{\in \Js}B^* || = ||(B-Be_{\al})^* ||   = ||B-Be_{\al}|| \to 0 
 \end{align*}
 so $B^* \in \Js$ (since $\Js$ is closed).
 \end{proof}
@@ -1074,7 +1121,7 @@ another occasion, it suffices to show that
     ||A+\Js||^2 \leq ||(A + \Js)^*(A+ \Js)||\quad \text{ for all } A \in \As.
 \end{align*}
 Let $\{e_{\al}\}$ be an approximative unit to $\Js$. Observe that for 
-$A \in \As$ then $||A + \Js|| = ||A-Ae_{\al}||$. 
+$A \in \As$ then $||A + \Js|| = \lim_{\al}||A-Ae_{\al}||$. 
 Indeed, let $\eps > 0$ and choose $B \in \Js$ such that 
 $||A+B|| \leq ||A+\Js|| + \eps$. Next choose $\al_0$ such that 
 $||B-Be_{\al}|| \leq \tfrac{\eps}{2}$ for all $\al \succeq \al_0$. 
@@ -1086,7 +1133,7 @@ Then for any $\al \succeq \al_0$, we get
 It follows that the formula holds. Using it we get that for any $A \in \As$,
 we have
 \begin{align*}
-    ||A+\Js||^2 &= \lim_{\al} ||A-Ae_{\al}|| = \lim_{\al} ||(I-e_{\al})A^*A (I-e_{\al})||\\
+    ||A+\Js||^2 &= \lim_{\al} ||A-Ae_{\al}||^2 = \lim_{\al} ||(I-e_{\al})A^*A (I-e_{\al})||\\
 \end{align*}
 As
 \begin{align*}
@@ -1137,11 +1184,11 @@ Then $A\oplus B$ is a $C^*$-algebra (check!).
 Define
 \begin{align*}
     \pi_1 \colon \As\oplus \Bs \to \As && \pi_{1} (A,B) = A \\
-    \pi_2 \colon \As\oplus \Bs \to \As && \pi_{1} (A,B) = B \\
+    \pi_2 \colon \As\oplus \Bs \to \Bs && \pi_{2} (A,B) = B \\
 \end{align*}
 Then $\pi_i$ are $*$-homomorphisms with 
 \begin{align*}
-    \ker \pi_1 = \{0\} \oplus \Bs \simeq \Bs    
+    \ker \pi_1 = \{0\} \oplus \Bs \simeq \Bs \quad\text{ and } \quad   
     \ker \pi_2 = \{0\} \oplus \As \simeq \As    
 \end{align*}
 so $\As \oplus\Bs /\ker \pi_1 \simeq \As$ and $\As \oplus\Bs /\ker \pi_2 \simeq
@@ -1154,7 +1201,7 @@ so $\As \oplus\Bs /\ker \pi_1 \simeq \As$ and $\As \oplus\Bs /\ker \pi_2 \simeq
 $\Is$ is a closed ideal in $\Js$. Then $\Is$ is a closed ideal in $\As$.
 \end{proposition}
 \begin{proof}
-    Since $\Is^+$ spans $\Is$ it suffice to show that for give $A\in \As$ and 
+    Since $\Is^+$ spans $\Is$ it suffice to show that for given $A\in \As$ and 
 $B \in \Is^+$, we have $AB, BA \in \Is$. Let 
 $\{e_{\al}\}$ be an approximate unit for $\Js$. Then we have 
 $B^{1/2} \in \Is \subseteq \Js$, so $e_{\al}B^{1/2} \to B^{1/2}$.
@@ -1167,7 +1214,7 @@ This implies that we also have $A^*B \in \Is$. Hence $BA = (A^*B)^* \in \Is^* = 
 \end{proof}
 
 \begin{corollary}
-    Let $H$ be a Hilbert space. Then $\Ks(H)$ is a simple $C^*$-algebra, meaning 
+    Let $H$ be a Hilbert space. Then $\Ks(H)$ is a \emph{simple} $C^*$-algebra, meaning 
 that $\Ks(H)$ and $\{0\}$ are the only closed ideals in $\Ks(H)$.
 \end{corollary}
 \begin{proof}
@@ -1269,7 +1316,7 @@ Now
 so $A \in \As^+$, since $\As^+$ is closed. 
 
 moreover $A \geq B_m$ for all $m \in \N$, so we get 
-\[\varphi(A)\geq \varphi(B_m) = \sum_{n=1}^{m} \frac{1}{n^2}A_n \geq \sum_{n=1}^{m} 
+\[\varphi(A)\geq \varphi(B_m) = \sum_{n=1}^{m} \frac{1}{n^2}\vphi(A_n) \geq \sum_{n=1}^{m} 
 \frac{1}{n^2}n  = \ub{\sum_{n=1}^{m} \frac{1}{n}}_{\infty} \quad \text{for all }m\in \N  \]
 which implies that $\varphi(A)=\infty$ which is impossible. 
 
@@ -1279,17 +1326,17 @@ We then get
 This shows that $\varphi$ is bounded. 
 
 Let $\{e_{\al}\}$ be an approximative unit for $\As$ and consider the net 
-$\{\varphi(e_{\al})\}$ it is an increasing net of non-negative real numbers, which 
+$\{\varphi(e_{\al})\}$. It is an increasing net of non-negative real numbers, which 
 is bounded above by $||\varphi||$. (Since $\varphi$ is bounded) So $
 \delta \coloneqq \lim_{\al} \varphi(e_{\al})$ exist and $\delta \leq ||\varphi||$.
 For $A \in \As_1$, we have 
 \[|\varphi(\ub{e_{\al}}_{=e_{\al}^{*}}A)|^2\leq \varphi(\ub{A^*A}_{\in
-\As_1})\varphi(\ub{e_{\al}^*e_{\al}}_{e_{\al}^{2}}) \leq
+\As_{1}^{+}})\varphi(\ub{e_{\al}^*e_{\al}}_{e_{\al}^{2}}) \leq
 \varphi(e_{\al})||\varphi||\leq \delta ||\varphi||\]
 where we used that $0 \leq e_{\al}$, $||e_{\al}|| \leq 1$ i.e. $e_{\al}^{2}\leq e_{\al}$.
 We get 
 \[ |\varphi(A)|^2 = \lim_{\al}|\varphi(e_{\al}A)|^2 \leq \delta||\varphi|| \]
-This implies that $||\varphi||^2 \leq \delta ||\varphi||$ which  implies that
+Taking the supremum over all $A \in \As_1$, this implies that $||\varphi||^2 \leq \delta ||\varphi||$ which  implies that
 $||\varphi||\leq \delta$. All together $\delta = ||\varphi||$ as desired. 
 \end{enumerate}
 \end{proof}
@@ -1326,14 +1373,14 @@ we also have
 |\varphi(A) - \la| > r\]
 But we also have
 \[ |\varphi(A-\la I)| \leq \ub{||\varphi||}_{=1} ||A-\la I ||\leq r \]
-so $\varphi \geq 0$.
+which is a contradiction. So $\varphi \geq 0$.
 
 \item 
 Assume $||\varphi|| = \lim_{\al}\varphi(e_{\al})$ for some approxamative 
 unit $\{e_{\al}\}$ for $\As$. We can assume $||\varphi||=1$.
 As usual let 
 \[ \tAs = \begin{cases} \As &\text{if $\As$ is unital}\\ &\text{The unitization of $\As$ otherwise } \end{cases}\]
-and $I$ deontes the unit of $\tAs$.
+and $I$ denotes the unit of $\tAs$.
 
 By the Hahn-Banach theorem, we can extend $\varphi$ to $\tilde{\varphi} \in 
 (\tAs)^*$ with $||\tilde{\varphi}|| = ||\varphi|| = 1$. 
@@ -1344,7 +1391,7 @@ so
 Next we have $|\tvphi(2e_{\al} - I)| = |2\vphi(e_{\al}) - z| \to |2-z|$. 
 Hence  $|2-z|\leq 1$.
 So we get that $z = 1$, i.e. $\tvphi(I) = 1$.
-So we have $||\tvphi|| = 1 = \vphi(I)$. By the first part we get that 
+So we have $||\tvphi|| = 1 = \tvphi(I)$. By the first part we get that 
 $\tvphi \geq 0$, which implies that the restriction $\tvphi\lvert_{\As} = \vphi \geq 0$
 \end{enumerate}
 \end{proof}
@@ -1369,7 +1416,7 @@ $||\vphi|| = ||\vphi'||$.
 \[ \widetilde{\Bs} = \begin{cases} \Bs &\text{if $\Bs$ is unital}\\ &\text{The unitization of $\Bs$ otherwise } \end{cases}\]
 and let $I$ denote the unit in $\tBs$.
 Since $\vphi$ is bounded on $\As$ be can extend using the Hahn-Banach theorem 
-$\As$ to a bounded linear functional $\tvphi$ on $\tBs$ such that $||\tvphi|| =
+to a bounded linear functional $\tvphi$ on $\tBs$ such that $||\tvphi|| =
 ||\vphi|| = 1$. Set $z = \tvphi(I)$ so $|z| \leq 1$. Let $\{e_{\al}\}$ be an 
 approxiamtive unite for $\As$. Since $\vphi \geq 0$, we know that $\lim_{\al} \vphi(e_{\al}) = ||\vphi|| = 1$. As in the previous proof, we set 
 \[\tvphi(2e_{\al} - I) \leq 1\]
@@ -1377,7 +1424,7 @@ where $\tvphi(2e_{\al} - I) \to |2-z|\leq 1 $. Hence
 $z = \tvphi(I) = 1$. So we have $||\tvphi|| = 1 = \tvphi(I)$. Part (1) of the previous proposition
 gives $\tvphi\geq 0$.
 Set $\vphi' = \tvphi\lvert_{\Bs}$. Then $\vphi'\geq 0$ and 
-$\vphi'\vert_{\As} = \tvphi\lvert_{\As}  = \phi$. Moreover 
+$\vphi'\vert_{\As} = \tvphi\lvert_{\As}  = \vphi$. Moreover 
 $1 \leq ||\vphi|| \leq ||\vphi'|| \leq ||\tvphi|| =1$.
 \end{proof}
 
@@ -1541,19 +1588,19 @@ by our first obs.}} \leq ||\vphi'||$.
 We now set 
 \[  (\As^*)_{\text{sa}} = \{ \vphi \in \As^* : \vphi^* = \vphi \}\]
 If $X$ is a real normed space, we wil denote its dual by $X^{\sharp}$.
-What we have hust seen is that we have a isometric linear map from 
+What we have just seen is that we have a isometric linear map from 
 $(\As^*)_{\text{sa}}$ into $(\Assa)^{\sharp}$ sending $\vphi$ to its restriction
 $\vphi'$. It is easy to see that it is a bijection,
-the iverse map can be defined as follows: 
+the inverse map can be defined as follows: 
 
-If $\psi \in (\Assa)^{\sharp}$, then let $\tilde{\phi} \colon \As \to \C$ be 
+If $\psi \in (\Assa)^{\sharp}$, then let $\tilde{\psi} \colon \As \to \C$ be 
 given by 
 \[ \tilde{\psi}(A) = \psi((A+A^*)/2) + i\psi((A-A^*)/(2i))  \]
 Then one checks that $\tilde{\psi} \in (\As^*)_{\text{sa}}$ and
 $\tilde{\psi}'=\psi$ on $\Assa$. Se we can identify 
 $(\As^*)_{\text{sa}}$ with $(\Assa)^{\sharp}$ using this map. 
 
-\section{The jordan decomposition theorem}
+\section{The Jordan decomposition theorem}
 Let $\vphi \in (\As^*)_{\sa}$. Then there exits $\vphi^+,\vphi^-$
 positive linear functionals on $\As$ such that 
 $\vphi = \vphi^+ - \vphi^-$ and 
@@ -1561,7 +1608,7 @@ $||\vphi|| = ||\vphi^+|| + ||\vphi^-||$.
 It can be show that $\vphi^+$ and $\vphi^-$ are uniquely determined by these
 properties. 
 \begin{proof}
-
+\marginnote{$\Ks(\As)$ is weak$^*$ closed}
     Set $\Om = \Ks(\As) = \{\vphi \in \As^* : \vphi\geq 0, ||\vphi||\leq 1\}$.
     Note that $\Om$ is weak$^*$ closed subset of $(\As^*)_{1}$. Indeed, if 
     $\{\vphi_{\al}\}$ is a net in $\Om$ converging with respect to
@@ -1574,24 +1621,33 @@ properties.
     \[ [\theta(A)](\vphi)\coloneqq \vphi(A) \quad \text{ for }A\in \Assa, \vphi\in \Om.\]
     $\theta$ is clearly well defined and linear. Moreover it is positive i.e.
     if $A\geq 0$, $[\theta(A)](\vphi) = \vphi(A)\geq 0$ for all $\vphi \in
-    \Om$, so $\theta (A)$ is positive in $C(\Om,\R)$. It is also \ul{isometric:}
-    
+    \Om$, so $\theta (A)$ is positive in $C(\Om,\R)$. It is also \ul{isometric:} 
+    \marginnote{isometric, linear $\implies$ injective}
     For $A \in \Assa$ we have 
     \[ \sup\{ \ub{|[\theta(A)](\vphi)|}_{\vphi(A)} : \vphi \in \Om \} 
     =\sup\{ \vphi(A) : \vphi \in \Om \} = ||A|| 
     \] 
     where we use the previous proposition. 
-    Let us now consider $\vphi \in (\As^+)_{\sa}$ and its restriction 
-    $\vphi'$ to $\Assa$.
+    Let us now consider $\vphi \in (\As^*)_{\sa}$ and its restriction 
+    $\vphi'$ to $\Assa$ i.e. $\vphi' = \vphi\lvert_{\Assa}$.
     
-    % Tikz-CD goes here
-    
+    \begin{center}
+        \begin{tikzcd}
+            \As \arrow[d,no head] \arrow[r, "\vphi "] & \ar[d,no head] \mathbb{C} \\
+            \Assa \ar[d, "\theta"] \ar[r,"\vphi'"] &\R \\
+            \theta (\Assa) \subseteq C(\Om,\R) 
+            \ar[ur, dashed,swap,"\psi =\vphi' \circ \theta^{-1}"]
+            \ar[ur, bend right=120, swap, "\rho"]
+    \end{tikzcd}
+    \end{center}    
+
+
     Since $\theta(\Assa)$ is a subspace of $C(\Om,\R)$ and $\theta$ is injective,
-    we can define $\psi\colon \theta(\Assa) \to \R$ by 
-$\psi(\theta(A)) = \vphi'(A)$ for $A\in \Assa$. Then $\psi$ is linear and
-$|\psi(\theta(A))| = |\vphi'(A)| \leq ||\vphi'||\,\ub{||A||}_{=||\theta(A)||} $
-for all $A \in \Assa$.
-so $\psi$ is bounded with $||\psi|| \leq||\vphi'||$. On the other hand if $A
+    we can define $\psi \colon \theta(\Assa) \to \R$ by 
+$\psi(\theta(A)) = \vphi'(A)$ for $A\in \Assa$ i.e. $\psi = \vphi' \circ \theta^{-1}$.
+Then $\psi$ is linear and $|\psi(\theta(A))| = |\vphi'(A)| \leq
+||\vphi'||\,\ub{||A||}_{=||\theta(A)||} $ for all $A \in \Assa$.
+So $\psi$ is bounded with $||\psi|| \leq||\vphi'||$. On the other hand if $A
 \in \Assa$, then
 \[ |\vphi'(A)| = |\psi(\theta(A))| \leq ||\psi|| ||\theta(A)||\]
 so $||\vphi'||\leq ||\psi||$. Hence 
@@ -1602,15 +1658,16 @@ signed regular measure on $\Om$ which decomposes as $\nu =\nu^+-\nu^-$,
 so we get that $\rho =\rho^+ - \rho^-$, where $\rho^{\pm}$ are positive linear functionals
 on $C(\Om,\R)$. 
 
-Now we can set $\vphi^{'\pm} = \rho^{\pm} \circ \theta \colon \ub{(\Assa)^{\sharp}}_{=(\As^{*})_{\sa}}\to \C$
-and let $\vphi^{\pm}$ be the corresponding elements in $(\As^*)_{\sa}$.
+Now we can set $\vphi^{\prime\pm} = \rho^{\pm} \circ \theta \colon \Assa\to \C$, 
+thus $\vphi^{\prime\pm} \in (\Assa)^*$, we denote the corresponding  
+elements in $(\As^*)_{\sa}$ for $\vphi^{\pm}$.
 Note that $\vphi^{\pm}\geq 0$, because 
 for $A\geq 0$ we have $\vphi^{\pm}(A) = \vphi^{'\pm}(A) =
 \rho^{\pm}(\ub{\theta(A)}_{\geq 0})\geq 0$. 
 Note also that since $\rho = \rho^+ - \rho^-$ we also get $\vphi = \vphi^+ -\vphi^-$
 and $\vphi' = \vphi^{'+} - \vphi^{'-}$. Finally we have 
  \begin{align*}
-     ||\vphi|| &= ||\phi'|| = ||\psi|| = ||\rho||\underset{\text{jord. dec. thm.}}{=}
+     ||\vphi|| &= ||\vphi'|| = ||\psi|| = ||\rho||\underset{\text{jord. dec. thm.}}{=}
     ||\rho^+|| + ||\rho^-|| \\ 
     &\geq ||\vphi^{'+}|| +  ||\vphi^{'-}||
  \geq ||\vphi^{+}|| +  ||\vphi^{-}||\geq ||\vphi||
@@ -1913,17 +1970,22 @@ $\cup_{G \in \Gs} \subseteq H$ is an upper bound for $\Gs$, so we can apply
 Zorn's lemma and find the maximal element on $\Fs$. Let us call it 
 $M  = \{\xi_j\}_{j\in J}$ where $\xi_j\neq \xi_k$ for $j\neq k$. Set
 $H_j =[\pi(\As)\xi_j]$ for each $j\in J$. By construction we have 
-$H_j \perp H_k$ for $j\neq k$. Moreover 
-$H = [\cup_{j\in J}H_j]$: Assume $\xi \in H\setminus \{0\}$ such that 
+$H_j \perp H_k$ for $j\neq k$. 
+
+\ul{Moreover $H = [\cup_{j\in J}H_j]$}: Assume $\xi \in H\setminus \{0\}$ such that 
 $\xi \in [\cup_{j\in J}H_j]^{\perp}$. Note that $\xi \not\in H_j$ for all $j\in J$.
-We also have that $\xi_j \in H_j$ for because $\pi$ is non-degenerate, so 
+We also have that $\xi_j \in H_j$ for each $j$: Because $\pi$ is non-degenerate, so 
 $\xi_j = \lim_{\al}\pi(e_{\al})\xi_j \in H_j$ where $\{e_{\al}\}$ is an approximate
 unit for $H$, so $\xi\neq \xi_j$ for all $j\in J$.
 
-Next for any $A,B \in \As$, $j\in J$ we have \[ 0 =
-\ind{\xi,\ub{\pi(A^*B)\xi_j}_{\in H_j}} = \ind{\pi(A)\xi,\pi(B)\xi_j}  \] so
+Next for any $A,B \in \As$, $j\in J$ we have 
+\[ 0 = \indi{\xi,\ub{\pi(A^*B)\xi_j}_{\in H_j}} = \ind{\pi(A)\xi,\pi(B)\xi_j}  \] 
+so
 $[\pi(\As)\xi]\perp [\pi(\As)\xi_j]$ for all $j\in J$. This gives that $M
-\subsetneqq M \cup \{\xi\}$ which contradicts the maximality of $M$. Thus we
+\subsetneqq M \cup \{\xi\}$ which contradicts the maximality of $M$. This gives 
+$H = \oplus_{j\in J} H_j$. 
+
+Thus we
 can apply the previous exercise to get that $H \simeq \oplus_{j\in J} H_j$
 since each $H_j$ is $\pi$-invariant we also get that $\pi\sim \oplus_{j\in J}
 \pi_j$ where each $\pi_j$ is the restriction to a representation of $\As$ on
@@ -2014,12 +2076,12 @@ for all $C \in \As$. Hence $AB \in \Ns$.
 As a consequence, for $A \in \As$ we can define $\pi_{0}(A)\colon H_0 \to H_0$
 by $[\pi_0(A)](\dB) = \dot{\ol{AB}}$ for all $B \in \As$ (here the overline denote the 
 element $\cdot$ acts on).
-Indeed, $\pi_0(A)$ is well defined, because 
+Indeed, $\pi_0(A)$ is \ul{well defined}, because 
 if $\dB = \dB'$, i.e. $B' = B + N$ for some $N \in \Ns$, then
 $AB' = AB + \ub{AN}_{\in \Ns}$, so $\dot{\ol{AB'}} = \dot{\ol{AB}}$.
 It's straith forward to verify that $\pi_0(A)$ is linear.
 
-Moreover $\pi_0(A)$ is bounded:
+Moreover \ul{$\pi_0(A)$ is bounded:}
 Let $||\cdot||_0$ denote the norm on $H_0$, so 
 $||\dB||_0 = (\indi{\dB, \dB})^{1/2} = ([B,B]_{\vphi})^{1/2} =
 \vphi(B^*B)^{1/2}$. 
@@ -2047,7 +2109,7 @@ Let $B,B' \in \As$. Then we have
 \vphi((B')^*AB) \\
 &= \vphi((A^*B')^*B) = \indi{\dB, \dot{\ol{A^*B'}}} = \indi{\dB, [\pi_0(A^*)]\dB'}.
 \end{align*}
-If $\eta \in H_{\vphi}$, $\dB_n \to \xi$ (recall $\dB_n$ is continuous) with $B_n \in \As$,
+If $\eta \in H_{\vphi}$, $\dB_n \to \xi$ (recall $\cdot$ is a continuous operation) with $B_n \in \As$,
 then we get 
 \begin{align*}
     \indi{[\pi_{\vphi}(A)]\xi,\dB'} = \lim_{n\to\infty} \indi{[\pi_{\vphi}(A)]\dB_n, \dB'}
@@ -2070,7 +2132,7 @@ Assume $\As$ is not unital, and let $\{e_{\al}\}$ be an approximative unit for $
 The idea now is to check that $\{\dot{\eal}\}$ is a Cauchy net in $H_{\vphi}$.
 Hence will converge to some $\xi_{\vphi} \in H_{\vphi}$. Then $\xi_{\vphi}$ is cyclic 
 for $H_{\vphi}$.
-For $A \in \As$ we get $\pi_{\vphi}(A) = \lim_{\al} \pi_{\vphi}(A)\dot{\eal} = 
+For $A \in \As$ we get $\pi_{\vphi}(A)\xi_{\vphi} = \lim_{\al} \pi_{\vphi}(A)\dot{\eal} = 
 \lim_{\al} \dot{\ol{Ae_{\al}}} = \dA$.
 That where the last equality follows from $Ae_{\al}\to A$ $+$ a little
 continuity argument: Assume $B_{\al}\to B$ in $\As$ then we have 
@@ -2082,7 +2144,7 @@ Again we have $[\pi(\As)\xi_{\vphi}] = \ol{H_0}^{||\cdot||} = H_{\vphi}$.
 
 Finnaly we have
 \begin{align*}
-    \vphi(A) = \vphi(e^{*}_{\al}A) = \lim_{\al} \indi{\dA,\dot{\eal}} = \indi{\dA, \xi_{\vphi}}
+    \vphi(A) =\lim_{\al} \vphi(e^{*}_{\al}A) = \lim_{\al} \indi{\dA,\dot{\eal}} = \indi{\dA, \xi_{\vphi}}
 = \indi{\pi_{\vphi}(A)\xi_{\vphi},\xi_{\vphi}} \quad\text{ for all }A \in \As.
 \end{align*}
 
@@ -2135,7 +2197,7 @@ $\{ \pivp(A)\etavp \}_{\vphi\in S} = \{0\}_{\vphi \in S}$ for all $\{\etavp\}
 0 & \text{otherwise} \end{cases} \]
 The we get $\pi_{\vphi_0}(A) \xi_{\vphi_0} = 0$, so $\vphi(A) = \ind{\pi_{\vphi_0}(A)\xi_{\vphi_0}, \xi_{\vphi_0}}= 0$.
 Since $S = \Ss(\As)$ separates the points in $\As$. This implies that $A=0$ 
-(otherwise we cloud find a state $\vphi_0$ such that the above is non-zero).
+(otherwise we could find a state $\vphi_0$ such that the above is non-zero).
 \end{proof}
 
 The representation $\pi_u = \oplus_{\vphi \in \Ss(\As)}\pivp$ defined in the proof 
@@ -2396,13 +2458,13 @@ Indeed, for any $A \in \As$, we have $A(I_H - P)\xi_1 \underset{P\in \As'}{=}
 (I_H-P)\ub{A\xi_1}_{\in
 K} = 0$, i.e $(I_H -P)\xi_1 \in \Ns(\As) = \{0\}$, where the last equality
 follows by assumption. So $(I_H - P)\xi_1 = 0$ i.e. $\xi_1 = P\xi_1 \in K$.
-Hence $T\xi_1 = TP\xi_1 = PT\xi_1 \in K = \ol{\As\xi_1}^{||\cdot||}$,
+Hence $T\xi_1 = TP\xi_1 = PT\xi_1 \in K = [\As\xi_1]$.
 ($\As\xi_1$ is a subspace), 
 so $\exists S \in \As $ such that $||T\xi_1 - S\xi_1|| < \eps$ as wanted in this case.
 
 Now assume $n \geq 2$.
 Set $\xi = (\xi_1,\ldots,\xi_n) \in H^n$.
-consider 
+Consider 
 \[\As_n = \left\{
 \begin{bmatrix} A & 0 &\cdots & 0 \\
 0 & A &\cdots & 0 \\
@@ -2413,7 +2475,7 @@ consider
 \right\} \subseteq \Bs(H^n)\]
 and 
 \[T_n \coloneqq \begin{bmatrix} T &\cdots & 0 \\ \vdots & \ddots &\vdots \\
-0 &\cdots & T \end{bmatrix} \in \Bs(H^n), \quad \text{for }T\in \Bs(H)\]
+0 &\cdots & T \end{bmatrix} \in \Bs(H^n), \quad \text{for }T\in \As''.\]
 Note that 
 \begin{align*}
 \Ns(\As) &= \{(\eta_1,\ldots, \eta_n) \in H^n :
@@ -2421,7 +2483,7 @@ Note that
 &= \{ (\eta_1,\ldots, \eta_n) \in H^n : A\eta_j = 0 \text{ for all}A\in \As, j=1,\ldots,n\}\\
 &= \{(0,\ldots,0)\}
 \end{align*}
-since $\Ns(\As) = 0$, so $\As_n$ is non-degenerate. 
+since $\Ns(\As) = \{0\}$, so $\As_n$ is non-degenerate. 
 Moreover $(\As_n)' = \{ [B_{ij}] : B_{ij} \in \As', i,j =1,\ldots,n \}$
 and 
 \[(\As_n)'' = \left\{ \begin{bmatrix} C &\cdots & 0 \\ \vdots &\ddots &\vdots \\ 0 &\cdots & C \end{bmatrix} : C \in \As'' \right\}\]
@@ -2434,7 +2496,7 @@ as we wanted
 \end{proof}
 
 \begin{lemma}[used in the proof above]
-    $(\As_n)' = \{[B_{ij}], B_{ij} \in \As', \forall i,j = 1,\ldots,n\}$
+    $(\As_n)' = \{[B_{ij}], B_{ij} \in \As', \forall i,j = 1,\ldots,n\} = M_n(\As')$
 \end{lemma}
 \begin{proof}
     Consider $[B_{ij}] \in \Bs(H^n)$. 
@@ -2457,6 +2519,8 @@ $B_{ij} \in \As'$ for all $i,j$ as desiered.
 \begin{lemma}
     \[(\As)'' = \left\{\diag((C,\ldots, C)), C \in \As''\right\} \coloneqq (\As'')_n\]
 \end{lemma}
+
+\begin{proof}
 We start to consider $(\As'')_n\subseteq (\As_n)''$: If $C \in \As''$. Then for all 
 $[B_{ij}] \in (\As_n)'$, we have 
 \begin{align*}
@@ -2502,6 +2566,8 @@ since $[T_{ij}] \in (M_n(\As'))'$ we get
 &= \diag((B,\ldots, B))\diag((C,\ldots, C))  \\
 \diag((CB,\ldots, CB)) &= \diag((BC,\ldots, BC)) 
 \end{align*}
+\end{proof}
+
 \section{A couple of applications}
 Consider $T \in \Bs(H)$ and its polar decomposition $T = U|T|$. So 
 $|T| = (T^*T)^{1/2}$ while $U\colon H\to H$ is the partial isometry 
@@ -2654,7 +2720,7 @@ so $\ol{\As_{1,\sa}}^{SOT}\subseteq\Bs_{1,\sa}$.
 
 Conversely, consider $T \in \Bs_{1,\sa}$ so $T=T^* \in \Bs$, $||T||\leq 1$.
 Let $g \colon [-1,1]\to [-1,1]$ be given by 
-\[ g(t) = \frac{t}{1+\sqrt{1+t^2}} \]
+\[ g(t) = \frac{t}{1+\sqrt{1-t^2}} \]
 so $(f\circ g)(t) = t$ for all $t \in [-1,1]$, where $f$ is the function defined in 
 exercise 28. 
 Set $S = g(T) \in \Bs_{\sa}$ (since $g(0)=0$, $\Bs$ contains $\Id$ and $g$ is real valued).
@@ -2717,13 +2783,13 @@ Indeed, for $\xi = (\xi_1,\xi_2)$ we get
 )\xi_2 \\  (A_{21}^{\al} - B_{21})\xi_1 + (A_{22}^{\al}-B_{22}
 )\xi_2  \end{bmatrix} \]
 so 
-\[ [A_{ij}^{\al}- B_{ij}] \leq ||(A_{11}^{\al}-B_{11})\xi_1||^2 + 
+\[ ||[A_{ij}^{\al}- B_{ij}]\xi|| \leq ||(A_{11}^{\al}-B_{11})\xi_1||^2 + 
 ||(A_{12}^{\al}-B_{12})\xi_2||^2
 + ||(A_{21}^{\al}-B_{21})\xi_1||^2
 + ||(A_{22}^{\al}-B_{22})\xi_2||^2 \to 0
 \]
 Using $(2)$ we get that $\ol{(M_{2}(\As)}^{SOT})_{1,\sa}
-\ol{(M_2(\As)_{1,\sa})^{SOT}}$
+ = \ol{(M_2(\As)_{1,\sa})^{SOT}}$
 Thus we get $X \in (M_2(\Bs))_{1,\sa}\subseteq (\ol{M_2(\As)}^{SOT})_{1,\sa}
 = \ol{(M_2(\As))_{1,\sa}}^{SOT}$
 Hence we can find $\{X_{\al}\} \subseteq M_2(\As)_{1,\sa}$ such that 
@@ -2859,13 +2925,13 @@ $\ol{\Bs}^{SOT} = \ol{(\Bs + \C I_H)}^{SOT}$ so we get $\ol{\Bs}^{SOT} = \Bs(H)$
 \end{proof}
 
 
-\section{Irreducible representation and pure states}
+\section{Irreducible representations and pure states}
 \subsection*{A motivating example}
 \begin{example}
 We look at $\As = C(\Om)$, where $\Om$ is a compact Hausdorff space. 
 We know that $\Ss(\As)$ may be identified with 
 \[ \{ \mu \in M(\Om) : \mu \geq 0, \mu(\Om) =1\} \] 
-which extreme points are the point measure (dirac) 
+whose extreme points are the point measure (dirac) 
 $\{\delta_{\om}: \om \in \Om\}$ (ex in MAT4450), and these coincides with 
 the elements $\{ \vphi_{\om} \in \Ss(\As), \om \in \Om \}$
 where $\vphi_{\om}(f) = f(\om)$ for all $f \in \As$.
@@ -2882,9 +2948,9 @@ It is not difficult to check that $\pi_{\vphi_{\om}}$ (GNS) is unitary equivalen
 to $\pi^{\om}$ for each $\om \in \Om$.
 
 Summarizing, whenever $\phi \in \whAs = \ex(\Ss(\As))$ (recall $\As =
-C(\Om)$)we get that $\pi_{\phi}$ is irreducible.
+C(\Om)$) we get that $\pi_{\phi}$ is irreducible.
 
-On the other hand, let us start with $\pi \in \Rep(\As,H)$,$\pi\neq 0$.
+On the other hand, let us start with $\pi \in \Rep(\As,H)$, $\pi\neq 0$.
 Then $\pi$ is irreducible: 
 We have 
 \[\pi(\ub{\As}_{\text{abelian}})''=\ub{\ol{\pi(\As)}^{SOT}}_{\text{abelian}} = \Bs(H)\]
@@ -2973,9 +3039,10 @@ which implies that $\psi_1 =\vphi$ ($t\neq 0$), which in turn implies that
 $\psi_2 = \vphi$. Hence $\vphi \in E$.
 
 \ul{$E \subseteq \{0\}\cup \Ps(\As)$}: Consider $\vphi \in E$, $\vphi \neq 0$.
-Have to show that $\vphi \in \Ps(\As)$. Then we have $\vphi = t
+Have to show that $\vphi \in \Ps(\As)$. If $||\vphi|| < 1$ then there is a 
+$t \in (0,1)$ such that $\vphi = t
 \ub{\(\tfrac{1}{t}\vphi\)}_{\in \Ks(\As)} + (1-t)\ub{0}_{\in\Ks(\As)}$.
-which contradicts that $\vphi\in E$.
+This contradicts that $\vphi\in E$.
 
 So 
 $\vphi\in \Ss(\As)$ and moreover $\vphi$ is pure:
@@ -3097,7 +3164,7 @@ Then we get
 \ind{T\pivp(A)\xivp, \xivp} = \ind{\pivp(A)\xivp, T\xivp} = \psi_{T}(A)
 \end{align*}
 (where $(**)$ follows since $\pivp(e_{\al})\xivp \to \xivp$ since $\pivp$ is non-degenerate)
-for all $A\in \As$. So $\psi=\psi_T$ as desiered.  
+for all $A\in \As$. So $\psi=\psi_T$ as desired.  
 
 \end{proof}
 
@@ -3142,11 +3209,11 @@ Set $\rho_{i} = \psi_{i}\lvert_{\Bs}$ for $i=1,2$.
 Then we have 
 \[ \ub{\rho}_{\in \Ps(\Bs)} = t\ub{\rho_1}_{\in \Ks(\Bs)} + (1-t)\ub{\rho_{2}}_{\in \Ks(\Bs)} \]
 since $\rho \in \ex(\Ks(\Bs))$ we get $\psi_{i}\lvert_{\Bs}=\rho_i = \rho$ for $i=1,2$,
-i.e. $\psi_i \in F$ $i=1,2$ as desiered.
+i.e. $\psi_i \in F$ $i=1,2$ as desired.
 
 By Krein-Milmans's theorem we get that $F$ has at least one extreme point, say
 $\vphi\in F$. Then $\vphi$ is an extreme point of $\Ks(\As)$ i.e. by previous
-proposition $\vphi\in \Ps(\As)$, since $\vphi\neq 0$ as desiered.
+proposition $\vphi\in \Ps(\As)$, since $\vphi\neq 0$ as desired.
 \end{proof}
 
 Before we write the next lemma, we recall the convention that if $\As$ is a $C^*$-algebra,
@@ -3342,6 +3409,7 @@ Then $F' \in \Proj(\Bs)$, $F' \neq 0$ and $F'\leq E \neq F'$ and $FF' = 0$.
 So we have $1\leq \rank(F)\leq n-1$ and $1\leq \rank(F') \leq n-1$.
 Using that $A(n-1)$ holds, we get that $E$ is a sum of minimal projections in $\Bs$,
 which are orthogonal to each other.
+\end{proof}
 
 \begin{theorem}
     Assume $\pi \in \Rep(\As,H)$ is non-zero, irreducible and $\pi(\As) \subseteq\Ks(H)$.
@@ -3349,7 +3417,98 @@ Then $\pi(\As) = \Ks(H)$.
 \end{theorem}
 Note that this can be used to show that if $\pi$ is irreducible and
 $\pi(\As)\cap \Ks(H)\neq \{0\}$, then $\Ks(H)\subseteq \pi(\As)$.
+\begin{proof}
+    We set $\Bs = \pi(\As)$. So $\{0\}\neq \Bs \subseteq \Ks(H)$, $\Bs$ irreducible.
+Want to show that $\Ks(H)\subseteq \Bs$. 
+
+We first show that $\Bs$ contains a non-zero element.
+Observe that $\Proj (\Bs)$ contains a non-zero element 
+(we may consider a non-zero self-adjoint operator in $\Bs$ and pick one of its
+spectral components). So using the previous proposition, we can find (at least)
+one minimal projection in $\Bs$ say $P$. We claim that $P$ has rank one:
+
+Let $\xi \in P(H)$, $||\xi||=1$. Assume that $\eta \in P(H)$, $\eta\perp\xi$.
+For all $B \in \Bs$ we get 
+\begin{align*}
+    \ind{B\xi,\eta} = \ind{BP\xi,P\eta} = \indi{PBP\xi,\eta} = \ind{\la P\xi, \eta} =
+\la\ind{P\xi,\eta} = 0 
+\end{align*}
+where $PBP = \la P$ for some $\la \in \C$, since $P$ is minimal in $\Bs$.
+Since $[\Bs \xi] = H$, we get $\eta \in [\Bs \xi]^{\perp} = H^{\perp} = \{0\}$ 
+i.e. $\eta = 0$. Hence $P(H) = \Span(\xi)$ i.e. $P=P_{\xi}$ (cf. previous notation).  
+
+Next $\Proj (\Bs)$ contains all the rank one projections:
+Let $\xi' \in H$, $||\xi'||=1$. As $[\Bs\xi] = H$, we can find $\{B_{n}\} \subseteq \Bs$
+such that $B_n\xi \to \xi'$. Then $P_{\xi'} = \text{norm-}\lim_{n\to\infty}
+B_{n}PB_{n}^{*} \in \Bs$.
+Indeed, for all $\eta\in H$, we have
+\begin{align*}
+    ||(B_nPB_{n}^{*} - P_{\xi'})(\eta)|| 
+&= ||B_n(\ind{B_{n}^*\eta,\xi}\xi) - \ind{\eta,\xi'}\xi'|| = 
+||\ind{\eta,B_{n}\xi}B_n\xi - \ind{\eta,\xi'}\xi'|| \\
+&= ||\ind{\eta,B_{n}\xi}B_n\xi -\ind{\eta,B_n\xi}\xi'|| 
++||\ind{\eta,B_n\xi}\xi'- \ind{\eta,\xi'}\xi'|| \\
+&= |\ind{\eta, B_n\xi}||B_n \xi- \xi'|| + |\ind{\eta,B_n\xi -\xi'}|\,\ub{||\xi'||}_{=1} \\
+&\underset{C.S}{=} ||\eta|| \,||B_n\xi-\xi'|| (||B_n\xi|| + 1)
+\end{align*}
+So 
+\begin{align*}
+    ||B_nP B_{n}^{*}-P_{\xi'}|| \leq \ub{||B_n\xi - \xi'||}_{\to 0} \ub{(||B_n\xi||+1)}_{\to 2}\to 0 
+\end{align*}
+It follows that $\Bs$ contains all compact self-adjoint operators. Hence all
+compact operators. 
 \end{proof}
+
+\begin{theorem}
+    Let $\As$ be a non-zero finite-dimensional $C^*$-algebra. Then $\As \simeq M_{n_1}(\C)\oplus 
+\cdots \oplus M_{n_k}(\C)$ for $n_1,\ldots, n_k \in \N$.
+\end{theorem}
+\begin{proof}
+    We first observe that any finite dim $C^*$-algebra $\As$ is unital. 
+By Gelfand-Neinmark we can find $\pi \in \Rep(\As,H)$ which is faithfull and non-degenerate. 
+Since $\pi(\As)$ is finite dim, it is closed in the SOT. Now let $\{e_{\al}\}$ be 
+and approximate unit for $\As$. Then $\pi(e_{\al}) \to I_H$ in the SOT i.e.
+$I_H \in \ol{\pi(\As)}^{SOT} = \pi(\As)$. Pick $e \in \As$, such that $\pi(e) = I_H$.
+Then $e$ is easily seen to be unit for $\As$.
+
+Next we observe that $\As$ contains (at least) one minimal ideal $\Js$: This
+means that $\Js$ is an ideal of $\As$, which is non-zero and contains no other
+ideals of $\As$, than $\{0\}$ and itself. Equivalently, $S$ is simple  as
+$C^*$-algebra. 
+
+Indeed, if $\As$ is simple then OK. Otherwise, we can find an ideal $\Js_1\neq\{0\}$,
+$\Js_1 \neq \As$. Then $1\leq \dim \Js < \dim \As$. If $\Js_1$ is simple, then OK,
+if not we can find as long as necessary, but only a finite number of times. We get an ideal $\Js$
+which is simple. 
+
+We have to show that $J \simeq M_{n}(\C)$, for some $n\in \N$. Let $\pi$
+be a faithfull non-zero irreducible representation of $\Js$ on some $H$.
+Then $\pi$ is faithfull (otherwise $\ker \pi$ would be an ideal in $\Js$, which is non-zero
+and not equal to $\Js$).
+
+Moreover, $H$ is finite dimensional, since $H = [\pi(\As)\xi]$, where $\As$ is finite dimensional,
+for any $\xi \neq 0$.
+So $\pi(\As)\subseteq \Bs(H) = \Ks(H)$
+By the previous theorem, $\pi(\As) = \Ks(H) = \Bs(H)$, so $\As = \Bs(H) = M_n(\C)$, 
+$n = \dim H$.
+
+We have that $\As \simeq \Js +\Ls$ for some ideal $\Ls$ of $\As$.
+Let $P$ denote the unit of $\Js$. Note that $AP =PA$ for all $A \in \As$,
+because $PA=P\ub{PA}_{\in \Js} = P\ub{AP}_{\in \Js} = AP$
+Set $\Ls = (E-P)\As$ (where $E$ is the unit in $\As$) (we say that $E-P$ lies
+in the center of $\As$).
+Then one checks that $\Ls$ is an ideal of $\As$, such that $\As = \Js + \Ls$ 
+(because $A = PA + (E-P)A$) and $\Js\cap \Ls = \{0\}$.
+If $C = PA = (E-P)B$, then $C = PAP = \ub{P(E-P)}_{=0}B = 0$. 
+Then the map $(\Js,\Ls)\to \Js + \Ls$ is a $*$-isomorphism for $\Js \oplus \Ls$ 
+onto $\As$. 
+We can now continue with $\Ls$ if necessary. Doing this (a finite number of times)
+gives the result.
+
+
+\end{proof}
+
+
 
 
 
