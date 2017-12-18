@@ -399,6 +399,21 @@ $||\cdot||_{\infty}$.
 Then one can find $f \in \As$ such that $||(f,1)^*(f,1)|| \neq ||(f,1)||^2$ (Exercise!)
 Argue also that $\As$ is non-unital.
 
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[scale=0.75]
+        \draw[->] (-2,0) -- (2,0);
+        \draw[->] (0,-2.5) -- (0,1);
+        \draw[red] (-1.5,0) -- (-1,0) --(0,-2) -- (1,0) -- (1.5,0);
+        \draw (-1,-0.2) -- (-1,0.2) node[above]{$-1$};
+        \draw (1,-0.2) -- (1,0.2) node[above]{$1$};
+        \draw (-0.2, -2) -- (0.2, -2) node[right]{$-2$};
+    \end{tikzpicture}
+    \caption{ One possible function $f \in \C_0(\R) = \As$ which does not satisfy the $C^*$-equality in $\tAs$} 
+    %\label{}
+\end{figure}
+
+
 \subsection{Adjoining a unit}
 
 
@@ -458,9 +473,9 @@ $A^*T^*(B) = (T^*(B)^* A)^* = (B^*T(A))^* = T(A)^*B^*$ for all $A,B\in \As$.
 Similarly if $S,T \in M(\As)$, we get that $(S+T)^* = S^* + T^*$ and 
 $(ST)^* = T^*S^*$ and $(\la S)^* = \ol{\la}S^*$ for all $\la \in \C$.
 In other words $M(\As)$ is a $*$-algebra and a subalgebra of $\Bs(\As)$.
+Let $T \in M(\As)$. Then $T^* \in M(\As)$ and $(T^*)^* = T$.
 
 \marginnote{Cauchy sequence}
-Let $T \in M(\As)$. Then $T^* \in M(\As)$ and $(T^*)^* = T$, since 
 We now show that $M(\As)$ is  closed in operator norm in $\Bs(\As)$:
 Let $\{T_n\}_{n\in \N} \subseteq M(\As)$ be such that $T_n \to T$ in the operator norm. 
 We have to show that $T$ is adjointable. $\{T_n\}$ is Cauchy in $\Bs(\As)$. We will
@@ -2105,9 +2120,9 @@ on $H_{\vphi}$:
 Let us f. ex. show that $\pi_{\vphi}(A^*) = \pi_{\vphi}(A)^*$ for $A \in \As$.
 Let $B,B' \in \As$. Then we have 
 \begin{align*}
-    \indi{[\pi_{\vphi}(A)](\dB), \dB'} &= \indi{\dot{\ol{AB}},\dB'}_0 =
+    \indi{[\pi_{0}(A)](\dB), \dB'} &= \indi{\dot{\ol{AB}},\dB'}_0 =
 \vphi((B')^*AB) \\
-&= \vphi((A^*B')^*B) = \indi{\dB, \dot{\ol{A^*B'}}} = \indi{\dB, [\pi_0(A^*)]\dB'}.
+&= \vphi((A^*B')^*B) = \indi{\dB, \dot{\ol{A^*B'}}}_0 = \indi{\dB, [\pi_0(A^*)]\dB'}_0.
 \end{align*}
 If $\eta \in H_{\vphi}$, $\dB_n \to \xi$ (recall $\cdot$ is a continuous operation) with $B_n \in \As$,
 then we get 
@@ -3247,7 +3262,9 @@ $\pi$ is irreducible because
 $\pi(\As)' = (\pi(\As) + \C I)' = \pi_{\tvphi}(\tAs)' = \C I_{H_{\tvphi}}$
 Finally 
 \[ ||A||^2 = ||\tvphi(A^*A)|| = ||\pi_{\tvphi}(A)\xivp||^2 \leq ||\pi(A)||^2 \leq ||A||^2 \]
-so $||\pi(A)|| = ||A||$.
+so $||\pi(A)|| = ||A||$. The last assertion follows from $A\neq B \implies A-B
+\neq 0$, so $\pi(A-B)\neq 0$ i.e. $\pi(A)\neq \pi(B)$.
+
 \end{proof}
 
 \section{On irreducible representations and compact operators}
@@ -3291,7 +3308,7 @@ Choose now $\eta \in \pi(P_{\xi})(K)$, $||\eta||=1$. Consider $A \in \Ks(H)$.
 Then we have 
 \begin{align*}
 ||\pi(A)\eta||^2 &= ||\pi(A)\pi(P_{\xi})\eta||^2    
-=||\pi(AP_{\xi}\eta||^2 = \ind{\pi(AP_{\xi})\eta, \pi(AP_{\xi})\eta} \\
+=||\pi(AP_{\xi})\eta||^2 = \ind{\pi(AP_{\xi})\eta, \pi(AP_{\xi})\eta} \\
 &= \ind{\pi(P_{\xi}A^*AP_{\xi})\eta, \eta}
 \underset{\text{lemma}}{=} \ind{\ind{A^*A\xi,\xi}\pi(P_{\xi})\eta,\eta} \\
 &= \ind{A^*A,\xi,\xi}\ind{\pi(P_{\xi})\eta,\eta} =\ind{A^*A,\xi,\xi}\ind{\eta,\eta}
@@ -3425,7 +3442,7 @@ We first show that $\Bs$ contains a non-zero element.
 Observe that $\Proj (\Bs)$ contains a non-zero element 
 (we may consider a non-zero self-adjoint operator in $\Bs$ and pick one of its
 spectral components). So using the previous proposition, we can find (at least)
-one minimal projection in $\Bs$ say $P$. We claim that $P$ has rank one:
+one minimal projection in $\Bs$ say $P$. We claim that \ul{$P$ has rank one:}
 
 Let $\xi \in P(H)$, $||\xi||=1$. Assume that $\eta \in P(H)$, $\eta\perp\xi$.
 For all $B \in \Bs$ we get 
@@ -3435,25 +3452,26 @@ For all $B \in \Bs$ we get
 \end{align*}
 where $PBP = \la P$ for some $\la \in \C$, since $P$ is minimal in $\Bs$.
 Since $[\Bs \xi] = H$, we get $\eta \in [\Bs \xi]^{\perp} = H^{\perp} = \{0\}$ 
-i.e. $\eta = 0$. Hence $P(H) = \Span(\xi)$ i.e. $P=P_{\xi}$ (cf. previous notation).  
+i.e. $\eta = 0$. Hence $P(H) = \Span{\xi}$ i.e. $P=P_{\xi}$ (cf. previous notation).  
 
-Next $\Proj (\Bs)$ contains all the rank one projections:
+\ul{Next $\Proj (\Bs)$ contains all the rank one projections:}
 Let $\xi' \in H$, $||\xi'||=1$. As $[\Bs\xi] = H$, we can find $\{B_{n}\} \subseteq \Bs$
-such that $B_n\xi \to \xi'$. Then $P_{\xi'} = \text{norm-}\lim_{n\to\infty}
+such that $B_n\xi \to \xi'$ in norm. Then $P_{\xi'} = \text{norm-}\lim_{n\to\infty}
 B_{n}PB_{n}^{*} \in \Bs$.
 Indeed, for all $\eta\in H$, we have
 \begin{align*}
     ||(B_nPB_{n}^{*} - P_{\xi'})(\eta)|| 
-&= ||B_n(\ind{B_{n}^*\eta,\xi}\xi) - \ind{\eta,\xi'}\xi'|| = 
+&\leq ||B_n(\ind{B_{n}^*\eta,\xi}\xi) - \ind{\eta,\xi'}\xi'|| = 
 ||\ind{\eta,B_{n}\xi}B_n\xi - \ind{\eta,\xi'}\xi'|| \\
-&= ||\ind{\eta,B_{n}\xi}B_n\xi -\ind{\eta,B_n\xi}\xi'|| 
+&\leq ||\ind{\eta,B_{n}\xi}B_n\xi -\ind{\eta,B_n\xi}\xi'|| 
 +||\ind{\eta,B_n\xi}\xi'- \ind{\eta,\xi'}\xi'|| \\
-&= |\ind{\eta, B_n\xi}||B_n \xi- \xi'|| + |\ind{\eta,B_n\xi -\xi'}|\,\ub{||\xi'||}_{=1} \\
-&\underset{C.S}{=} ||\eta|| \,||B_n\xi-\xi'|| (||B_n\xi|| + 1)
+&\leq |\ind{\eta, B_n\xi}|\,||B_n \xi- \xi'|| + |\ind{\eta,B_n\xi -\xi'}|\,\ub{||\xi'||}_{=1} \\
+&\underset{C.S}{\leq} ||\eta|| \,||B_n\xi-\xi'|| (||B_n\xi|| + 1)
 \end{align*}
 So 
 \begin{align*}
-    ||B_nP B_{n}^{*}-P_{\xi'}|| \leq \ub{||B_n\xi - \xi'||}_{\to 0} \ub{(||B_n\xi||+1)}_{\to 2}\to 0 
+    ||B_nP B_{n}^{*}-P_{\xi'}|| 
+    \leq \ub{||B_n\xi - \xi'||}_{\to 0} \ub{(||B_n\xi||+1)}_{\to 2}\to 0 
 \end{align*}
 It follows that $\Bs$ contains all compact self-adjoint operators. Hence all
 compact operators. 
